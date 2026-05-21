@@ -4,6 +4,8 @@
 ![Python](https://img.shields.io/badge/python-3.11+-blue)
 ![License](https://img.shields.io/badge/license-MIT-green)
 
+> **🆕 SIG-Grade React Dashboard** — A full international-standard rebuild using React 18 + Vite + Express is available on the [`react-dashboard`](https://github.com/Athithiyanmr/kallakurichi-suitability-dashboard/tree/react-dashboard) branch. Features live weighted overlay, Leaflet choropleth map, Chart.js analytics, sortable parcel table, and data provenance panel.
+
 Interactive geospatial dashboard for **solar energy land suitability analysis** in Kallakurichi District, Tamil Nadu, India. Built with real open-access data from NASA, ESA, PVGIS, and OpenStreetMap.
 
 ---
