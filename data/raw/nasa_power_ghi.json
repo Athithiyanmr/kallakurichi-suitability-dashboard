@@ -1,0 +1,725 @@
+{
+  "points": [
+    {
+      "lat": 11.65,
+      "lon": 78.65,
+      "GHI_kwh_m2_day": 5.4418,
+      "DNI_kwh_m2_day": 3.5837,
+      "T2M_c": 26.84,
+      "WS10M_ms": 3.63,
+      "source": "NASA POWER v8 climatology"
+    },
+    {
+      "lat": 11.65,
+      "lon": 78.7222,
+      "GHI_kwh_m2_day": 5.4418,
+      "DNI_kwh_m2_day": 3.5837,
+      "T2M_c": 26.84,
+      "WS10M_ms": 3.63,
+      "source": "NASA POWER v8 climatology"
+    },
+    {
+      "lat": 11.65,
+      "lon": 78.7944,
+      "GHI_kwh_m2_day": 5.4418,
+      "DNI_kwh_m2_day": 3.5837,
+      "T2M_c": 26.84,
+      "WS10M_ms": 3.63,
+      "source": "NASA POWER v8 climatology"
+    },
+    {
+      "lat": 11.65,
+      "lon": 78.8667,
+      "GHI_kwh_m2_day": 5.4418,
+      "DNI_kwh_m2_day": 3.5837,
+      "T2M_c": 26.84,
+      "WS10M_ms": 3.63,
+      "source": "NASA POWER v8 climatology"
+    },
+    {
+      "lat": 11.65,
+      "lon": 78.9389,
+      "GHI_kwh_m2_day": 5.4418,
+      "DNI_kwh_m2_day": 3.5837,
+      "T2M_c": 26.84,
+      "WS10M_ms": 3.63,
+      "source": "NASA POWER v8 climatology"
+    },
+    {
+      "lat": 11.65,
+      "lon": 79.0111,
+      "GHI_kwh_m2_day": 5.401,
+      "DNI_kwh_m2_day": 3.4877,
+      "T2M_c": 26.84,
+      "WS10M_ms": 3.63,
+      "source": "NASA POWER v8 climatology"
+    },
+    {
+      "lat": 11.65,
+      "lon": 79.0833,
+      "GHI_kwh_m2_day": 5.401,
+      "DNI_kwh_m2_day": 3.4877,
+      "T2M_c": 28.12,
+      "WS10M_ms": 3.86,
+      "source": "NASA POWER v8 climatology"
+    },
+    {
+      "lat": 11.65,
+      "lon": 79.1556,
+      "GHI_kwh_m2_day": 5.401,
+      "DNI_kwh_m2_day": 3.4877,
+      "T2M_c": 28.12,
+      "WS10M_ms": 3.86,
+      "source": "NASA POWER v8 climatology"
+    },
+    {
+      "lat": 11.65,
+      "lon": 79.2278,
+      "GHI_kwh_m2_day": 5.401,
+      "DNI_kwh_m2_day": 3.4877,
+      "T2M_c": 28.12,
+      "WS10M_ms": 3.86,
+      "source": "NASA POWER v8 climatology"
+    },
+    {
+      "lat": 11.65,
+      "lon": 79.3,
+      "GHI_kwh_m2_day": 5.401,
+      "DNI_kwh_m2_day": 3.4877,
+      "T2M_c": 28.12,
+      "WS10M_ms": 3.86,
+      "source": "NASA POWER v8 climatology"
+    },
+    {
+      "lat": 11.7071,
+      "lon": 78.65,
+      "GHI_kwh_m2_day": 5.4418,
+      "DNI_kwh_m2_day": 3.5837,
+      "T2M_c": 26.84,
+      "WS10M_ms": 3.63,
+      "source": "NASA POWER v8 climatology"
+    },
+    {
+      "lat": 11.7071,
+      "lon": 78.7222,
+      "GHI_kwh_m2_day": 5.4418,
+      "DNI_kwh_m2_day": 3.5837,
+      "T2M_c": 26.84,
+      "WS10M_ms": 3.63,
+      "source": "NASA POWER v8 climatology"
+    },
+    {
+      "lat": 11.7071,
+      "lon": 78.7944,
+      "GHI_kwh_m2_day": 5.4418,
+      "DNI_kwh_m2_day": 3.5837,
+      "T2M_c": 26.84,
+      "WS10M_ms": 3.63,
+      "source": "NASA POWER v8 climatology"
+    },
+    {
+      "lat": 11.7071,
+      "lon": 78.8667,
+      "GHI_kwh_m2_day": 5.4418,
+      "DNI_kwh_m2_day": 3.5837,
+      "T2M_c": 26.84,
+      "WS10M_ms": 3.63,
+      "source": "NASA POWER v8 climatology"
+    },
+    {
+      "lat": 11.7071,
+      "lon": 78.9389,
+      "GHI_kwh_m2_day": 5.4418,
+      "DNI_kwh_m2_day": 3.5837,
+      "T2M_c": 26.84,
+      "WS10M_ms": 3.63,
+      "source": "NASA POWER v8 climatology"
+    },
+    {
+      "lat": 11.7071,
+      "lon": 79.0111,
+      "GHI_kwh_m2_day": 5.401,
+      "DNI_kwh_m2_day": 3.4877,
+      "T2M_c": 26.84,
+      "WS10M_ms": 3.63,
+      "source": "NASA POWER v8 climatology"
+    },
+    {
+      "lat": 11.7071,
+      "lon": 79.0833,
+      "GHI_kwh_m2_day": 5.401,
+      "DNI_kwh_m2_day": 3.4877,
+      "T2M_c": 28.12,
+      "WS10M_ms": 3.86,
+      "source": "NASA POWER v8 climatology"
+    },
+    {
+      "lat": 11.7071,
+      "lon": 79.1556,
+      "GHI_kwh_m2_day": 5.401,
+      "DNI_kwh_m2_day": 3.4877,
+      "T2M_c": 28.12,
+      "WS10M_ms": 3.86,
+      "source": "NASA POWER v8 climatology"
+    },
+    {
+      "lat": 11.7071,
+      "lon": 79.2278,
+      "GHI_kwh_m2_day": 5.401,
+      "DNI_kwh_m2_day": 3.4877,
+      "T2M_c": 28.12,
+      "WS10M_ms": 3.86,
+      "source": "NASA POWER v8 climatology"
+    },
+    {
+      "lat": 11.7071,
+      "lon": 79.3,
+      "GHI_kwh_m2_day": 5.401,
+      "DNI_kwh_m2_day": 3.4877,
+      "T2M_c": 28.12,
+      "WS10M_ms": 3.86,
+      "source": "NASA POWER v8 climatology"
+    },
+    {
+      "lat": 11.7643,
+      "lon": 78.65,
+      "GHI_kwh_m2_day": 5.4418,
+      "DNI_kwh_m2_day": 3.5837,
+      "T2M_c": 26.3,
+      "WS10M_ms": 3.47,
+      "source": "NASA POWER v8 climatology"
+    },
+    {
+      "lat": 11.7643,
+      "lon": 78.7222,
+      "GHI_kwh_m2_day": 5.4418,
+      "DNI_kwh_m2_day": 3.5837,
+      "T2M_c": 26.3,
+      "WS10M_ms": 3.47,
+      "source": "NASA POWER v8 climatology"
+    },
+    {
+      "lat": 11.7643,
+      "lon": 78.7944,
+      "GHI_kwh_m2_day": 5.4418,
+      "DNI_kwh_m2_day": 3.5837,
+      "T2M_c": 26.3,
+      "WS10M_ms": 3.47,
+      "source": "NASA POWER v8 climatology"
+    },
+    {
+      "lat": 11.7643,
+      "lon": 78.8667,
+      "GHI_kwh_m2_day": 5.4418,
+      "DNI_kwh_m2_day": 3.5837,
+      "T2M_c": 26.3,
+      "WS10M_ms": 3.47,
+      "source": "NASA POWER v8 climatology"
+    },
+    {
+      "lat": 11.7643,
+      "lon": 78.9389,
+      "GHI_kwh_m2_day": 5.4418,
+      "DNI_kwh_m2_day": 3.5837,
+      "T2M_c": 26.3,
+      "WS10M_ms": 3.47,
+      "source": "NASA POWER v8 climatology"
+    },
+    {
+      "lat": 11.7643,
+      "lon": 79.0111,
+      "GHI_kwh_m2_day": 5.401,
+      "DNI_kwh_m2_day": 3.4877,
+      "T2M_c": 26.3,
+      "WS10M_ms": 3.47,
+      "source": "NASA POWER v8 climatology"
+    },
+    {
+      "lat": 11.7643,
+      "lon": 79.0833,
+      "GHI_kwh_m2_day": 5.401,
+      "DNI_kwh_m2_day": 3.4877,
+      "T2M_c": 27.85,
+      "WS10M_ms": 3.58,
+      "source": "NASA POWER v8 climatology"
+    },
+    {
+      "lat": 11.7643,
+      "lon": 79.1556,
+      "GHI_kwh_m2_day": 5.401,
+      "DNI_kwh_m2_day": 3.4877,
+      "T2M_c": 27.85,
+      "WS10M_ms": 3.58,
+      "source": "NASA POWER v8 climatology"
+    },
+    {
+      "lat": 11.7643,
+      "lon": 79.2278,
+      "GHI_kwh_m2_day": 5.401,
+      "DNI_kwh_m2_day": 3.4877,
+      "T2M_c": 27.85,
+      "WS10M_ms": 3.58,
+      "source": "NASA POWER v8 climatology"
+    },
+    {
+      "lat": 11.7643,
+      "lon": 79.3,
+      "GHI_kwh_m2_day": 5.401,
+      "DNI_kwh_m2_day": 3.4877,
+      "T2M_c": 27.85,
+      "WS10M_ms": 3.58,
+      "source": "NASA POWER v8 climatology"
+    },
+    {
+      "lat": 11.8214,
+      "lon": 78.65,
+      "GHI_kwh_m2_day": 5.4418,
+      "DNI_kwh_m2_day": 3.5837,
+      "T2M_c": 26.3,
+      "WS10M_ms": 3.47,
+      "source": "NASA POWER v8 climatology"
+    },
+    {
+      "lat": 11.8214,
+      "lon": 78.7222,
+      "GHI_kwh_m2_day": 5.4418,
+      "DNI_kwh_m2_day": 3.5837,
+      "T2M_c": 26.3,
+      "WS10M_ms": 3.47,
+      "source": "NASA POWER v8 climatology"
+    },
+    {
+      "lat": 11.8214,
+      "lon": 78.7944,
+      "GHI_kwh_m2_day": 5.4418,
+      "DNI_kwh_m2_day": 3.5837,
+      "T2M_c": 26.3,
+      "WS10M_ms": 3.47,
+      "source": "NASA POWER v8 climatology"
+    },
+    {
+      "lat": 11.8214,
+      "lon": 78.8667,
+      "GHI_kwh_m2_day": 5.4418,
+      "DNI_kwh_m2_day": 3.5837,
+      "T2M_c": 26.3,
+      "WS10M_ms": 3.47,
+      "source": "NASA POWER v8 climatology"
+    },
+    {
+      "lat": 11.8214,
+      "lon": 78.9389,
+      "GHI_kwh_m2_day": 5.4418,
+      "DNI_kwh_m2_day": 3.5837,
+      "T2M_c": 26.3,
+      "WS10M_ms": 3.47,
+      "source": "NASA POWER v8 climatology"
+    },
+    {
+      "lat": 11.8214,
+      "lon": 79.0111,
+      "GHI_kwh_m2_day": 5.401,
+      "DNI_kwh_m2_day": 3.4877,
+      "T2M_c": 26.3,
+      "WS10M_ms": 3.47,
+      "source": "NASA POWER v8 climatology"
+    },
+    {
+      "lat": 11.8214,
+      "lon": 79.0833,
+      "GHI_kwh_m2_day": 5.401,
+      "DNI_kwh_m2_day": 3.4877,
+      "T2M_c": 27.85,
+      "WS10M_ms": 3.58,
+      "source": "NASA POWER v8 climatology"
+    },
+    {
+      "lat": 11.8214,
+      "lon": 79.1556,
+      "GHI_kwh_m2_day": 5.401,
+      "DNI_kwh_m2_day": 3.4877,
+      "T2M_c": 27.85,
+      "WS10M_ms": 3.58,
+      "source": "NASA POWER v8 climatology"
+    },
+    {
+      "lat": 11.8214,
+      "lon": 79.2278,
+      "GHI_kwh_m2_day": 5.401,
+      "DNI_kwh_m2_day": 3.4877,
+      "T2M_c": 27.85,
+      "WS10M_ms": 3.58,
+      "source": "NASA POWER v8 climatology"
+    },
+    {
+      "lat": 11.8214,
+      "lon": 79.3,
+      "GHI_kwh_m2_day": 5.401,
+      "DNI_kwh_m2_day": 3.4877,
+      "T2M_c": 27.85,
+      "WS10M_ms": 3.58,
+      "source": "NASA POWER v8 climatology"
+    },
+    {
+      "lat": 11.8786,
+      "lon": 78.65,
+      "GHI_kwh_m2_day": 5.4418,
+      "DNI_kwh_m2_day": 3.5837,
+      "T2M_c": 26.3,
+      "WS10M_ms": 3.47,
+      "source": "NASA POWER v8 climatology"
+    },
+    {
+      "lat": 11.8786,
+      "lon": 78.7222,
+      "GHI_kwh_m2_day": 5.4418,
+      "DNI_kwh_m2_day": 3.5837,
+      "T2M_c": 26.3,
+      "WS10M_ms": 3.47,
+      "source": "NASA POWER v8 climatology"
+    },
+    {
+      "lat": 11.8786,
+      "lon": 78.7944,
+      "GHI_kwh_m2_day": 5.4418,
+      "DNI_kwh_m2_day": 3.5837,
+      "T2M_c": 26.3,
+      "WS10M_ms": 3.47,
+      "source": "NASA POWER v8 climatology"
+    },
+    {
+      "lat": 11.8786,
+      "lon": 78.8667,
+      "GHI_kwh_m2_day": 5.4418,
+      "DNI_kwh_m2_day": 3.5837,
+      "T2M_c": 26.3,
+      "WS10M_ms": 3.47,
+      "source": "NASA POWER v8 climatology"
+    },
+    {
+      "lat": 11.8786,
+      "lon": 78.9389,
+      "GHI_kwh_m2_day": 5.4418,
+      "DNI_kwh_m2_day": 3.5837,
+      "T2M_c": 26.3,
+      "WS10M_ms": 3.47,
+      "source": "NASA POWER v8 climatology"
+    },
+    {
+      "lat": 11.8786,
+      "lon": 79.0111,
+      "GHI_kwh_m2_day": 5.401,
+      "DNI_kwh_m2_day": 3.4877,
+      "T2M_c": 26.3,
+      "WS10M_ms": 3.47,
+      "source": "NASA POWER v8 climatology"
+    },
+    {
+      "lat": 11.8786,
+      "lon": 79.0833,
+      "GHI_kwh_m2_day": 5.401,
+      "DNI_kwh_m2_day": 3.4877,
+      "T2M_c": 27.85,
+      "WS10M_ms": 3.58,
+      "source": "NASA POWER v8 climatology"
+    },
+    {
+      "lat": 11.8786,
+      "lon": 79.1556,
+      "GHI_kwh_m2_day": 5.401,
+      "DNI_kwh_m2_day": 3.4877,
+      "T2M_c": 27.85,
+      "WS10M_ms": 3.58,
+      "source": "NASA POWER v8 climatology"
+    },
+    {
+      "lat": 11.8786,
+      "lon": 79.2278,
+      "GHI_kwh_m2_day": 5.401,
+      "DNI_kwh_m2_day": 3.4877,
+      "T2M_c": 27.85,
+      "WS10M_ms": 3.58,
+      "source": "NASA POWER v8 climatology"
+    },
+    {
+      "lat": 11.8786,
+      "lon": 79.3,
+      "GHI_kwh_m2_day": 5.401,
+      "DNI_kwh_m2_day": 3.4877,
+      "T2M_c": 27.85,
+      "WS10M_ms": 3.58,
+      "source": "NASA POWER v8 climatology"
+    },
+    {
+      "lat": 11.9357,
+      "lon": 78.65,
+      "GHI_kwh_m2_day": 5.4418,
+      "DNI_kwh_m2_day": 3.5837,
+      "T2M_c": 26.3,
+      "WS10M_ms": 3.47,
+      "source": "NASA POWER v8 climatology"
+    },
+    {
+      "lat": 11.9357,
+      "lon": 78.7222,
+      "GHI_kwh_m2_day": 5.4418,
+      "DNI_kwh_m2_day": 3.5837,
+      "T2M_c": 26.3,
+      "WS10M_ms": 3.47,
+      "source": "NASA POWER v8 climatology"
+    },
+    {
+      "lat": 11.9357,
+      "lon": 78.7944,
+      "GHI_kwh_m2_day": 5.4418,
+      "DNI_kwh_m2_day": 3.5837,
+      "T2M_c": 26.3,
+      "WS10M_ms": 3.47,
+      "source": "NASA POWER v8 climatology"
+    },
+    {
+      "lat": 11.9357,
+      "lon": 78.8667,
+      "GHI_kwh_m2_day": 5.4418,
+      "DNI_kwh_m2_day": 3.5837,
+      "T2M_c": 26.3,
+      "WS10M_ms": 3.47,
+      "source": "NASA POWER v8 climatology"
+    },
+    {
+      "lat": 11.9357,
+      "lon": 78.9389,
+      "GHI_kwh_m2_day": 5.4418,
+      "DNI_kwh_m2_day": 3.5837,
+      "T2M_c": 26.3,
+      "WS10M_ms": 3.47,
+      "source": "NASA POWER v8 climatology"
+    },
+    {
+      "lat": 11.9357,
+      "lon": 79.0111,
+      "GHI_kwh_m2_day": 5.401,
+      "DNI_kwh_m2_day": 3.4877,
+      "T2M_c": 26.3,
+      "WS10M_ms": 3.47,
+      "source": "NASA POWER v8 climatology"
+    },
+    {
+      "lat": 11.9357,
+      "lon": 79.0833,
+      "GHI_kwh_m2_day": 5.401,
+      "DNI_kwh_m2_day": 3.4877,
+      "T2M_c": 27.85,
+      "WS10M_ms": 3.58,
+      "source": "NASA POWER v8 climatology"
+    },
+    {
+      "lat": 11.9357,
+      "lon": 79.1556,
+      "GHI_kwh_m2_day": 5.401,
+      "DNI_kwh_m2_day": 3.4877,
+      "T2M_c": 27.85,
+      "WS10M_ms": 3.58,
+      "source": "NASA POWER v8 climatology"
+    },
+    {
+      "lat": 11.9357,
+      "lon": 79.2278,
+      "GHI_kwh_m2_day": 5.401,
+      "DNI_kwh_m2_day": 3.4877,
+      "T2M_c": 27.85,
+      "WS10M_ms": 3.58,
+      "source": "NASA POWER v8 climatology"
+    },
+    {
+      "lat": 11.9357,
+      "lon": 79.3,
+      "GHI_kwh_m2_day": 5.401,
+      "DNI_kwh_m2_day": 3.4877,
+      "T2M_c": 27.85,
+      "WS10M_ms": 3.58,
+      "source": "NASA POWER v8 climatology"
+    },
+    {
+      "lat": 11.9929,
+      "lon": 78.65,
+      "GHI_kwh_m2_day": 5.4418,
+      "DNI_kwh_m2_day": 3.5837,
+      "T2M_c": 26.3,
+      "WS10M_ms": 3.47,
+      "source": "NASA POWER v8 climatology"
+    },
+    {
+      "lat": 11.9929,
+      "lon": 78.7222,
+      "GHI_kwh_m2_day": 5.4418,
+      "DNI_kwh_m2_day": 3.5837,
+      "T2M_c": 26.3,
+      "WS10M_ms": 3.47,
+      "source": "NASA POWER v8 climatology"
+    },
+    {
+      "lat": 11.9929,
+      "lon": 78.7944,
+      "GHI_kwh_m2_day": 5.4418,
+      "DNI_kwh_m2_day": 3.5837,
+      "T2M_c": 26.3,
+      "WS10M_ms": 3.47,
+      "source": "NASA POWER v8 climatology"
+    },
+    {
+      "lat": 11.9929,
+      "lon": 78.8667,
+      "GHI_kwh_m2_day": 5.4418,
+      "DNI_kwh_m2_day": 3.5837,
+      "T2M_c": 26.3,
+      "WS10M_ms": 3.47,
+      "source": "NASA POWER v8 climatology"
+    },
+    {
+      "lat": 11.9929,
+      "lon": 78.9389,
+      "GHI_kwh_m2_day": 5.4418,
+      "DNI_kwh_m2_day": 3.5837,
+      "T2M_c": 26.3,
+      "WS10M_ms": 3.47,
+      "source": "NASA POWER v8 climatology"
+    },
+    {
+      "lat": 11.9929,
+      "lon": 79.0111,
+      "GHI_kwh_m2_day": 5.401,
+      "DNI_kwh_m2_day": 3.4877,
+      "T2M_c": 26.3,
+      "WS10M_ms": 3.47,
+      "source": "NASA POWER v8 climatology"
+    },
+    {
+      "lat": 11.9929,
+      "lon": 79.0833,
+      "GHI_kwh_m2_day": 5.401,
+      "DNI_kwh_m2_day": 3.4877,
+      "T2M_c": 27.85,
+      "WS10M_ms": 3.58,
+      "source": "NASA POWER v8 climatology"
+    },
+    {
+      "lat": 11.9929,
+      "lon": 79.1556,
+      "GHI_kwh_m2_day": 5.401,
+      "DNI_kwh_m2_day": 3.4877,
+      "T2M_c": 27.85,
+      "WS10M_ms": 3.58,
+      "source": "NASA POWER v8 climatology"
+    },
+    {
+      "lat": 11.9929,
+      "lon": 79.2278,
+      "GHI_kwh_m2_day": 5.401,
+      "DNI_kwh_m2_day": 3.4877,
+      "T2M_c": 27.85,
+      "WS10M_ms": 3.58,
+      "source": "NASA POWER v8 climatology"
+    },
+    {
+      "lat": 11.9929,
+      "lon": 79.3,
+      "GHI_kwh_m2_day": 5.401,
+      "DNI_kwh_m2_day": 3.4877,
+      "T2M_c": 27.85,
+      "WS10M_ms": 3.58,
+      "source": "NASA POWER v8 climatology"
+    },
+    {
+      "lat": 12.05,
+      "lon": 78.65,
+      "GHI_kwh_m2_day": 5.4382,
+      "DNI_kwh_m2_day": 3.5568,
+      "T2M_c": 26.3,
+      "WS10M_ms": 3.47,
+      "source": "NASA POWER v8 climatology"
+    },
+    {
+      "lat": 12.05,
+      "lon": 78.7222,
+      "GHI_kwh_m2_day": 5.4382,
+      "DNI_kwh_m2_day": 3.5568,
+      "T2M_c": 26.3,
+      "WS10M_ms": 3.47,
+      "source": "NASA POWER v8 climatology"
+    },
+    {
+      "lat": 12.05,
+      "lon": 78.7944,
+      "GHI_kwh_m2_day": 5.4382,
+      "DNI_kwh_m2_day": 3.5568,
+      "T2M_c": 26.3,
+      "WS10M_ms": 3.47,
+      "source": "NASA POWER v8 climatology"
+    },
+    {
+      "lat": 12.05,
+      "lon": 78.8667,
+      "GHI_kwh_m2_day": 5.4382,
+      "DNI_kwh_m2_day": 3.5568,
+      "T2M_c": 26.3,
+      "WS10M_ms": 3.47,
+      "source": "NASA POWER v8 climatology"
+    },
+    {
+      "lat": 12.05,
+      "lon": 78.9389,
+      "GHI_kwh_m2_day": 5.4382,
+      "DNI_kwh_m2_day": 3.5568,
+      "T2M_c": 26.3,
+      "WS10M_ms": 3.47,
+      "source": "NASA POWER v8 climatology"
+    },
+    {
+      "lat": 12.05,
+      "lon": 79.0111,
+      "GHI_kwh_m2_day": 5.4055,
+      "DNI_kwh_m2_day": 3.4366,
+      "T2M_c": 26.3,
+      "WS10M_ms": 3.47,
+      "source": "NASA POWER v8 climatology"
+    },
+    {
+      "lat": 12.05,
+      "lon": 79.0833,
+      "GHI_kwh_m2_day": 5.4055,
+      "DNI_kwh_m2_day": 3.4366,
+      "T2M_c": 27.85,
+      "WS10M_ms": 3.58,
+      "source": "NASA POWER v8 climatology"
+    },
+    {
+      "lat": 12.05,
+      "lon": 79.1556,
+      "GHI_kwh_m2_day": 5.4055,
+      "DNI_kwh_m2_day": 3.4366,
+      "T2M_c": 27.85,
+      "WS10M_ms": 3.58,
+      "source": "NASA POWER v8 climatology"
+    },
+    {
+      "lat": 12.05,
+      "lon": 79.2278,
+      "GHI_kwh_m2_day": 5.4055,
+      "DNI_kwh_m2_day": 3.4366,
+      "T2M_c": 27.85,
+      "WS10M_ms": 3.58,
+      "source": "NASA POWER v8 climatology"
+    },
+    {
+      "lat": 12.05,
+      "lon": 79.3,
+      "GHI_kwh_m2_day": 5.4055,
+      "DNI_kwh_m2_day": 3.4366,
+      "T2M_c": 27.85,
+      "WS10M_ms": 3.58,
+      "source": "NASA POWER v8 climatology"
+    }
+  ],
+  "source": "NASA POWER v8 MERRA-2"
+}

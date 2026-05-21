@@ -1,0 +1,5153 @@
+{
+  "points": [
+    {
+      "lat": 11.62,
+      "lon": 78.63,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.62,
+      "lon": 78.6633,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.62,
+      "lon": 78.6967,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.62,
+      "lon": 78.73,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.62,
+      "lon": 78.7633,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.62,
+      "lon": 78.7967,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.62,
+      "lon": 78.83,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.62,
+      "lon": 78.8633,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.62,
+      "lon": 78.8967,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.62,
+      "lon": 78.93,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        239,
+        150,
+        254
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.62,
+      "lon": 78.9633,
+      "lulc_class": 30,
+      "lulc_name": "Grassland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        255,
+        255,
+        77
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.62,
+      "lon": 78.9967,
+      "lulc_class": 50,
+      "lulc_name": "Built-up",
+      "lulc_solar_score": 1,
+      "pixel_rgb": [
+        250,
+        0,
+        0
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.62,
+      "lon": 79.03,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.62,
+      "lon": 79.0633,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.62,
+      "lon": 79.0967,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.62,
+      "lon": 79.13,
+      "lulc_class": 10,
+      "lulc_name": "Tree cover",
+      "lulc_solar_score": 2,
+      "pixel_rgb": [
+        0,
+        100,
+        0
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.62,
+      "lon": 79.1633,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.62,
+      "lon": 79.1967,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.62,
+      "lon": 79.23,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.62,
+      "lon": 79.2633,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        254
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.62,
+      "lon": 79.2967,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        253
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.62,
+      "lon": 79.33,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.6471,
+      "lon": 78.63,
+      "lulc_class": 10,
+      "lulc_name": "Tree cover",
+      "lulc_solar_score": 2,
+      "pixel_rgb": [
+        0,
+        100,
+        0
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.6471,
+      "lon": 78.6633,
+      "lulc_class": 10,
+      "lulc_name": "Tree cover",
+      "lulc_solar_score": 2,
+      "pixel_rgb": [
+        0,
+        100,
+        0
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.6471,
+      "lon": 78.6967,
+      "lulc_class": 20,
+      "lulc_name": "Shrubland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        254,
+        187,
+        34
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.6471,
+      "lon": 78.73,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.6471,
+      "lon": 78.7633,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.6471,
+      "lon": 78.7967,
+      "lulc_class": 20,
+      "lulc_name": "Shrubland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        255,
+        187,
+        34
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.6471,
+      "lon": 78.83,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.6471,
+      "lon": 78.8633,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.6471,
+      "lon": 78.8967,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.6471,
+      "lon": 78.93,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        254
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.6471,
+      "lon": 78.9633,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.6471,
+      "lon": 78.9967,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.6471,
+      "lon": 79.03,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.6471,
+      "lon": 79.0633,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.6471,
+      "lon": 79.0967,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.6471,
+      "lon": 79.13,
+      "lulc_class": 20,
+      "lulc_name": "Shrubland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        255,
+        187,
+        34
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.6471,
+      "lon": 79.1633,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.6471,
+      "lon": 79.1967,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.6471,
+      "lon": 79.23,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        149,
+        253
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.6471,
+      "lon": 79.2633,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.6471,
+      "lon": 79.2967,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.6471,
+      "lon": 79.33,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.6741,
+      "lon": 78.63,
+      "lulc_class": 10,
+      "lulc_name": "Tree cover",
+      "lulc_solar_score": 2,
+      "pixel_rgb": [
+        1,
+        100,
+        0
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.6741,
+      "lon": 78.6633,
+      "lulc_class": 20,
+      "lulc_name": "Shrubland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        255,
+        187,
+        34
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.6741,
+      "lon": 78.6967,
+      "lulc_class": 10,
+      "lulc_name": "Tree cover",
+      "lulc_solar_score": 2,
+      "pixel_rgb": [
+        0,
+        100,
+        0
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.6741,
+      "lon": 78.73,
+      "lulc_class": 10,
+      "lulc_name": "Tree cover",
+      "lulc_solar_score": 2,
+      "pixel_rgb": [
+        0,
+        100,
+        0
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.6741,
+      "lon": 78.7633,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.6741,
+      "lon": 78.7967,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.6741,
+      "lon": 78.83,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.6741,
+      "lon": 78.8633,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.6741,
+      "lon": 78.8967,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.6741,
+      "lon": 78.93,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.6741,
+      "lon": 78.9633,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.6741,
+      "lon": 78.9967,
+      "lulc_class": 10,
+      "lulc_name": "Tree cover",
+      "lulc_solar_score": 2,
+      "pixel_rgb": [
+        1,
+        100,
+        0
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.6741,
+      "lon": 79.03,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.6741,
+      "lon": 79.0633,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.6741,
+      "lon": 79.0967,
+      "lulc_class": 10,
+      "lulc_name": "Tree cover",
+      "lulc_solar_score": 2,
+      "pixel_rgb": [
+        1,
+        100,
+        1
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.6741,
+      "lon": 79.13,
+      "lulc_class": 60,
+      "lulc_name": "Bare/sparse veg",
+      "lulc_solar_score": 4,
+      "pixel_rgb": [
+        181,
+        180,
+        180
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.6741,
+      "lon": 79.1633,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.6741,
+      "lon": 79.1967,
+      "lulc_class": 30,
+      "lulc_name": "Grassland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        255,
+        255,
+        77
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.6741,
+      "lon": 79.23,
+      "lulc_class": 20,
+      "lulc_name": "Shrubland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        255,
+        187,
+        34
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.6741,
+      "lon": 79.2633,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.6741,
+      "lon": 79.2967,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.6741,
+      "lon": 79.33,
+      "lulc_class": 20,
+      "lulc_name": "Shrubland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        255,
+        187,
+        35
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.7012,
+      "lon": 78.63,
+      "lulc_class": 10,
+      "lulc_name": "Tree cover",
+      "lulc_solar_score": 2,
+      "pixel_rgb": [
+        0,
+        100,
+        0
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.7012,
+      "lon": 78.6633,
+      "lulc_class": 30,
+      "lulc_name": "Grassland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        255,
+        255,
+        76
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.7012,
+      "lon": 78.6967,
+      "lulc_class": 20,
+      "lulc_name": "Shrubland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        254,
+        187,
+        34
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.7012,
+      "lon": 78.73,
+      "lulc_class": 10,
+      "lulc_name": "Tree cover",
+      "lulc_solar_score": 2,
+      "pixel_rgb": [
+        0,
+        100,
+        0
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.7012,
+      "lon": 78.7633,
+      "lulc_class": 20,
+      "lulc_name": "Shrubland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        254,
+        187,
+        35
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.7012,
+      "lon": 78.7967,
+      "lulc_class": 10,
+      "lulc_name": "Tree cover",
+      "lulc_solar_score": 2,
+      "pixel_rgb": [
+        0,
+        100,
+        0
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.7012,
+      "lon": 78.83,
+      "lulc_class": 10,
+      "lulc_name": "Tree cover",
+      "lulc_solar_score": 2,
+      "pixel_rgb": [
+        0,
+        100,
+        0
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.7012,
+      "lon": 78.8633,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.7012,
+      "lon": 78.8967,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.7012,
+      "lon": 78.93,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.7012,
+      "lon": 78.9633,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.7012,
+      "lon": 78.9967,
+      "lulc_class": 10,
+      "lulc_name": "Tree cover",
+      "lulc_solar_score": 2,
+      "pixel_rgb": [
+        2,
+        101,
+        2
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.7012,
+      "lon": 79.03,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.7012,
+      "lon": 79.0633,
+      "lulc_class": 60,
+      "lulc_name": "Bare/sparse veg",
+      "lulc_solar_score": 4,
+      "pixel_rgb": [
+        180,
+        180,
+        180
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.7012,
+      "lon": 79.0967,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.7012,
+      "lon": 79.13,
+      "lulc_class": 20,
+      "lulc_name": "Shrubland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        255,
+        187,
+        34
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.7012,
+      "lon": 79.1633,
+      "lulc_class": 20,
+      "lulc_name": "Shrubland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        255,
+        187,
+        34
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.7012,
+      "lon": 79.1967,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.7012,
+      "lon": 79.23,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.7012,
+      "lon": 79.2633,
+      "lulc_class": 60,
+      "lulc_name": "Bare/sparse veg",
+      "lulc_solar_score": 4,
+      "pixel_rgb": [
+        180,
+        180,
+        180
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.7012,
+      "lon": 79.2967,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        239,
+        150,
+        254
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.7012,
+      "lon": 79.33,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.7282,
+      "lon": 78.63,
+      "lulc_class": 10,
+      "lulc_name": "Tree cover",
+      "lulc_solar_score": 2,
+      "pixel_rgb": [
+        0,
+        100,
+        0
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.7282,
+      "lon": 78.6633,
+      "lulc_class": 10,
+      "lulc_name": "Tree cover",
+      "lulc_solar_score": 2,
+      "pixel_rgb": [
+        2,
+        101,
+        0
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.7282,
+      "lon": 78.6967,
+      "lulc_class": 20,
+      "lulc_name": "Shrubland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        254,
+        187,
+        34
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.7282,
+      "lon": 78.73,
+      "lulc_class": 20,
+      "lulc_name": "Shrubland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        255,
+        187,
+        34
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.7282,
+      "lon": 78.7633,
+      "lulc_class": 10,
+      "lulc_name": "Tree cover",
+      "lulc_solar_score": 2,
+      "pixel_rgb": [
+        0,
+        100,
+        0
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.7282,
+      "lon": 78.7967,
+      "lulc_class": 10,
+      "lulc_name": "Tree cover",
+      "lulc_solar_score": 2,
+      "pixel_rgb": [
+        0,
+        100,
+        0
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.7282,
+      "lon": 78.83,
+      "lulc_class": 10,
+      "lulc_name": "Tree cover",
+      "lulc_solar_score": 2,
+      "pixel_rgb": [
+        0,
+        100,
+        0
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.7282,
+      "lon": 78.8633,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.7282,
+      "lon": 78.8967,
+      "lulc_class": 10,
+      "lulc_name": "Tree cover",
+      "lulc_solar_score": 2,
+      "pixel_rgb": [
+        2,
+        100,
+        2
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.7282,
+      "lon": 78.93,
+      "lulc_class": 60,
+      "lulc_name": "Bare/sparse veg",
+      "lulc_solar_score": 4,
+      "pixel_rgb": [
+        180,
+        180,
+        181
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.7282,
+      "lon": 78.9633,
+      "lulc_class": 50,
+      "lulc_name": "Built-up",
+      "lulc_solar_score": 1,
+      "pixel_rgb": [
+        250,
+        0,
+        0
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.7282,
+      "lon": 78.9967,
+      "lulc_class": 30,
+      "lulc_name": "Grassland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        255,
+        255,
+        76
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.7282,
+      "lon": 79.03,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.7282,
+      "lon": 79.0633,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.7282,
+      "lon": 79.0967,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.7282,
+      "lon": 79.13,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.7282,
+      "lon": 79.1633,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.7282,
+      "lon": 79.1967,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.7282,
+      "lon": 79.23,
+      "lulc_class": 20,
+      "lulc_name": "Shrubland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        255,
+        187,
+        34
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.7282,
+      "lon": 79.2633,
+      "lulc_class": 60,
+      "lulc_name": "Bare/sparse veg",
+      "lulc_solar_score": 4,
+      "pixel_rgb": [
+        181,
+        180,
+        179
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.7282,
+      "lon": 79.2967,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.7282,
+      "lon": 79.33,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.7553,
+      "lon": 78.63,
+      "lulc_class": 10,
+      "lulc_name": "Tree cover",
+      "lulc_solar_score": 2,
+      "pixel_rgb": [
+        1,
+        100,
+        1
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.7553,
+      "lon": 78.6633,
+      "lulc_class": 10,
+      "lulc_name": "Tree cover",
+      "lulc_solar_score": 2,
+      "pixel_rgb": [
+        0,
+        100,
+        0
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.7553,
+      "lon": 78.6967,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.7553,
+      "lon": 78.73,
+      "lulc_class": 10,
+      "lulc_name": "Tree cover",
+      "lulc_solar_score": 2,
+      "pixel_rgb": [
+        2,
+        100,
+        2
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.7553,
+      "lon": 78.7633,
+      "lulc_class": 10,
+      "lulc_name": "Tree cover",
+      "lulc_solar_score": 2,
+      "pixel_rgb": [
+        0,
+        100,
+        0
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.7553,
+      "lon": 78.7967,
+      "lulc_class": 50,
+      "lulc_name": "Built-up",
+      "lulc_solar_score": 1,
+      "pixel_rgb": [
+        249,
+        0,
+        0
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.7553,
+      "lon": 78.83,
+      "lulc_class": 60,
+      "lulc_name": "Bare/sparse veg",
+      "lulc_solar_score": 4,
+      "pixel_rgb": [
+        180,
+        180,
+        180
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.7553,
+      "lon": 78.8633,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.7553,
+      "lon": 78.8967,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.7553,
+      "lon": 78.93,
+      "lulc_class": 60,
+      "lulc_name": "Bare/sparse veg",
+      "lulc_solar_score": 4,
+      "pixel_rgb": [
+        180,
+        180,
+        180
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.7553,
+      "lon": 78.9633,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.7553,
+      "lon": 78.9967,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.7553,
+      "lon": 79.03,
+      "lulc_class": 10,
+      "lulc_name": "Tree cover",
+      "lulc_solar_score": 2,
+      "pixel_rgb": [
+        2,
+        100,
+        2
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.7553,
+      "lon": 79.0633,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.7553,
+      "lon": 79.0967,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.7553,
+      "lon": 79.13,
+      "lulc_class": 20,
+      "lulc_name": "Shrubland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        255,
+        187,
+        34
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.7553,
+      "lon": 79.1633,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.7553,
+      "lon": 79.1967,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.7553,
+      "lon": 79.23,
+      "lulc_class": 60,
+      "lulc_name": "Bare/sparse veg",
+      "lulc_solar_score": 4,
+      "pixel_rgb": [
+        181,
+        180,
+        180
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.7553,
+      "lon": 79.2633,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.7553,
+      "lon": 79.2967,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.7553,
+      "lon": 79.33,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.7824,
+      "lon": 78.63,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        151,
+        253
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.7824,
+      "lon": 78.6633,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.7824,
+      "lon": 78.6967,
+      "lulc_class": 20,
+      "lulc_name": "Shrubland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        255,
+        187,
+        34
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.7824,
+      "lon": 78.73,
+      "lulc_class": 20,
+      "lulc_name": "Shrubland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        253,
+        186,
+        34
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.7824,
+      "lon": 78.7633,
+      "lulc_class": 10,
+      "lulc_name": "Tree cover",
+      "lulc_solar_score": 2,
+      "pixel_rgb": [
+        0,
+        100,
+        0
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.7824,
+      "lon": 78.7967,
+      "lulc_class": 10,
+      "lulc_name": "Tree cover",
+      "lulc_solar_score": 2,
+      "pixel_rgb": [
+        1,
+        100,
+        1
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.7824,
+      "lon": 78.83,
+      "lulc_class": 10,
+      "lulc_name": "Tree cover",
+      "lulc_solar_score": 2,
+      "pixel_rgb": [
+        1,
+        100,
+        1
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.7824,
+      "lon": 78.8633,
+      "lulc_class": 60,
+      "lulc_name": "Bare/sparse veg",
+      "lulc_solar_score": 4,
+      "pixel_rgb": [
+        180,
+        180,
+        180
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.7824,
+      "lon": 78.8967,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.7824,
+      "lon": 78.93,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.7824,
+      "lon": 78.9633,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.7824,
+      "lon": 78.9967,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.7824,
+      "lon": 79.03,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.7824,
+      "lon": 79.0633,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.7824,
+      "lon": 79.0967,
+      "lulc_class": 10,
+      "lulc_name": "Tree cover",
+      "lulc_solar_score": 2,
+      "pixel_rgb": [
+        2,
+        101,
+        0
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.7824,
+      "lon": 79.13,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.7824,
+      "lon": 79.1633,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.7824,
+      "lon": 79.1967,
+      "lulc_class": 50,
+      "lulc_name": "Built-up",
+      "lulc_solar_score": 1,
+      "pixel_rgb": [
+        250,
+        0,
+        0
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.7824,
+      "lon": 79.23,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.7824,
+      "lon": 79.2633,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.7824,
+      "lon": 79.2967,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.7824,
+      "lon": 79.33,
+      "lulc_class": 10,
+      "lulc_name": "Tree cover",
+      "lulc_solar_score": 2,
+      "pixel_rgb": [
+        2,
+        101,
+        2
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.8094,
+      "lon": 78.63,
+      "lulc_class": 20,
+      "lulc_name": "Shrubland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        255,
+        187,
+        34
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.8094,
+      "lon": 78.6633,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.8094,
+      "lon": 78.6967,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        238,
+        150,
+        253
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.8094,
+      "lon": 78.73,
+      "lulc_class": 10,
+      "lulc_name": "Tree cover",
+      "lulc_solar_score": 2,
+      "pixel_rgb": [
+        0,
+        100,
+        0
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.8094,
+      "lon": 78.7633,
+      "lulc_class": 10,
+      "lulc_name": "Tree cover",
+      "lulc_solar_score": 2,
+      "pixel_rgb": [
+        0,
+        100,
+        0
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.8094,
+      "lon": 78.7967,
+      "lulc_class": 10,
+      "lulc_name": "Tree cover",
+      "lulc_solar_score": 2,
+      "pixel_rgb": [
+        0,
+        100,
+        0
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.8094,
+      "lon": 78.83,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.8094,
+      "lon": 78.8633,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.8094,
+      "lon": 78.8967,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.8094,
+      "lon": 78.93,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.8094,
+      "lon": 78.9633,
+      "lulc_class": 60,
+      "lulc_name": "Bare/sparse veg",
+      "lulc_solar_score": 4,
+      "pixel_rgb": [
+        180,
+        180,
+        180
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.8094,
+      "lon": 78.9967,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.8094,
+      "lon": 79.03,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.8094,
+      "lon": 79.0633,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.8094,
+      "lon": 79.0967,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.8094,
+      "lon": 79.13,
+      "lulc_class": 20,
+      "lulc_name": "Shrubland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        255,
+        187,
+        35
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.8094,
+      "lon": 79.1633,
+      "lulc_class": 20,
+      "lulc_name": "Shrubland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        255,
+        187,
+        36
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.8094,
+      "lon": 79.1967,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.8094,
+      "lon": 79.23,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.8094,
+      "lon": 79.2633,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.8094,
+      "lon": 79.2967,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.8094,
+      "lon": 79.33,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.8365,
+      "lon": 78.63,
+      "lulc_class": 10,
+      "lulc_name": "Tree cover",
+      "lulc_solar_score": 2,
+      "pixel_rgb": [
+        0,
+        100,
+        0
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.8365,
+      "lon": 78.6633,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        253
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.8365,
+      "lon": 78.6967,
+      "lulc_class": 10,
+      "lulc_name": "Tree cover",
+      "lulc_solar_score": 2,
+      "pixel_rgb": [
+        1,
+        100,
+        0
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.8365,
+      "lon": 78.73,
+      "lulc_class": 20,
+      "lulc_name": "Shrubland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        255,
+        187,
+        34
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.8365,
+      "lon": 78.7633,
+      "lulc_class": 10,
+      "lulc_name": "Tree cover",
+      "lulc_solar_score": 2,
+      "pixel_rgb": [
+        0,
+        100,
+        0
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.8365,
+      "lon": 78.7967,
+      "lulc_class": 10,
+      "lulc_name": "Tree cover",
+      "lulc_solar_score": 2,
+      "pixel_rgb": [
+        0,
+        100,
+        0
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.8365,
+      "lon": 78.83,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        254
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.8365,
+      "lon": 78.8633,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.8365,
+      "lon": 78.8967,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.8365,
+      "lon": 78.93,
+      "lulc_class": 10,
+      "lulc_name": "Tree cover",
+      "lulc_solar_score": 2,
+      "pixel_rgb": [
+        1,
+        100,
+        1
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.8365,
+      "lon": 78.9633,
+      "lulc_class": 50,
+      "lulc_name": "Built-up",
+      "lulc_solar_score": 1,
+      "pixel_rgb": [
+        250,
+        1,
+        1
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.8365,
+      "lon": 78.9967,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.8365,
+      "lon": 79.03,
+      "lulc_class": 50,
+      "lulc_name": "Built-up",
+      "lulc_solar_score": 1,
+      "pixel_rgb": [
+        250,
+        1,
+        2
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.8365,
+      "lon": 79.0633,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.8365,
+      "lon": 79.0967,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.8365,
+      "lon": 79.13,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.8365,
+      "lon": 79.1633,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.8365,
+      "lon": 79.1967,
+      "lulc_class": 20,
+      "lulc_name": "Shrubland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        255,
+        187,
+        34
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.8365,
+      "lon": 79.23,
+      "lulc_class": 10,
+      "lulc_name": "Tree cover",
+      "lulc_solar_score": 2,
+      "pixel_rgb": [
+        1,
+        100,
+        0
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.8365,
+      "lon": 79.2633,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.8365,
+      "lon": 79.2967,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.8365,
+      "lon": 79.33,
+      "lulc_class": 50,
+      "lulc_name": "Built-up",
+      "lulc_solar_score": 1,
+      "pixel_rgb": [
+        250,
+        0,
+        0
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.8635,
+      "lon": 78.63,
+      "lulc_class": 10,
+      "lulc_name": "Tree cover",
+      "lulc_solar_score": 2,
+      "pixel_rgb": [
+        0,
+        100,
+        0
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.8635,
+      "lon": 78.6633,
+      "lulc_class": 10,
+      "lulc_name": "Tree cover",
+      "lulc_solar_score": 2,
+      "pixel_rgb": [
+        1,
+        101,
+        0
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.8635,
+      "lon": 78.6967,
+      "lulc_class": 10,
+      "lulc_name": "Tree cover",
+      "lulc_solar_score": 2,
+      "pixel_rgb": [
+        0,
+        100,
+        0
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.8635,
+      "lon": 78.73,
+      "lulc_class": 20,
+      "lulc_name": "Shrubland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        255,
+        187,
+        34
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.8635,
+      "lon": 78.7633,
+      "lulc_class": 10,
+      "lulc_name": "Tree cover",
+      "lulc_solar_score": 2,
+      "pixel_rgb": [
+        0,
+        100,
+        0
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.8635,
+      "lon": 78.7967,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        239,
+        150,
+        254
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.8635,
+      "lon": 78.83,
+      "lulc_class": 60,
+      "lulc_name": "Bare/sparse veg",
+      "lulc_solar_score": 4,
+      "pixel_rgb": [
+        180,
+        180,
+        179
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.8635,
+      "lon": 78.8633,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.8635,
+      "lon": 78.8967,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.8635,
+      "lon": 78.93,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        239,
+        150,
+        254
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.8635,
+      "lon": 78.9633,
+      "lulc_class": 10,
+      "lulc_name": "Tree cover",
+      "lulc_solar_score": 2,
+      "pixel_rgb": [
+        1,
+        100,
+        1
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.8635,
+      "lon": 78.9967,
+      "lulc_class": 20,
+      "lulc_name": "Shrubland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        254,
+        187,
+        34
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.8635,
+      "lon": 79.03,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.8635,
+      "lon": 79.0633,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.8635,
+      "lon": 79.0967,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.8635,
+      "lon": 79.13,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.8635,
+      "lon": 79.1633,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        238,
+        150,
+        253
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.8635,
+      "lon": 79.1967,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        239,
+        150,
+        254
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.8635,
+      "lon": 79.23,
+      "lulc_class": 20,
+      "lulc_name": "Shrubland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        255,
+        187,
+        34
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.8635,
+      "lon": 79.2633,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.8635,
+      "lon": 79.2967,
+      "lulc_class": 30,
+      "lulc_name": "Grassland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        255,
+        255,
+        76
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.8635,
+      "lon": 79.33,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.8906,
+      "lon": 78.63,
+      "lulc_class": 10,
+      "lulc_name": "Tree cover",
+      "lulc_solar_score": 2,
+      "pixel_rgb": [
+        0,
+        100,
+        0
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.8906,
+      "lon": 78.6633,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.8906,
+      "lon": 78.6967,
+      "lulc_class": 10,
+      "lulc_name": "Tree cover",
+      "lulc_solar_score": 2,
+      "pixel_rgb": [
+        0,
+        100,
+        0
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.8906,
+      "lon": 78.73,
+      "lulc_class": 20,
+      "lulc_name": "Shrubland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        255,
+        187,
+        34
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.8906,
+      "lon": 78.7633,
+      "lulc_class": 10,
+      "lulc_name": "Tree cover",
+      "lulc_solar_score": 2,
+      "pixel_rgb": [
+        0,
+        100,
+        0
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.8906,
+      "lon": 78.7967,
+      "lulc_class": 10,
+      "lulc_name": "Tree cover",
+      "lulc_solar_score": 2,
+      "pixel_rgb": [
+        1,
+        100,
+        0
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.8906,
+      "lon": 78.83,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.8906,
+      "lon": 78.8633,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.8906,
+      "lon": 78.8967,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.8906,
+      "lon": 78.93,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.8906,
+      "lon": 78.9633,
+      "lulc_class": 20,
+      "lulc_name": "Shrubland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        255,
+        187,
+        35
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.8906,
+      "lon": 78.9967,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.8906,
+      "lon": 79.03,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.8906,
+      "lon": 79.0633,
+      "lulc_class": 50,
+      "lulc_name": "Built-up",
+      "lulc_solar_score": 1,
+      "pixel_rgb": [
+        250,
+        0,
+        0
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.8906,
+      "lon": 79.0967,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.8906,
+      "lon": 79.13,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.8906,
+      "lon": 79.1633,
+      "lulc_class": 50,
+      "lulc_name": "Built-up",
+      "lulc_solar_score": 1,
+      "pixel_rgb": [
+        250,
+        1,
+        2
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.8906,
+      "lon": 79.1967,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.8906,
+      "lon": 79.23,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.8906,
+      "lon": 79.2633,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.8906,
+      "lon": 79.2967,
+      "lulc_class": 60,
+      "lulc_name": "Bare/sparse veg",
+      "lulc_solar_score": 4,
+      "pixel_rgb": [
+        180,
+        180,
+        181
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.8906,
+      "lon": 79.33,
+      "lulc_class": 10,
+      "lulc_name": "Tree cover",
+      "lulc_solar_score": 2,
+      "pixel_rgb": [
+        0,
+        100,
+        0
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.9176,
+      "lon": 78.63,
+      "lulc_class": 20,
+      "lulc_name": "Shrubland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        255,
+        187,
+        35
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.9176,
+      "lon": 78.6633,
+      "lulc_class": 10,
+      "lulc_name": "Tree cover",
+      "lulc_solar_score": 2,
+      "pixel_rgb": [
+        0,
+        100,
+        0
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.9176,
+      "lon": 78.6967,
+      "lulc_class": 10,
+      "lulc_name": "Tree cover",
+      "lulc_solar_score": 2,
+      "pixel_rgb": [
+        0,
+        100,
+        0
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.9176,
+      "lon": 78.73,
+      "lulc_class": 10,
+      "lulc_name": "Tree cover",
+      "lulc_solar_score": 2,
+      "pixel_rgb": [
+        0,
+        100,
+        0
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.9176,
+      "lon": 78.7633,
+      "lulc_class": 10,
+      "lulc_name": "Tree cover",
+      "lulc_solar_score": 2,
+      "pixel_rgb": [
+        0,
+        100,
+        0
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.9176,
+      "lon": 78.7967,
+      "lulc_class": 10,
+      "lulc_name": "Tree cover",
+      "lulc_solar_score": 2,
+      "pixel_rgb": [
+        0,
+        100,
+        0
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.9176,
+      "lon": 78.83,
+      "lulc_class": 10,
+      "lulc_name": "Tree cover",
+      "lulc_solar_score": 2,
+      "pixel_rgb": [
+        0,
+        100,
+        0
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.9176,
+      "lon": 78.8633,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.9176,
+      "lon": 78.8967,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.9176,
+      "lon": 78.93,
+      "lulc_class": 10,
+      "lulc_name": "Tree cover",
+      "lulc_solar_score": 2,
+      "pixel_rgb": [
+        1,
+        100,
+        0
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.9176,
+      "lon": 78.9633,
+      "lulc_class": 20,
+      "lulc_name": "Shrubland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        255,
+        187,
+        34
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.9176,
+      "lon": 78.9967,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.9176,
+      "lon": 79.03,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.9176,
+      "lon": 79.0633,
+      "lulc_class": 20,
+      "lulc_name": "Shrubland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        255,
+        187,
+        34
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.9176,
+      "lon": 79.0967,
+      "lulc_class": 20,
+      "lulc_name": "Shrubland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        255,
+        187,
+        34
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.9176,
+      "lon": 79.13,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        239,
+        150,
+        254
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.9176,
+      "lon": 79.1633,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.9176,
+      "lon": 79.1967,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.9176,
+      "lon": 79.23,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.9176,
+      "lon": 79.2633,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.9176,
+      "lon": 79.2967,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        239,
+        150,
+        254
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.9176,
+      "lon": 79.33,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.9447,
+      "lon": 78.63,
+      "lulc_class": 10,
+      "lulc_name": "Tree cover",
+      "lulc_solar_score": 2,
+      "pixel_rgb": [
+        0,
+        100,
+        0
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.9447,
+      "lon": 78.6633,
+      "lulc_class": 10,
+      "lulc_name": "Tree cover",
+      "lulc_solar_score": 2,
+      "pixel_rgb": [
+        0,
+        100,
+        0
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.9447,
+      "lon": 78.6967,
+      "lulc_class": 10,
+      "lulc_name": "Tree cover",
+      "lulc_solar_score": 2,
+      "pixel_rgb": [
+        0,
+        100,
+        0
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.9447,
+      "lon": 78.73,
+      "lulc_class": 20,
+      "lulc_name": "Shrubland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        255,
+        187,
+        34
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.9447,
+      "lon": 78.7633,
+      "lulc_class": 10,
+      "lulc_name": "Tree cover",
+      "lulc_solar_score": 2,
+      "pixel_rgb": [
+        0,
+        100,
+        0
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.9447,
+      "lon": 78.7967,
+      "lulc_class": 10,
+      "lulc_name": "Tree cover",
+      "lulc_solar_score": 2,
+      "pixel_rgb": [
+        0,
+        100,
+        0
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.9447,
+      "lon": 78.83,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        239,
+        150,
+        253
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.9447,
+      "lon": 78.8633,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.9447,
+      "lon": 78.8967,
+      "lulc_class": 20,
+      "lulc_name": "Shrubland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        255,
+        187,
+        34
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.9447,
+      "lon": 78.93,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.9447,
+      "lon": 78.9633,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        239,
+        150,
+        254
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.9447,
+      "lon": 78.9967,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.9447,
+      "lon": 79.03,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.9447,
+      "lon": 79.0633,
+      "lulc_class": 20,
+      "lulc_name": "Shrubland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        255,
+        187,
+        36
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.9447,
+      "lon": 79.0967,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.9447,
+      "lon": 79.13,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.9447,
+      "lon": 79.1633,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.9447,
+      "lon": 79.1967,
+      "lulc_class": 10,
+      "lulc_name": "Tree cover",
+      "lulc_solar_score": 2,
+      "pixel_rgb": [
+        1,
+        100,
+        1
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.9447,
+      "lon": 79.23,
+      "lulc_class": 20,
+      "lulc_name": "Shrubland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        255,
+        187,
+        36
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.9447,
+      "lon": 79.2633,
+      "lulc_class": 10,
+      "lulc_name": "Tree cover",
+      "lulc_solar_score": 2,
+      "pixel_rgb": [
+        1,
+        100,
+        1
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.9447,
+      "lon": 79.2967,
+      "lulc_class": 10,
+      "lulc_name": "Tree cover",
+      "lulc_solar_score": 2,
+      "pixel_rgb": [
+        1,
+        100,
+        0
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.9447,
+      "lon": 79.33,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.9718,
+      "lon": 78.63,
+      "lulc_class": 10,
+      "lulc_name": "Tree cover",
+      "lulc_solar_score": 2,
+      "pixel_rgb": [
+        0,
+        100,
+        0
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.9718,
+      "lon": 78.6633,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.9718,
+      "lon": 78.6967,
+      "lulc_class": 10,
+      "lulc_name": "Tree cover",
+      "lulc_solar_score": 2,
+      "pixel_rgb": [
+        0,
+        100,
+        0
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.9718,
+      "lon": 78.73,
+      "lulc_class": 10,
+      "lulc_name": "Tree cover",
+      "lulc_solar_score": 2,
+      "pixel_rgb": [
+        0,
+        100,
+        0
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.9718,
+      "lon": 78.7633,
+      "lulc_class": 10,
+      "lulc_name": "Tree cover",
+      "lulc_solar_score": 2,
+      "pixel_rgb": [
+        2,
+        101,
+        0
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.9718,
+      "lon": 78.7967,
+      "lulc_class": 10,
+      "lulc_name": "Tree cover",
+      "lulc_solar_score": 2,
+      "pixel_rgb": [
+        0,
+        100,
+        0
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.9718,
+      "lon": 78.83,
+      "lulc_class": 20,
+      "lulc_name": "Shrubland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        254,
+        187,
+        34
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.9718,
+      "lon": 78.8633,
+      "lulc_class": 10,
+      "lulc_name": "Tree cover",
+      "lulc_solar_score": 2,
+      "pixel_rgb": [
+        0,
+        100,
+        0
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.9718,
+      "lon": 78.8967,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.9718,
+      "lon": 78.93,
+      "lulc_class": 20,
+      "lulc_name": "Shrubland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        255,
+        187,
+        34
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.9718,
+      "lon": 78.9633,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        254
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.9718,
+      "lon": 78.9967,
+      "lulc_class": 20,
+      "lulc_name": "Shrubland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        255,
+        187,
+        34
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.9718,
+      "lon": 79.03,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.9718,
+      "lon": 79.0633,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.9718,
+      "lon": 79.0967,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.9718,
+      "lon": 79.13,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.9718,
+      "lon": 79.1633,
+      "lulc_class": 20,
+      "lulc_name": "Shrubland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        253,
+        186,
+        34
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.9718,
+      "lon": 79.1967,
+      "lulc_class": 80,
+      "lulc_name": "Water bodies",
+      "lulc_solar_score": 1,
+      "pixel_rgb": [
+        0,
+        100,
+        200
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.9718,
+      "lon": 79.23,
+      "lulc_class": 20,
+      "lulc_name": "Shrubland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        255,
+        186,
+        34
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.9718,
+      "lon": 79.2633,
+      "lulc_class": 10,
+      "lulc_name": "Tree cover",
+      "lulc_solar_score": 2,
+      "pixel_rgb": [
+        1,
+        100,
+        1
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.9718,
+      "lon": 79.2967,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.9718,
+      "lon": 79.33,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.9988,
+      "lon": 78.63,
+      "lulc_class": 20,
+      "lulc_name": "Shrubland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        255,
+        187,
+        34
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.9988,
+      "lon": 78.6633,
+      "lulc_class": 10,
+      "lulc_name": "Tree cover",
+      "lulc_solar_score": 2,
+      "pixel_rgb": [
+        0,
+        100,
+        0
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.9988,
+      "lon": 78.6967,
+      "lulc_class": 10,
+      "lulc_name": "Tree cover",
+      "lulc_solar_score": 2,
+      "pixel_rgb": [
+        0,
+        100,
+        0
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.9988,
+      "lon": 78.73,
+      "lulc_class": 10,
+      "lulc_name": "Tree cover",
+      "lulc_solar_score": 2,
+      "pixel_rgb": [
+        0,
+        100,
+        0
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.9988,
+      "lon": 78.7633,
+      "lulc_class": 10,
+      "lulc_name": "Tree cover",
+      "lulc_solar_score": 2,
+      "pixel_rgb": [
+        1,
+        100,
+        0
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.9988,
+      "lon": 78.7967,
+      "lulc_class": 10,
+      "lulc_name": "Tree cover",
+      "lulc_solar_score": 2,
+      "pixel_rgb": [
+        0,
+        100,
+        0
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.9988,
+      "lon": 78.83,
+      "lulc_class": 10,
+      "lulc_name": "Tree cover",
+      "lulc_solar_score": 2,
+      "pixel_rgb": [
+        0,
+        100,
+        0
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.9988,
+      "lon": 78.8633,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.9988,
+      "lon": 78.8967,
+      "lulc_class": 20,
+      "lulc_name": "Shrubland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        255,
+        187,
+        34
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.9988,
+      "lon": 78.93,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.9988,
+      "lon": 78.9633,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.9988,
+      "lon": 78.9967,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.9988,
+      "lon": 79.03,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.9988,
+      "lon": 79.0633,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        239,
+        150,
+        254
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.9988,
+      "lon": 79.0967,
+      "lulc_class": 80,
+      "lulc_name": "Water bodies",
+      "lulc_solar_score": 1,
+      "pixel_rgb": [
+        0,
+        100,
+        200
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.9988,
+      "lon": 79.13,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.9988,
+      "lon": 79.1633,
+      "lulc_class": 10,
+      "lulc_name": "Tree cover",
+      "lulc_solar_score": 2,
+      "pixel_rgb": [
+        1,
+        100,
+        1
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.9988,
+      "lon": 79.1967,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.9988,
+      "lon": 79.23,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.9988,
+      "lon": 79.2633,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.9988,
+      "lon": 79.2967,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 11.9988,
+      "lon": 79.33,
+      "lulc_class": 10,
+      "lulc_name": "Tree cover",
+      "lulc_solar_score": 2,
+      "pixel_rgb": [
+        0,
+        100,
+        0
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 12.0259,
+      "lon": 78.63,
+      "lulc_class": 10,
+      "lulc_name": "Tree cover",
+      "lulc_solar_score": 2,
+      "pixel_rgb": [
+        0,
+        100,
+        0
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 12.0259,
+      "lon": 78.6633,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 12.0259,
+      "lon": 78.6967,
+      "lulc_class": 10,
+      "lulc_name": "Tree cover",
+      "lulc_solar_score": 2,
+      "pixel_rgb": [
+        0,
+        100,
+        0
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 12.0259,
+      "lon": 78.73,
+      "lulc_class": 10,
+      "lulc_name": "Tree cover",
+      "lulc_solar_score": 2,
+      "pixel_rgb": [
+        0,
+        100,
+        0
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 12.0259,
+      "lon": 78.7633,
+      "lulc_class": 10,
+      "lulc_name": "Tree cover",
+      "lulc_solar_score": 2,
+      "pixel_rgb": [
+        0,
+        100,
+        0
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 12.0259,
+      "lon": 78.7967,
+      "lulc_class": 10,
+      "lulc_name": "Tree cover",
+      "lulc_solar_score": 2,
+      "pixel_rgb": [
+        0,
+        100,
+        0
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 12.0259,
+      "lon": 78.83,
+      "lulc_class": 10,
+      "lulc_name": "Tree cover",
+      "lulc_solar_score": 2,
+      "pixel_rgb": [
+        0,
+        100,
+        0
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 12.0259,
+      "lon": 78.8633,
+      "lulc_class": 10,
+      "lulc_name": "Tree cover",
+      "lulc_solar_score": 2,
+      "pixel_rgb": [
+        1,
+        100,
+        0
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 12.0259,
+      "lon": 78.8967,
+      "lulc_class": 10,
+      "lulc_name": "Tree cover",
+      "lulc_solar_score": 2,
+      "pixel_rgb": [
+        1,
+        100,
+        0
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 12.0259,
+      "lon": 78.93,
+      "lulc_class": 20,
+      "lulc_name": "Shrubland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        255,
+        187,
+        34
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 12.0259,
+      "lon": 78.9633,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 12.0259,
+      "lon": 78.9967,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 12.0259,
+      "lon": 79.03,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        239,
+        150,
+        254
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 12.0259,
+      "lon": 79.0633,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 12.0259,
+      "lon": 79.0967,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 12.0259,
+      "lon": 79.13,
+      "lulc_class": 20,
+      "lulc_name": "Shrubland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        255,
+        187,
+        34
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 12.0259,
+      "lon": 79.1633,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 12.0259,
+      "lon": 79.1967,
+      "lulc_class": 20,
+      "lulc_name": "Shrubland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        255,
+        187,
+        36
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 12.0259,
+      "lon": 79.23,
+      "lulc_class": 20,
+      "lulc_name": "Shrubland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        255,
+        187,
+        34
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 12.0259,
+      "lon": 79.2633,
+      "lulc_class": 20,
+      "lulc_name": "Shrubland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        255,
+        187,
+        34
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 12.0259,
+      "lon": 79.2967,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 12.0259,
+      "lon": 79.33,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        239,
+        150,
+        254
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 12.0529,
+      "lon": 78.63,
+      "lulc_class": 10,
+      "lulc_name": "Tree cover",
+      "lulc_solar_score": 2,
+      "pixel_rgb": [
+        1,
+        100,
+        0
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 12.0529,
+      "lon": 78.6633,
+      "lulc_class": 20,
+      "lulc_name": "Shrubland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        255,
+        187,
+        34
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 12.0529,
+      "lon": 78.6967,
+      "lulc_class": 10,
+      "lulc_name": "Tree cover",
+      "lulc_solar_score": 2,
+      "pixel_rgb": [
+        0,
+        100,
+        0
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 12.0529,
+      "lon": 78.73,
+      "lulc_class": 30,
+      "lulc_name": "Grassland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        255,
+        254,
+        76
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 12.0529,
+      "lon": 78.7633,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 12.0529,
+      "lon": 78.7967,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 12.0529,
+      "lon": 78.83,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        254
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 12.0529,
+      "lon": 78.8633,
+      "lulc_class": 10,
+      "lulc_name": "Tree cover",
+      "lulc_solar_score": 2,
+      "pixel_rgb": [
+        0,
+        100,
+        0
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 12.0529,
+      "lon": 78.8967,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 12.0529,
+      "lon": 78.93,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        239,
+        150,
+        254
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 12.0529,
+      "lon": 78.9633,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 12.0529,
+      "lon": 78.9967,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 12.0529,
+      "lon": 79.03,
+      "lulc_class": 20,
+      "lulc_name": "Shrubland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        254,
+        187,
+        35
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 12.0529,
+      "lon": 79.0633,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        239,
+        150,
+        254
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 12.0529,
+      "lon": 79.0967,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 12.0529,
+      "lon": 79.13,
+      "lulc_class": 20,
+      "lulc_name": "Shrubland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        255,
+        187,
+        34
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 12.0529,
+      "lon": 79.1633,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 12.0529,
+      "lon": 79.1967,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 12.0529,
+      "lon": 79.23,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 12.0529,
+      "lon": 79.2633,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 12.0529,
+      "lon": 79.2967,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 12.0529,
+      "lon": 79.33,
+      "lulc_class": 10,
+      "lulc_name": "Tree cover",
+      "lulc_solar_score": 2,
+      "pixel_rgb": [
+        2,
+        100,
+        2
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 12.08,
+      "lon": 78.63,
+      "lulc_class": 20,
+      "lulc_name": "Shrubland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        254,
+        187,
+        34
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 12.08,
+      "lon": 78.6633,
+      "lulc_class": 20,
+      "lulc_name": "Shrubland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        255,
+        187,
+        34
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 12.08,
+      "lon": 78.6967,
+      "lulc_class": 20,
+      "lulc_name": "Shrubland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        255,
+        187,
+        34
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 12.08,
+      "lon": 78.73,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 12.08,
+      "lon": 78.7633,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 12.08,
+      "lon": 78.7967,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 12.08,
+      "lon": 78.83,
+      "lulc_class": 60,
+      "lulc_name": "Bare/sparse veg",
+      "lulc_solar_score": 4,
+      "pixel_rgb": [
+        180,
+        180,
+        181
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 12.08,
+      "lon": 78.8633,
+      "lulc_class": 20,
+      "lulc_name": "Shrubland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        254,
+        187,
+        34
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 12.08,
+      "lon": 78.8967,
+      "lulc_class": 20,
+      "lulc_name": "Shrubland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        255,
+        187,
+        34
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 12.08,
+      "lon": 78.93,
+      "lulc_class": 20,
+      "lulc_name": "Shrubland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        255,
+        187,
+        35
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 12.08,
+      "lon": 78.9633,
+      "lulc_class": 20,
+      "lulc_name": "Shrubland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        255,
+        187,
+        34
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 12.08,
+      "lon": 78.9967,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 12.08,
+      "lon": 79.03,
+      "lulc_class": 20,
+      "lulc_name": "Shrubland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        255,
+        187,
+        34
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 12.08,
+      "lon": 79.0633,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        239,
+        150,
+        254
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 12.08,
+      "lon": 79.0967,
+      "lulc_class": 20,
+      "lulc_name": "Shrubland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        255,
+        187,
+        34
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 12.08,
+      "lon": 79.13,
+      "lulc_class": 20,
+      "lulc_name": "Shrubland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        255,
+        187,
+        36
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 12.08,
+      "lon": 79.1633,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 12.08,
+      "lon": 79.1967,
+      "lulc_class": 60,
+      "lulc_name": "Bare/sparse veg",
+      "lulc_solar_score": 4,
+      "pixel_rgb": [
+        180,
+        180,
+        180
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 12.08,
+      "lon": 79.23,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        240,
+        150,
+        255
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 12.08,
+      "lon": 79.2633,
+      "lulc_class": 10,
+      "lulc_name": "Tree cover",
+      "lulc_solar_score": 2,
+      "pixel_rgb": [
+        1,
+        100,
+        0
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 12.08,
+      "lon": 79.2967,
+      "lulc_class": 20,
+      "lulc_name": "Shrubland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        255,
+        187,
+        34
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    },
+    {
+      "lat": 12.08,
+      "lon": 79.33,
+      "lulc_class": 40,
+      "lulc_name": "Cropland",
+      "lulc_solar_score": 3,
+      "pixel_rgb": [
+        239,
+        150,
+        254
+      ],
+      "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+    }
+  ],
+  "source": "ESA WorldCover 2020 v100 via Terrascope WMS"
+}
