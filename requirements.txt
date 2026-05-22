@@ -1,11 +1,34 @@
-streamlit==1.35.0
-folium==0.16.0
-streamlit-folium==0.20.0
-pandas==2.2.2
-numpy==1.26.4
-scipy==1.13.0
-geopandas==0.14.4
-shapely==2.0.4
-pyproj==3.6.1
-requests==2.32.2
-Pillow==10.3.0
+# Kallakurichi Solar Suitability Pipeline — Python dependencies
+# Tested with Python 3.11+
+#
+# Install:
+#   pip install -r requirements.txt
+#
+# For rasterio on Linux (recommended):
+#   pip install rasterio[gdal]
+# On macOS (Homebrew GDAL):
+#   brew install gdal
+#   pip install rasterio
+
+# ── Core scientific stack ───────────────────────────────────────────────────────
+numpy>=1.26
+pandas>=2.2
+scipy>=1.13
+
+# ── Geospatial ──────────────────────────────────────────────────────────────────
+rasterio>=1.3          # ESA WorldCover raster I/O (script 07)
+geopandas>=0.14
+shapely>=2.0
+pyproj>=3.6            # CRS transformation (script 04)
+
+# ── Visualisation ───────────────────────────────────────────────────────────────
+matplotlib>=3.8        # LULC + barren land map generation (script 07)
+Pillow>=10.0           # WMS PNG decoding (script 04)
+
+# ── HTTP / API clients ──────────────────────────────────────────────────────────
+requests>=2.32
+
+# ── Streamlit dashboard (legacy app.py) ─────────────────────────────────────────
+streamlit>=1.35
+folium>=0.16
+streamlit-folium>=0.20

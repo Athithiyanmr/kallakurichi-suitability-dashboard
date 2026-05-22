@@ -1,583 +1,560 @@
 """
-Script 07 — ESA WorldCover LULC Map + Barren Land Analysis
-===========================================================
-Downloads the actual ESA WorldCover 2021 v200 raster (10 m) for Kallakurichi
-district via windowed read (no full tile download), then:
+07_lulc_barren_analysis.py — ESA WorldCover LULC Map + Barren Land Analysis
+============================================================================
+Downloads ESA WorldCover 2021 v200 raster tiles (10 m) for Kallakurichi district
+via GDAL windowed reads from AWS S3 (no full tile download required), then:
 
-  1. Clips and merges the two 3°×3° tiles that cover the district
-  2. Saves the clipped LULC raster  →  data/raw/kallakurichi_lulc.tif
-  3. Produces a full LULC class map  →  data/outputs/lulc_map.png
-  4. Isolates class-60 (Bare/sparse veg) pixels
-  5. Computes:
-       - Total barren area  (ha and km²)
-       - Per-patch stats after connected-component labelling
-  6. Attaches factor values to each barren pixel/patch via NN lookup from the
-     existing raw files (PVGIS GHI, SRTM slope, OSM power dist, OSM road dist)
-  7. Saves summary stats  →  data/processed/barren_analysis.json
-                          →  data/processed/barren_analysis.csv
-                          →  data/outputs/barren_map.png
+  Step 1  Clip and merge two 3°×3° tiles covering the district
+  Step 2  Save clipped LULC raster  →  data/raw/kallakurichi_lulc.tif
+  Step 3  Generate full LULC class map  →  data/outputs/lulc_map.png
+  Step 4  Isolate class 60 (Bare/sparse veg) pixels
+  Step 5  Connected-component labelling → identify discrete barren patches
+  Step 6  Compute per-patch area (ha, km²) from actual 10 m pixel counts
+  Step 7  Attach factor values (GHI, slope, power dist, road dist, temp)
+          via nearest-neighbour lookup from existing raw data files
+  Step 8  Save outputs:
+            data/outputs/barren_map.png
+            data/processed/barren_analysis.json
+            data/processed/barren_analysis.csv
 
-Requirements (all standard in a geo Python environment):
-  pip install rasterio geopandas numpy scipy matplotlib pillow requests
+Requirements:
+  pip install rasterio scipy matplotlib pillow numpy requests
+
+Usage: python scripts/07_lulc_barren_analysis.py
 """
 
-import json
 import math
-import os
-import csv
+import sys
 import warnings
 from pathlib import Path
 
-import numpy as np
 import matplotlib
 matplotlib.use("Agg")
-import matplotlib.pyplot as plt
 import matplotlib.patches as mpatches
-from matplotlib.colors import ListedColormap
+import matplotlib.pyplot as plt
+import numpy as np
 import rasterio
-from rasterio.windows import from_bounds
+from matplotlib.colors import ListedColormap
 from rasterio.merge import merge
 from rasterio.transform import xy as rio_xy
+from rasterio.windows import from_bounds
 from scipy.ndimage import label as scipy_label
 
 warnings.filterwarnings("ignore")
 
-# ─── Paths ──────────────────────────────────────────────────────────────────────
-BASE_DIR    = Path(__file__).parent.parent
-RAW_DIR     = BASE_DIR / "data" / "raw"
-OUT_DIR     = BASE_DIR / "data" / "outputs"
-PROC_DIR    = BASE_DIR / "data" / "processed"
-for d in (OUT_DIR, PROC_DIR):
-    d.mkdir(parents=True, exist_ok=True)
+sys.path.insert(0, str(Path(__file__).resolve().parent))
 
-# ─── District bounding box ───────────────────────────────────────────────────────
-LAT_MIN, LAT_MAX = 11.55, 12.25
-LON_MIN, LON_MAX = 78.55, 79.25
+from config import (
+    CITATIONS,
+    ESA_S3_TILES,
+    LAT_MAX,
+    LAT_MIN,
+    LON_MAX,
+    LON_MIN,
+    LULC_CLASSES,
+    OUT_DIR,
+    PROC_DIR,
+    RAW_DIR,
+    TARGET_LULC_CLASS,
+)
+from utils import (
+    get_logger,
+    haversine_km,
+    load_json,
+    nn_interp,
+    pixel_area_ha,
+    save_json,
+)
 
-# ─── ESA WorldCover 2021 v200 tiles (public AWS S3) ─────────────────────────────
-ESA_TILES = [
-    "https://esa-worldcover.s3.amazonaws.com/v200/2021/map/ESA_WorldCover_10m_2021_v200_N12E078_Map.tif",
-    "https://esa-worldcover.s3.amazonaws.com/v200/2021/map/ESA_WorldCover_10m_2021_v200_N09E078_Map.tif",
-]
-
-# ─── ESA WorldCover class definitions ───────────────────────────────────────────
-LULC_CLASSES = {
-    10:  ("Tree cover",           "#006400"),
-    20:  ("Shrubland",            "#FFBB22"),
-    30:  ("Grassland",            "#FFFF4C"),
-    40:  ("Cropland",             "#F096FF"),
-    50:  ("Built-up",             "#FA0000"),
-    60:  ("Bare/sparse veg",      "#B4B4B4"),  # ← TARGET
-    70:  ("Snow/ice",             "#F0F0F0"),
-    80:  ("Water bodies",         "#0064C8"),
-    90:  ("Herbaceous wetland",   "#0096A0"),
-    95:  ("Mangroves",            "#00CF75"),
-    100: ("Moss/lichen",          "#FAE6A0"),
-}
-TARGET_CLASS = 60
-
-# ─── Helpers ────────────────────────────────────────────────────────────────────
-
-def haversine_km(lat1, lon1, lat2, lon2):
-    R = 6371.0
-    dlat = math.radians(lat2 - lat1)
-    dlon = math.radians(lon2 - lon1)
-    a = math.sin(dlat/2)**2 + math.cos(math.radians(lat1)) * math.cos(math.radians(lat2)) * math.sin(dlon/2)**2
-    return R * 2 * math.asin(math.sqrt(a))
+log = get_logger("07_lulc_barren")
 
 
-def nearest_value(query_lat, query_lon, points, value_key, lat_key="lat", lon_key="lon"):
-    best_val, best_d = None, float("inf")
-    for p in points:
-        d = (p[lat_key] - query_lat)**2 + (p[lon_key] - query_lon)**2
-        if d < best_d:
-            best_d = d
-            best_val = p.get(value_key)
-    return best_val
-
-
-def min_dist_to_nodes(lat, lon, nodes):
-    """Minimum haversine distance (km) to a list of {lat, lon} node dicts."""
-    best = float("inf")
-    for n in nodes:
-        approx = math.sqrt((n["lat"] - lat)**2 + (n["lon"] - lon)**2) * 111.0
-        if approx < best * 1.5:
-            d = haversine_km(lat, lon, n["lat"], n["lon"])
-            if d < best:
-                best = d
-    return round(best, 3)
-
-
-def extract_nodes(osm_json):
-    node_coords = {}
-    for e in osm_json.get("elements", []):
-        if e.get("type") == "node" and "lat" in e:
-            node_coords[e["id"]] = (e["lat"], e["lon"])
-    positions = []
-    seen = set()
-    for e in osm_json.get("elements", []):
-        if e.get("type") == "node" and "lat" in e:
-            key = (round(e["lat"], 4), round(e["lon"], 4))
-            if key not in seen:
-                seen.add(key)
-                positions.append({"lat": e["lat"], "lon": e["lon"]})
-        elif e.get("type") == "way":
-            for nid in e.get("nodes", []):
-                if nid in node_coords:
-                    lat, lon = node_coords[nid]
-                    key = (round(lat, 4), round(lon, 4))
-                    if key not in seen:
-                        seen.add(key)
-                        positions.append({"lat": lat, "lon": lon})
-    return positions
-
-
-def pixel_area_ha(transform, lat):
-    """Area in hectares of one 10m pixel at a given latitude."""
-    # At 10m resolution in geographic CRS, pixel size in degrees
-    res_deg = abs(transform.a)  # degrees per pixel (longitude direction)
-    # Convert to metres
-    lon_m = res_deg * math.cos(math.radians(lat)) * 111320
-    lat_m = abs(transform.e) * 111320
-    area_m2 = lon_m * lat_m
-    return area_m2 / 10000  # ha
-
-# ─── Step 1: Read + clip ESA tiles ───────────────────────────────────────────────
+# ─── Step 1 + 2 : Load raster tiles ─────────────────────────────────────────────
 
 def load_lulc_raster():
-    print("[1/5] Reading ESA WorldCover 2021 tiles (windowed, no full download)...")
+    """
+    Open ESA WorldCover 2021 v200 tiles via /vsicurl/ (GDAL virtual filesystem).
+    Performs a windowed read for the district bounding box only — no full tile
+    download (~119 MB + ~92 MB tiles are read remotely and trimmed locally).
+    """
+    log.info("[1/5] Opening ESA WorldCover 2021 tiles via GDAL /vsicurl/ ...")
     datasets = []
-    for url in ESA_TILES:
+    for url in ESA_S3_TILES:
+        tile_name = url.split("/")[-1]
         try:
             src = rasterio.open(f"/vsicurl/{url}")
             win = from_bounds(LON_MIN, LAT_MIN, LON_MAX, LAT_MAX, src.transform)
             if win.height > 0 and win.width > 0:
                 datasets.append(src)
-                print(f"  ✓ {url.split('/')[-1][:50]}  →  "
-                      f"{int(win.width)}×{int(win.height)} px")
+                log.info(
+                    f"  ✓ {tile_name}  →  "
+                    f"{int(win.width)} × {int(win.height)} px in district bbox"
+                )
             else:
                 src.close()
-                print(f"  – No overlap: {url.split('/')[-1][:50]}")
-        except Exception as e:
-            print(f"  ✗ Could not open {url.split('/')[-1]}: {e}")
+                log.info(f"  – {tile_name}  (no overlap with district bbox)")
+        except Exception as exc:
+            log.warning(f"  ✗ {tile_name}: {exc}")
 
     if not datasets:
-        raise RuntimeError("No ESA tiles could be opened. Check connectivity.")
+        raise RuntimeError(
+            "No ESA tiles could be opened via /vsicurl/.\n"
+            "Check internet connectivity or verify that rasterio is installed "
+            "with GDAL network drivers (pip install rasterio[gdal])."
+        )
 
     if len(datasets) == 1:
-        src = datasets[0]
-        win = from_bounds(LON_MIN, LAT_MIN, LON_MAX, LAT_MAX, src.transform)
-        data = src.read(1, window=win)
+        src       = datasets[0]
+        win       = from_bounds(LON_MIN, LAT_MIN, LON_MAX, LAT_MAX, src.transform)
+        data      = src.read(1, window=win)
         transform = src.window_transform(win)
-        crs = src.crs
+        crs       = src.crs
         src.close()
     else:
-        # Merge tiles then crop
-        merged, transform = merge(datasets, bounds=(LON_MIN, LAT_MIN, LON_MAX, LAT_MAX))
+        merged, transform = merge(
+            datasets, bounds=(LON_MIN, LAT_MIN, LON_MAX, LAT_MAX)
+        )
         data = merged[0]
-        crs = datasets[0].crs
+        crs  = datasets[0].crs
         for ds in datasets:
             ds.close()
 
-    print(f"  Clipped raster: {data.shape[1]}×{data.shape[0]} px  "
-          f"(~{data.shape[1]*10/1000:.1f} × {data.shape[0]*10/1000:.1f} km)")
+    log.info(
+        f"  Clipped raster: {data.shape[1]} × {data.shape[0]} px  "
+        f"(~{data.shape[1]*10/1000:.1f} × {data.shape[0]*10/1000:.1f} km)"
+    )
 
-    # Save clipped raster
+    # Save clipped raster for GIS use
     out_tif = RAW_DIR / "kallakurichi_lulc.tif"
     with rasterio.open(
         out_tif, "w", driver="GTiff",
         height=data.shape[0], width=data.shape[1],
         count=1, dtype=data.dtype,
-        crs=crs, transform=transform,
-        compress="lzw",
+        crs=crs, transform=transform, compress="lzw",
     ) as dst:
         dst.write(data, 1)
-    print(f"  Saved → {out_tif}")
+    log.info(f"  Saved clipped raster → {out_tif}")
+    return data, transform
 
-    return data, transform, crs
 
-# ─── Step 2: LULC class map plot ─────────────────────────────────────────────────
+# ─── Step 3 : Full LULC class map ────────────────────────────────────────────────
 
-def plot_lulc_map(data, transform):
-    print("\n[2/5] Generating LULC class map...")
+def plot_lulc_map(data: np.ndarray, transform) -> Path:
+    log.info("\n[2/5] Generating full LULC class map...")
 
-    # Build colourmap aligned to class values
-    present_classes = sorted(set(int(v) for v in np.unique(data) if v in LULC_CLASSES))
-    cmap_colours = [LULC_CLASSES[c][1] for c in present_classes]
-    cmap = ListedColormap(cmap_colours)
+    present = sorted(int(v) for v in np.unique(data) if v in LULC_CLASSES)
+    colours = [LULC_CLASSES[c][1] for c in present]
+    cmap    = ListedColormap(colours)
 
-    # Remap raster values → indices
     remapped = np.full_like(data, -1, dtype=np.int16)
-    for idx, cls in enumerate(present_classes):
+    for idx, cls in enumerate(present):
         remapped[data == cls] = idx
 
-    # Extent for imshow (lon_min, lon_max, lat_min, lat_max)
     nrows, ncols = data.shape
-    lon_min_r = transform.c
-    lon_max_r = transform.c + ncols * transform.a
-    lat_max_r = transform.f
-    lat_min_r = transform.f + nrows * transform.e
-    extent = [lon_min_r, lon_max_r, lat_min_r, lat_max_r]
+    extent = [
+        transform.c,
+        transform.c + ncols * transform.a,
+        transform.f + nrows * transform.e,
+        transform.f,
+    ]
 
     fig, ax = plt.subplots(figsize=(10, 10), dpi=150)
-    ax.imshow(remapped, cmap=cmap, vmin=0, vmax=len(present_classes)-1,
-              extent=extent, origin="upper", interpolation="nearest",
-              aspect="equal")
+    ax.imshow(
+        remapped, cmap=cmap, vmin=0, vmax=max(len(present) - 1, 1),
+        extent=extent, origin="upper", interpolation="nearest", aspect="equal",
+    )
 
     # Legend
     patches = [
         mpatches.Patch(color=LULC_CLASSES[c][1], label=LULC_CLASSES[c][0])
-        for c in present_classes
+        for c in present
     ]
     ax.legend(handles=patches, loc="lower left", fontsize=8,
-              framealpha=0.9, title="ESA WorldCover 2021", title_fontsize=8)
+              framealpha=0.9, title="ESA WorldCover 2021 v200", title_fontsize=8)
 
-    ax.set_title("Kallakurichi District — ESA WorldCover 2021 (10 m)",
-                 fontsize=13, fontweight="bold", pad=12)
-    ax.set_xlabel("Longitude", fontsize=9)
-    ax.set_ylabel("Latitude", fontsize=9)
+    # Coverage statistics panel
+    total_px = int(np.sum(data > 0))
+    stats: list[str] = []
+    for cls in present:
+        px  = int(np.sum(data == cls))
+        pct = px / total_px * 100 if total_px else 0
+        stats.append(f"{LULC_CLASSES[cls][0]}: {pct:.1f}%")
+    ax.text(
+        0.98, 0.98, "\n".join(stats),
+        transform=ax.transAxes, fontsize=6.5, va="top", ha="right",
+        bbox=dict(boxstyle="round,pad=0.4", facecolor="white", alpha=0.85),
+    )
+
+    ax.set_title(
+        "Kallakurichi District — ESA WorldCover 2021 (10 m resolution)",
+        fontsize=13, fontweight="bold", pad=12,
+    )
+    ax.set_xlabel("Longitude (°E)", fontsize=9)
+    ax.set_ylabel("Latitude (°N)",  fontsize=9)
     ax.tick_params(labelsize=8)
-
-    # Add class coverage labels
-    total_px = np.sum(data != 0)
-    stats_text = []
-    for cls in present_classes:
-        px = int(np.sum(data == cls))
-        pct = px / total_px * 100 if total_px > 0 else 0
-        stats_text.append(f"{LULC_CLASSES[cls][0]}: {pct:.1f}%")
-
-    ax.text(0.98, 0.98, "\n".join(stats_text),
-            transform=ax.transAxes, fontsize=6.5,
-            verticalalignment="top", horizontalalignment="right",
-            bbox=dict(boxstyle="round,pad=0.4", facecolor="white", alpha=0.85))
-
     plt.tight_layout()
+
     out_path = OUT_DIR / "lulc_map.png"
     plt.savefig(out_path, bbox_inches="tight")
     plt.close()
-    print(f"  Saved → {out_path}")
+    log.info(f"  Saved → {out_path}")
     return out_path
 
-# ─── Step 3: Isolate barren pixels ───────────────────────────────────────────────
 
-def analyse_barren(data, transform):
-    print("\n[3/5] Isolating class-60 (Bare/sparse veg) pixels...")
+# ─── Step 4 + 5 : Isolate barren patches ─────────────────────────────────────────
 
-    barren_mask = (data == TARGET_CLASS)
+def analyse_barren(data: np.ndarray, transform):
+    log.info(f"\n[3/5] Isolating class {TARGET_LULC_CLASS} "
+             f"({LULC_CLASSES[TARGET_LULC_CLASS][0]}) pixels...")
+
+    barren_mask = (data == TARGET_LULC_CLASS)
     n_pixels    = int(np.sum(barren_mask))
-    print(f"  Bare/sparse pixels: {n_pixels:,}")
+    log.info(f"  Bare/sparse pixels: {n_pixels:,}")
 
     if n_pixels == 0:
-        print("  ⚠️  No class-60 pixels found in this area.")
+        log.warning("  No class-60 pixels found in this area.")
         return barren_mask, [], {}
 
-    # Pixel area at district centre latitude
     centre_lat = (LAT_MIN + LAT_MAX) / 2
     ha_per_px  = pixel_area_ha(transform, centre_lat)
     total_ha   = n_pixels * ha_per_px
     total_km2  = total_ha / 100
 
-    print(f"  Pixel size: ~{ha_per_px*10000:.0f} m²  (~10×10 m at {centre_lat:.1f}°N)")
-    print(f"  Total barren area: {total_ha:,.1f} ha  ({total_km2:.2f} km²)")
+    log.info(f"  Pixel resolution  : ~{ha_per_px * 10_000:.0f} m²  "
+             f"(~10 × 10 m at {centre_lat:.1f}°N)")
+    log.info(f"  Total barren area : {total_ha:,.1f} ha  ({total_km2:.2f} km²)")
 
-    # Connected components → patches
-    structure = np.ones((3, 3), dtype=int)  # 8-connected
-    labelled, n_patches = scipy_label(barren_mask, structure=structure)
-    print(f"  Connected patches: {n_patches:,}")
+    # 8-connected labelling
+    labelled, n_patches = scipy_label(barren_mask, structure=np.ones((3, 3), int))
+    log.info(f"  Connected patches : {n_patches:,}")
 
-    # Per-patch stats (only patches ≥ 1 ha → ≥ ~100 px at 10m)
-    MIN_PX = max(1, int(1.0 / ha_per_px))
+    # Keep only patches ≥ 1 ha
+    min_px = max(1, int(1.0 / ha_per_px))
     patches = []
     for pid in range(1, n_patches + 1):
-        px_mask = (labelled == pid)
-        px_count = int(np.sum(px_mask))
-        if px_count < MIN_PX:
+        px_mask = labelled == pid
+        px_cnt  = int(np.sum(px_mask))
+        if px_cnt < min_px:
             continue
         rows, cols = np.where(px_mask)
-        # Centroid in geographic coords
-        mid_row = int(np.mean(rows))
-        mid_col = int(np.mean(cols))
-        clon, clat = rio_xy(transform, mid_row, mid_col, offset="center")
-        patch_ha = px_count * ha_per_px
+        mid_r, mid_c = int(np.mean(rows)), int(np.mean(cols))
+        clon, clat = rio_xy(transform, mid_r, mid_c, offset="center")
+        patch_ha   = px_cnt * ha_per_px
         patches.append({
-            "patch_id":   f"P{pid:05d}",
-            "lat":        round(float(clat), 5),
-            "lon":        round(float(clon), 5),
-            "n_pixels":   px_count,
-            "area_ha":    round(patch_ha, 3),
-            "area_km2":   round(patch_ha / 100, 5),
+            "patch_id":  f"P{pid:05d}",
+            "lat":       round(float(clat), 5),
+            "lon":       round(float(clon), 5),
+            "n_pixels":  px_cnt,
+            "area_ha":   round(patch_ha, 3),
+            "area_km2":  round(patch_ha / 100, 5),
         })
 
     patches.sort(key=lambda x: -x["area_ha"])
-    print(f"  Patches ≥ 1 ha: {len(patches)}")
+    log.info(f"  Patches ≥ 1 ha    : {len(patches)}")
     if patches:
-        print(f"  Largest patch: {patches[0]['area_ha']:.1f} ha at "
-              f"({patches[0]['lat']}, {patches[0]['lon']})")
+        p0 = patches[0]
+        log.info(f"  Largest patch     : {p0['area_ha']:.1f} ha  "
+                 f"at ({p0['lat']}, {p0['lon']})")
 
-    summary = {
-        "n_pixels":   n_pixels,
-        "ha_per_px":  round(ha_per_px, 6),
-        "total_ha":   round(total_ha, 2),
-        "total_km2":  round(total_km2, 4),
-        "n_patches":  n_patches,
-        "patches_ge_1ha": len(patches),
+    area_summary = {
+        "n_pixels":        n_pixels,
+        "ha_per_px":       round(ha_per_px, 6),
+        "total_ha":        round(total_ha, 2),
+        "total_km2":       round(total_km2, 4),
+        "n_patches_total": n_patches,
+        "patches_ge_1ha":  len(patches),
     }
-    return barren_mask, patches, summary
+    return barren_mask, patches, area_summary
 
-# ─── Step 4: Attach factor values to patches ─────────────────────────────────────
 
-def attach_factors(patches):
-    print("\n[4/5] Attaching GHI, slope, power distance, road distance...")
+# ─── Step 7 : Attach factor values ───────────────────────────────────────────────
+
+def attach_factors(patches: list[dict]) -> tuple[list[dict], dict]:
+    log.info("\n[4/5] Attaching GHI, slope, temperature, and distances...")
 
     # Load raw data
-    with open(RAW_DIR / "srtm_elevation.json") as f:
-        srtm_raw = json.load(f)
-    srtm_pts = srtm_raw if isinstance(srtm_raw, list) else srtm_raw.get("points", [])
+    srtm_data  = load_json(RAW_DIR / "srtm_elevation.json")
+    pvgis_data = load_json(RAW_DIR / "pvgis_ghi.json")
+    nasa_data  = load_json(RAW_DIR / "nasa_power_ghi.json")
+    pwr_osm    = load_json(RAW_DIR / "osm_power.json")
+    hwy_osm    = load_json(RAW_DIR / "osm_highways.json")
 
-    # Compute slope for SRTM points
-    DEG_M = 111320.0
-    srtm_with_slope = []
-    for p in srtm_pts:
-        # Simple neighbourhood slope estimation
-        lat0, lon0, e0 = p["lat"], p["lon"], p.get("elevation_m", 0)
-        # Find neighbours
-        ns = [q for q in srtm_pts if abs(q["lat"]-lat0)<0.04 and abs(q["lon"]-lon0)<0.04 and q is not p]
-        if len(ns) >= 2:
-            dz_vals = []
-            for nb in ns:
-                dist_m = math.sqrt(
-                    ((nb["lat"]-lat0)*DEG_M)**2 +
-                    ((nb["lon"]-lon0)*DEG_M*math.cos(math.radians(lat0)))**2
+    srtm_pts = srtm_data if isinstance(srtm_data, list) else srtm_data.get("points", [])
+    pvgis_pts = pvgis_data if isinstance(pvgis_data, list) else pvgis_data.get("points", [])
+    nasa_pts  = nasa_data  if isinstance(nasa_data,  list) else nasa_data.get("points", [])
+
+    log.info(
+        f"  SRTM: {len(srtm_pts)} pts | PVGIS: {len(pvgis_pts)} pts | "
+        f"NASA: {len(nasa_pts)} pts | "
+        f"Power elements: {len(pwr_osm.get('elements', []))} | "
+        f"Highway elements: {len(hwy_osm.get('elements', []))}"
+    )
+
+    # Build coordinate arrays for NN interpolation
+    srtm_coords = np.array([[p["lat"], p["lon"]] for p in srtm_pts])
+    srtm_elev   = np.array([p.get("elevation_m") or 0.0 for p in srtm_pts])
+    pvgis_coords = np.array([[p["lat"], p["lon"]] for p in pvgis_pts])
+    pvgis_ghi    = np.array([p.get("ghi_kwh_m2_yr") or p.get("H(i)_y") or 0.0 for p in pvgis_pts])
+    pvgis_yield  = np.array([p.get("pv_yield_kwh_kwp") or p.get("E_y") or 0.0 for p in pvgis_pts])
+    nasa_coords  = np.array([[p["lat"], p["lon"]] for p in nasa_pts])
+    nasa_temp    = np.array([p.get("temp_c") or 0.0 for p in nasa_pts])
+
+    # Compute slope from SRTM via neighbour finite differences
+    DEG_M = 111_320.0
+    slope_vals = np.zeros(len(srtm_pts))
+    for i, p in enumerate(srtm_pts):
+        la, lo, e0 = p["lat"], p["lon"], p.get("elevation_m") or 0
+        nb = [
+            q for q in srtm_pts
+            if abs(q["lat"] - la) < 0.04 and abs(q["lon"] - lo) < 0.04 and q is not p
+        ]
+        if len(nb) >= 2:
+            grads = []
+            for n in nb:
+                dm = math.sqrt(
+                    ((n["lat"] - la) * DEG_M) ** 2
+                    + ((n["lon"] - lo) * DEG_M * math.cos(math.radians(la))) ** 2
                 )
-                if dist_m > 0:
-                    dz_vals.append(abs(nb.get("elevation_m",0) - e0) / dist_m)
-            grad = float(np.mean(dz_vals)) if dz_vals else 0.0
-        else:
-            grad = 0.0
-        slope = math.degrees(math.atan(grad))
-        srtm_with_slope.append({**p, "slope_deg": round(slope, 2)})
+                if dm > 0:
+                    grads.append(abs((n.get("elevation_m") or 0) - e0) / dm)
+            slope_vals[i] = math.degrees(math.atan(float(np.mean(grads)))) if grads else 0.0
 
-    with open(RAW_DIR / "pvgis_ghi.json") as f:
-        pvgis_raw = json.load(f)
-    pvgis_pts = pvgis_raw if isinstance(pvgis_raw, list) else pvgis_raw.get("points", [])
+    # Build OSM KD-trees
+    from scipy.spatial import cKDTree as _KDTree
 
-    with open(RAW_DIR / "nasa_power_ghi.json") as f:
-        nasa_raw = json.load(f)
-    nasa_pts = nasa_raw if isinstance(nasa_raw, list) else nasa_raw.get("points", [])
+    def _osm_tree(osm_json: dict):
+        pts: list[list[float]] = []
+        node_coords: dict[int, tuple] = {}
+        for e in osm_json.get("elements", []):
+            if e.get("type") == "node" and "lat" in e:
+                node_coords[e["id"]] = (e["lat"], e["lon"])
+                pts.append([e["lat"], e["lon"]])
+            elif e.get("type") == "way":
+                for n in e.get("geometry", []):
+                    if "lat" in n:
+                        pts.append([n["lat"], n["lon"]])
+        return _KDTree(np.array(pts)) if pts else None
 
-    with open(RAW_DIR / "osm_power.json") as f:
-        power_nodes = extract_nodes(json.load(f))
-    with open(RAW_DIR / "osm_highways.json") as f:
-        road_nodes = extract_nodes(json.load(f))
+    pwr_tree = _osm_tree(pwr_osm)
+    hwy_tree = _osm_tree(hwy_osm)
 
-    print(f"  SRTM: {len(srtm_with_slope)} pts | PVGIS: {len(pvgis_pts)} pts | "
-          f"Power nodes: {len(power_nodes)} | Road nodes: {len(road_nodes)}")
+    # Query arrays
+    patch_coords = np.array([[p["lat"], p["lon"]] for p in patches])
+
+    elev_vals_p,   _ = nn_interp(srtm_coords,  srtm_elev,   patch_coords)
+    slope_vals_p,  _ = nn_interp(srtm_coords,  slope_vals,  patch_coords)
+    ghi_vals_p,    _ = nn_interp(pvgis_coords, pvgis_ghi,   patch_coords)
+    yield_vals_p,  _ = nn_interp(pvgis_coords, pvgis_yield, patch_coords)
+    temp_vals_p,   _ = nn_interp(nasa_coords,  nasa_temp,   patch_coords)
+
+    power_dists_km = (
+        pwr_tree.query(patch_coords)[0] * 111.0
+        if pwr_tree else np.full(len(patches), 50.0)
+    )
+    road_dists_km = (
+        hwy_tree.query(patch_coords)[0] * 111.0
+        if hwy_tree else np.full(len(patches), 30.0)
+    )
 
     enriched = []
-    for p in patches:
-        lat, lon = p["lat"], p["lon"]
-
-        slope   = nearest_value(lat, lon, srtm_with_slope, "slope_deg")   or 0.0
-        elev    = nearest_value(lat, lon, srtm_with_slope, "elevation_m") or 0.0
-        ghi     = nearest_value(lat, lon, pvgis_pts, "ghi_kwh_m2_yr")     or 0.0
-        pv_yld  = nearest_value(lat, lon, pvgis_pts, "pv_yield_kwh_kwp")  or 0.0
-        temp    = nearest_value(lat, lon, nasa_pts, "temp_c")             or 0.0
-
-        power_km = min_dist_to_nodes(lat, lon, power_nodes)
-        road_km  = min_dist_to_nodes(lat, lon, road_nodes)
-
+    for i, p in enumerate(patches):
         enriched.append({
             **p,
-            "elevation_m":    round(elev, 1),
-            "slope_deg":      round(slope, 2),
-            "ghi_kwh_m2_yr":  round(ghi, 1),
-            "pv_yield_kwh_kwp": round(pv_yld, 0),
-            "temp_c":         round(temp, 2),
-            "power_dist_km":  power_km,
-            "road_dist_km":   road_km,
+            "elevation_m":       round(float(elev_vals_p[i]),   1),
+            "slope_deg":         round(float(slope_vals_p[i]),  2),
+            "ghi_kwh_m2_yr":     round(float(ghi_vals_p[i]),    1),
+            "pv_yield_kwh_kwp":  round(float(yield_vals_p[i]),  0),
+            "temp_c":            round(float(temp_vals_p[i]),   2),
+            "power_dist_km":     round(float(power_dists_km[i]), 3),
+            "road_dist_km":      round(float(road_dists_km[i]),  3),
         })
 
-    return enriched, {
-        "avg_ghi_kwh_m2_yr":   round(float(np.mean([e["ghi_kwh_m2_yr"]  for e in enriched])), 2) if enriched else 0,
-        "avg_slope_deg":       round(float(np.mean([e["slope_deg"]       for e in enriched])), 3) if enriched else 0,
-        "avg_power_dist_km":   round(float(np.mean([e["power_dist_km"]   for e in enriched])), 3) if enriched else 0,
-        "avg_road_dist_km":    round(float(np.mean([e["road_dist_km"]    for e in enriched])), 3) if enriched else 0,
-        "avg_temp_c":          round(float(np.mean([e["temp_c"]          for e in enriched])), 2) if enriched else 0,
-        "min_power_dist_km":   round(float(min(e["power_dist_km"] for e in enriched)), 3) if enriched else 0,
-        "min_road_dist_km":    round(float(min(e["road_dist_km"]  for e in enriched)), 3) if enriched else 0,
-        "max_area_ha":         round(float(max(e["area_ha"] for e in enriched)), 2) if enriched else 0,
-        "total_area_ha":       round(float(sum(e["area_ha"] for e in enriched)), 2) if enriched else 0,
+    def _mean(key):
+        vals = [e[key] for e in enriched if e.get(key) is not None]
+        return round(float(np.mean(vals)), 3) if vals else 0.0
+
+    factor_summary = {
+        "avg_ghi_kwh_m2_yr":  _mean("ghi_kwh_m2_yr"),
+        "avg_slope_deg":      _mean("slope_deg"),
+        "avg_temp_c":         _mean("temp_c"),
+        "avg_power_dist_km":  _mean("power_dist_km"),
+        "avg_road_dist_km":   _mean("road_dist_km"),
+        "min_power_dist_km":  round(float(min(e["power_dist_km"] for e in enriched)), 3) if enriched else 0,
+        "min_road_dist_km":   round(float(min(e["road_dist_km"]  for e in enriched)), 3) if enriched else 0,
+        "max_area_ha":        round(float(max(e["area_ha"]        for e in enriched)), 2) if enriched else 0,
+        "total_area_ha":      round(float(sum(e["area_ha"]        for e in enriched)), 2) if enriched else 0,
     }
+    return enriched, factor_summary
 
-# ─── Step 5: Barren map plot ──────────────────────────────────────────────────────
 
-def plot_barren_map(data, transform, enriched_patches):
-    print("\n[5/5] Generating barren land map...")
+# ─── Step 8 : Barren land map ─────────────────────────────────────────────────────
+
+def plot_barren_map(data: np.ndarray, transform, patches: list[dict]) -> Path:
+    log.info("\n[5/5] Generating barren land highlight map...")
 
     nrows, ncols = data.shape
-    lon_min_r = transform.c
-    lon_max_r = transform.c + ncols * transform.a
-    lat_max_r = transform.f
-    lat_min_r = transform.f + nrows * transform.e
-    extent = [lon_min_r, lon_max_r, lat_min_r, lat_max_r]
+    extent = [
+        transform.c,
+        transform.c + ncols * transform.a,
+        transform.f + nrows * transform.e,
+        transform.f,
+    ]
 
-    # Base: grey LULC, highlight barren in red-orange
+    # Build RGB display: desaturate non-barren classes, highlight barren in orange
     display = np.zeros((*data.shape, 3), dtype=np.uint8)
-    for cls, (name, hex_col) in LULC_CLASSES.items():
+    for cls, (_, hex_col, _) in LULC_CLASSES.items():
         mask = (data == cls)
         r = int(hex_col[1:3], 16)
         g = int(hex_col[3:5], 16)
         b = int(hex_col[5:7], 16)
-        # Desaturate non-barren classes to grey
-        if cls != TARGET_CLASS:
-            grey = int(0.3*r + 0.59*g + 0.11*b)
+        if cls != TARGET_LULC_CLASS:
+            grey = int(0.3 * r + 0.59 * g + 0.11 * b)
             display[mask] = [grey, grey, grey]
         else:
-            display[mask] = [255, 140, 0]  # bright orange for barren
+            display[mask] = [255, 140, 0]   # bright orange
 
     fig, ax = plt.subplots(figsize=(10, 10), dpi=150)
     ax.imshow(display, extent=extent, origin="upper", aspect="equal",
               interpolation="nearest")
 
-    # Plot patch centroids (sized by area)
-    if enriched_patches:
-        lats = [p["lat"] for p in enriched_patches]
-        lons = [p["lon"] for p in enriched_patches]
-        areas = [p["area_ha"] for p in enriched_patches]
+    # Patch centroids — size proportional to area
+    if patches:
+        lats  = [p["lat"] for p in patches]
+        lons  = [p["lon"] for p in patches]
+        areas = [p["area_ha"] for p in patches]
         max_a = max(areas) if areas else 1
         sizes = [max(20, min(300, a / max_a * 200)) for a in areas]
         ax.scatter(lons, lats, s=sizes, c="#FF4500", edgecolors="white",
                    linewidths=0.5, zorder=5, alpha=0.85, label="Barren patch centroid")
 
-        # Label top-10 largest
-        for p in enriched_patches[:10]:
+        # Label top-10 largest patches
+        for p in patches[:10]:
             ax.annotate(
                 f"{p['area_ha']:.0f} ha",
                 (p["lon"], p["lat"]),
                 textcoords="offset points", xytext=(4, 4),
-                fontsize=5.5, color="white",
-                fontweight="bold",
+                fontsize=5.5, color="white", fontweight="bold",
                 bbox=dict(boxstyle="round,pad=0.2", fc="#FF4500", alpha=0.7),
             )
 
-    ax.set_title(
-        "Kallakurichi District — Bare/Sparse Vegetation (ESA WorldCover 2021)",
-        fontsize=12, fontweight="bold", pad=12,
-    )
-    ax.set_xlabel("Longitude", fontsize=9)
-    ax.set_ylabel("Latitude", fontsize=9)
-    ax.tick_params(labelsize=8)
-
-    # Legend
-    barren_patch = mpatches.Patch(color="#FF8C00", label="Bare/sparse veg (class 60)")
-    grey_patch   = mpatches.Patch(color="#888888", label="Other land cover (greyed)")
-    ax.legend(handles=[barren_patch, grey_patch], loc="lower left",
-              fontsize=8, framealpha=0.9)
-
-    # Stats box
-    if enriched_patches:
-        n = len(enriched_patches)
-        total_ha = sum(p["area_ha"] for p in enriched_patches)
-        avg_ghi  = sum(p["ghi_kwh_m2_yr"] for p in enriched_patches) / n
-        avg_slp  = sum(p["slope_deg"] for p in enriched_patches) / n
-        avg_pwr  = sum(p["power_dist_km"] for p in enriched_patches) / n
-        avg_rd   = sum(p["road_dist_km"] for p in enriched_patches) / n
-        stats_text = (
-            f"Patches (≥1 ha): {n}\n"
-            f"Total area: {total_ha:,.0f} ha\n"
-            f"Avg GHI: {avg_ghi:.0f} kWh/m²/yr\n"
-            f"Avg slope: {avg_slp:.1f}°\n"
-            f"Avg power dist: {avg_pwr:.1f} km\n"
-            f"Avg road dist: {avg_rd:.1f} km"
+        # Stats box
+        n         = len(patches)
+        total_ha  = sum(p["area_ha"] for p in patches)
+        avg_ghi   = sum(p.get("ghi_kwh_m2_yr",  0) for p in patches) / n
+        avg_slp   = sum(p.get("slope_deg",       0) for p in patches) / n
+        avg_pwr   = sum(p.get("power_dist_km",   0) for p in patches) / n
+        avg_rd    = sum(p.get("road_dist_km",    0) for p in patches) / n
+        stats_txt = (
+            f"Patches ≥ 1 ha : {n}\n"
+            f"Total area     : {total_ha:,.0f} ha\n"
+            f"Avg GHI        : {avg_ghi:.0f} kWh/m²/yr\n"
+            f"Avg slope      : {avg_slp:.1f}°\n"
+            f"Avg power dist : {avg_pwr:.1f} km\n"
+            f"Avg road dist  : {avg_rd:.1f} km"
         )
-        ax.text(0.98, 0.98, stats_text,
-                transform=ax.transAxes, fontsize=8,
+        ax.text(0.98, 0.98, stats_txt, transform=ax.transAxes, fontsize=8,
                 va="top", ha="right",
                 bbox=dict(boxstyle="round,pad=0.5", fc="white", alpha=0.9))
 
+    barren_p = mpatches.Patch(color="#FF8C00", label="Bare/sparse veg (class 60)")
+    grey_p   = mpatches.Patch(color="#888888", label="Other land cover (greyed)")
+    ax.legend(handles=[barren_p, grey_p], loc="lower left", fontsize=8, framealpha=0.9)
+
+    ax.set_title(
+        "Kallakurichi District — Bare/Sparse Vegetation (ESA WorldCover 2021 v200)",
+        fontsize=12, fontweight="bold", pad=12,
+    )
+    ax.set_xlabel("Longitude (°E)", fontsize=9)
+    ax.set_ylabel("Latitude (°N)",  fontsize=9)
+    ax.tick_params(labelsize=8)
     plt.tight_layout()
+
     out_path = OUT_DIR / "barren_map.png"
     plt.savefig(out_path, bbox_inches="tight")
     plt.close()
-    print(f"  Saved → {out_path}")
+    log.info(f"  Saved → {out_path}")
     return out_path
+
 
 # ─── Main ────────────────────────────────────────────────────────────────────────
 
-def main():
-    print("=" * 65)
-    print("  Script 07 — ESA LULC Raster + Barren Land Analysis")
-    print("  Kallakurichi District, Tamil Nadu")
-    print("=" * 65)
+def main() -> None:
+    log.info("=" * 65)
+    log.info("  Script 07 — ESA WorldCover LULC + Barren Land Analysis")
+    log.info("  Kallakurichi District, Tamil Nadu, India")
+    log.info(f"  Bbox: [{LAT_MIN}–{LAT_MAX}°N, {LON_MIN}–{LON_MAX}°E]")
+    log.info("=" * 65)
 
-    # 1. Load raster
-    data, transform, crs = load_lulc_raster()
-
-    # 2. LULC class map
+    data, transform = load_lulc_raster()
     plot_lulc_map(data, transform)
-
-    # 3. Isolate barren + connected patches
     barren_mask, patches, area_summary = analyse_barren(data, transform)
 
     if not patches:
-        print("\n⚠️  No patches found — nothing to analyse further.")
+        log.warning("No barren patches found.  Nothing further to analyse.")
         return
 
-    # 4. Attach GHI, slope, distances
     enriched, factor_summary = attach_factors(patches)
-
-    # 5. Barren map
     plot_barren_map(data, transform, enriched)
 
-    # 6. Save results
+    # ── Save JSON output ───────────────────────────────────────────────────────
     full_summary = {
-        "district":    "Kallakurichi, Tamil Nadu",
+        "district":    "Kallakurichi, Tamil Nadu, India",
         "data_source": "ESA WorldCover 2021 v200 (10 m resolution)",
-        "lulc_filter": "Class 60 — Bare/sparse vegetation",
-        "bbox":        {"lat_min": LAT_MIN, "lat_max": LAT_MAX,
-                        "lon_min": LON_MIN, "lon_max": LON_MAX},
+        "lulc_filter": f"Class {TARGET_LULC_CLASS} — "
+                       f"{LULC_CLASSES[TARGET_LULC_CLASS][0]}",
+        "bbox": {
+            "lat_min": LAT_MIN, "lat_max": LAT_MAX,
+            "lon_min": LON_MIN, "lon_max": LON_MAX,
+        },
+        "citation":       CITATIONS["esa_worldcover"],
         **area_summary,
         **factor_summary,
-        "top_patches": enriched[:20],
+        "top_patches":    enriched[:20],
+        "all_patches":    enriched,
     }
 
     json_path = PROC_DIR / "barren_analysis.json"
-    with open(json_path, "w") as f:
-        json.dump(full_summary, f, indent=2)
-    print(f"\n  Saved → {json_path}")
+    save_json(full_summary, json_path)
+    log.info(f"\n  Saved → {json_path}")
 
+    # ── Save CSV output ────────────────────────────────────────────────────────
+    import csv
     csv_path = PROC_DIR / "barren_analysis.csv"
     if enriched:
         with open(csv_path, "w", newline="") as f:
             writer = csv.DictWriter(f, fieldnames=list(enriched[0].keys()))
             writer.writeheader()
             writer.writerows(enriched)
-    print(f"  Saved → {csv_path}")
+        log.info(f"  Saved → {csv_path}")
 
-    # ── Final summary ──────────────────────────────────────────────────────────
-    print()
-    print("=" * 65)
-    print("  RESULTS")
-    print("=" * 65)
-    print(f"  Total bare/sparse area:   {area_summary['total_ha']:>10,.1f} ha"
-          f"  ({area_summary['total_km2']:.2f} km²)")
-    print(f"  Connected patches (≥1 ha): {area_summary['patches_ge_1ha']:>8,}")
-    print(f"  Largest patch:             {factor_summary['max_area_ha']:>8.1f} ha")
-    print()
-    print(f"  Avg GHI:                  {factor_summary['avg_ghi_kwh_m2_yr']:>8.1f} kWh/m²/yr")
-    print(f"  Avg slope:                {factor_summary['avg_slope_deg']:>8.2f} °")
-    print(f"  Avg temp:                 {factor_summary['avg_temp_c']:>8.2f} °C")
-    print(f"  Avg dist. to substation:  {factor_summary['avg_power_dist_km']:>8.2f} km")
-    print(f"  Avg dist. to highway:     {factor_summary['avg_road_dist_km']:>8.2f} km")
-    print(f"  Nearest substation:       {factor_summary['min_power_dist_km']:>8.2f} km")
-    print(f"  Nearest highway:          {factor_summary['min_road_dist_km']:>8.2f} km")
-    print()
-    print("  Outputs:")
-    print(f"    data/raw/kallakurichi_lulc.tif       ← clipped LULC raster")
-    print(f"    data/outputs/lulc_map.png            ← full LULC class map")
-    print(f"    data/outputs/barren_map.png          ← barren parcels highlighted")
-    print(f"    data/processed/barren_analysis.json  ← full stats + top patches")
-    print(f"    data/processed/barren_analysis.csv   ← all patches tabular")
+    # ── Final console summary ──────────────────────────────────────────────────
+    log.info("")
+    log.info("=" * 65)
+    log.info("  RESULTS")
+    log.info("=" * 65)
+    log.info(f"  Total bare/sparse area   : {area_summary['total_ha']:>10,.1f} ha"
+             f"  ({area_summary['total_km2']:.2f} km²)")
+    log.info(f"  Patches (connected, 8-nb): {area_summary['n_patches_total']:>10,}")
+    log.info(f"  Patches ≥ 1 ha           : {area_summary['patches_ge_1ha']:>10,}")
+    log.info(f"  Largest patch            : {factor_summary['max_area_ha']:>10.1f} ha")
+    log.info("")
+    log.info(f"  Avg GHI                  : {factor_summary['avg_ghi_kwh_m2_yr']:>10.1f} kWh/m²/yr")
+    log.info(f"  Avg slope                : {factor_summary['avg_slope_deg']:>10.2f} °")
+    log.info(f"  Avg temperature          : {factor_summary['avg_temp_c']:>10.2f} °C")
+    log.info(f"  Avg dist. to substation  : {factor_summary['avg_power_dist_km']:>10.2f} km")
+    log.info(f"  Avg dist. to highway     : {factor_summary['avg_road_dist_km']:>10.2f} km")
+    log.info(f"  Nearest substation       : {factor_summary['min_power_dist_km']:>10.2f} km")
+    log.info(f"  Nearest highway          : {factor_summary['min_road_dist_km']:>10.2f} km")
+    log.info("")
+    log.info("  Output files:")
+    log.info("    data/raw/kallakurichi_lulc.tif         ← clipped LULC raster (10 m)")
+    log.info("    data/outputs/lulc_map.png              ← full LULC class map")
+    log.info("    data/outputs/barren_map.png            ← barren land highlight map")
+    log.info("    data/processed/barren_analysis.json   ← full patch statistics")
+    log.info("    data/processed/barren_analysis.csv    ← tabular patch data")
+    log.info("")
+    log.info("  Next: apply filters with script 06:")
+    log.info("    python scripts/06_filter_solar_candidates.py")
 
 
 if __name__ == "__main__":
