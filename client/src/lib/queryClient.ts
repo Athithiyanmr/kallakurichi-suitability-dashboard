@@ -1,10 +1,12 @@
 import { QueryClient } from "@tanstack/react-query";
 
-// __PORT_5000__ is replaced at deploy time by deploy_website tool.
-// In local mode, API_BASE stays as "__PORT_5000__" literal, so we handle
-// that by falling back to empty string (relative URL).
-const _BASE = import.meta.env.VITE_API_BASE ?? "__PORT_5000__";
-const API_BASE = _BASE.includes("__PORT_") ? "" : _BASE;
+// VITE_API_BASE from .env — empty string in dev (same-origin relative requests).
+// In production, deploy_website replaces __PORT_5000__ in the built bundle
+// with the actual proxy path so the deployed frontend reaches the Express API.
+// If VITE_API_BASE is not set, fall back to the deploy-time sentinel.
+const _RAW = import.meta.env.VITE_API_BASE ?? "__PORT_5000__";
+// Guard: if the sentinel wasn't replaced (local dev), use relative URLs
+const API_BASE: string = _RAW === "" || _RAW.includes("__PORT_") ? "" : _RAW;
 
 export async function apiRequest(url: string, options?: RequestInit) {
   const fullUrl = url.startsWith("/") ? `${API_BASE}${url}` : url;
