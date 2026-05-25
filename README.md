@@ -65,7 +65,8 @@ kallakurichi-suitability-dashboard/
 │   ├── 04_fetch_esa_worldcover.py     ← ESA WorldCover 2020 LULC via Terrascope WMS
 │   ├── 05_process_data.py             ← Grid-level processing + composite scoring
 │   ├── 06_filter_solar_candidates.py  ← Post-filter barren patches (reads script 07 output)
-│   └── 07_lulc_barren_analysis.py     ← Raster LULC map + barren land analysis
+│   ├── 07_lulc_barren_analysis.py     ← Raster LULC map + barren land analysis
+│   └── 08_barren_polygons.py           ← ESA polygon extraction + factor scoring → GeoJSON
 │
 ├── data/
 │   ├── raw/
@@ -83,6 +84,9 @@ kallakurichi-suitability-dashboard/
 │   │   ├── barren_analysis.json       ← Barren patch stats + factor averages
 │   │   ├── barren_analysis.csv        ← All barren patches tabular
 │   │   ├── solar_candidates.json      ← Filtered top-candidate patches
+│   │   ├── barren_parcels.geojson     ← 14,639 ESA polygons with full factor values (script 08)
+│   │   ├── barren_parcels_flat.json   ← Flat JSON array for React dashboard API
+│   │   └── barren_parcels.csv         ← Tabular export for GIS tools
 │   │   └── solar_candidates.geojson   ← GeoJSON for QGIS / Leaflet
 │   │
 │   └── outputs/
@@ -145,6 +149,11 @@ python scripts/07_lulc_barren_analysis.py
 
 # Step 6 — Filter and rank solar candidates
 python scripts/06_filter_solar_candidates.py
+
+# Step 8 — Polygon extraction: vectorise ESA barren land → GeoJSON for dashboard
+# Reads: ESA WorldCover 2021 v200 tiles via /vsicurl/ (AWS S3 public)
+# Outputs: data/processed/barren_parcels.geojson, barren_parcels_flat.json, barren_parcels.csv
+python scripts/08_barren_polygons.py
 ```
 
 > Scripts 01–04 fetch data from the internet and may take several minutes.
