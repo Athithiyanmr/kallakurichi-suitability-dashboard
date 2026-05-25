@@ -1,67 +1,103 @@
 import type { Express } from "express";
 import type { Server } from "http";
-import * as fs from "fs";
-import * as path from "path";
+import path from "path";
+import fs from "fs";
 
-// ─── Parcel schema (flat properties from barren_parcels_flat.json) ────────────
-interface Parcel {
-  id:         string;
-  lulc:       string;
-  lulc_class: number;
-  area_ha:    number;
-  lat:        number;
-  lon:        number;
-  elev:       number;
-  slope:      number;
-  ghi:        number;
-  pv_yield:   number;
-  temp:       number;
-  pwr_km:     number;
-  road_km:    number;
-  s_slope:    number;
-  s_ghi:      number;
-  s_power:    number;
-  s_road:     number;
-  s_temp:     number;
-  s_lulc:     number;
-  score:      number;
-  class:      string;
+// Works in both ESM (tsx dev) and CJS (esbuild production)
+// In CJS, __dirname is natively available.
+// In ESM, we derive it from import.meta.url.
+// We guard the import.meta.url path so esbuild doesn't warn in CJS mode.
+function getDataDir(): string {
+  // CJS path: __dirname is defined
+  try {
+    // eslint-disable-next-line no-undef
+    if (typeof __dirname !== "undefined") return __dirname;
+  } catch {}
+  // ESM path: derive from import.meta.url
+  // We use Function() to avoid esbuild static analysis warning
+  const metaUrl: string = new Function("return import.meta.url")();
+  const { fileURLToPath } = require("url") as typeof import("url");
+  return path.dirname(fileURLToPath(metaUrl));
 }
 
-// ─── Load data once at startup ────────────────────────────────────────────────
-const dataDir = path.join(__dirname);
+const DATA_DIR = getDataDir();
 
-let PARCELS: Parcel[] = [];
-let GEOJSON_STR: string = "";
+// ── Types ────────────────────────────────────────────────────────────────────
+
+interface FlatParcel {
+  id: number;
+  lulc: number;
+  lulc_class: string;
+  area_ha: number;
+  lat: number;
+  lon: number;
+  elev: number;
+  slope: number;
+  ghi: number;
+  pv_yield: number;
+  temp: number;
+  pwr_km: number;
+  road_km: number;
+  s_slope: number;
+  s_ghi: number;
+  s_power: number;
+  s_road: number;
+  s_temp: number;
+  s_lulc: number;
+  score: number;
+  class: string;
+}
+
+interface GeoParcel {
+  type: "Feature";
+  geometry: {
+    type: string;
+    coordinates: unknown;
+  };
+  properties: FlatParcel;
+}
+
+interface GeoJSON {
+  type: "FeatureCollection";
+  features: GeoParcel[];
+}
+
+// ── Load data files at startup ───────────────────────────────────────────────
+
+const flatPath = path.join(DATA_DIR, "barren_parcels_flat.json");
+const geoPath  = path.join(DATA_DIR, "barren_parcels.geojson");
+
+let FLAT_PARCELS: FlatParcel[] = [];
+let GEO_DATA: GeoJSON = { type: "FeatureCollection", features: [] };
 
 try {
-  const flatPath = path.join(dataDir, "barren_parcels_flat.json");
-  PARCELS = JSON.parse(fs.readFileSync(flatPath, "utf8")) as Parcel[];
-  console.log(`[routes] Loaded ${PARCELS.length} barren parcels`);
+  FLAT_PARCELS = JSON.parse(fs.readFileSync(flatPath, "utf8")) as FlatParcel[];
+  console.log(`✅ Loaded ${FLAT_PARCELS.length} flat parcels from barren_parcels_flat.json`);
 } catch (e) {
-  console.warn("[routes] barren_parcels_flat.json not found, using empty dataset");
+  console.error("❌ Could not load barren_parcels_flat.json:", e);
 }
 
 try {
-  const gjPath = path.join(dataDir, "barren_parcels.geojson");
-  GEOJSON_STR = fs.readFileSync(gjPath, "utf8");
-  console.log(`[routes] GeoJSON loaded (${(GEOJSON_STR.length / 1024 / 1024).toFixed(1)} MB)`);
+  GEO_DATA = JSON.parse(fs.readFileSync(geoPath, "utf8")) as GeoJSON;
+  console.log(`✅ Loaded ${GEO_DATA.features?.length ?? 0} GeoJSON features from barren_parcels.geojson`);
 } catch (e) {
-  console.warn("[routes] barren_parcels.geojson not found");
-  GEOJSON_STR = '{"type":"FeatureCollection","features":[]}';
+  console.error("❌ Could not load barren_parcels.geojson:", e);
 }
 
-// ─── Helpers ──────────────────────────────────────────────────────────────────
-function computeScore(p: Parcel, weights: Record<string, number>): number {
+// ── Suitability helpers ──────────────────────────────────────────────────────
+
+function computeScore(p: FlatParcel, weights: Record<string, number>): number {
   const total = Object.values(weights).reduce((a, b) => a + b, 0) || 1;
-  const nw    = Object.fromEntries(Object.entries(weights).map(([k, v]) => [k, v / total]));
+  const w = Object.fromEntries(
+    Object.entries(weights).map(([k, v]) => [k, v / total])
+  );
   return (
-    (nw.slope ?? 0) * p.s_slope +
-    (nw.lulc  ?? 0) * p.s_lulc  +
-    (nw.ghi   ?? 0) * p.s_ghi   +
-    (nw.power ?? 0) * p.s_power +
-    (nw.road  ?? 0) * p.s_road  +
-    (nw.temp  ?? 0) * p.s_temp
+    (w.slope ?? 0) * p.s_slope +
+    (w.ghi   ?? 0) * p.s_ghi   +
+    (w.power ?? 0) * p.s_power +
+    (w.road  ?? 0) * p.s_road  +
+    (w.temp  ?? 0) * p.s_temp  +
+    (w.lulc  ?? 0) * p.s_lulc
   );
 }
 
@@ -72,126 +108,131 @@ function suitClass(score: number): string {
   return "Low";
 }
 
-// ─── Routes ───────────────────────────────────────────────────────────────────
+function parseNum(val: unknown, def: number): number {
+  const n = parseFloat(val as string);
+  return isNaN(n) ? def : n;
+}
+
+// ── Route registration ───────────────────────────────────────────────────────
+
 export async function registerRoutes(httpServer: Server, app: Express): Promise<Server> {
 
-  // ── GET /api/parcels — flat list with re-scored suitability ─────────────────
+  // ── GET /api/parcels ────────────────────────────────────────────────────────
+  // Returns flat JSON array with re-computed scores + class based on user weights
   app.get("/api/parcels", (req, res) => {
     const weights = {
-      slope: parseFloat((req.query.w_slope as string) ?? "5"),
-      lulc:  parseFloat((req.query.w_lulc  as string) ?? "5"),
-      ghi:   parseFloat((req.query.w_ghi   as string) ?? "5"),
-      power: parseFloat((req.query.w_power as string) ?? "5"),
-      road:  parseFloat((req.query.w_road  as string) ?? "5"),
-      temp:  parseFloat((req.query.w_temp  as string) ?? "5"),
+      slope: parseNum(req.query.w_slope, 5),
+      ghi:   parseNum(req.query.w_ghi,   5),
+      power: parseNum(req.query.w_power, 5),
+      road:  parseNum(req.query.w_road,  5),
+      temp:  parseNum(req.query.w_temp,  5),
+      lulc:  parseNum(req.query.w_lulc,  5),
     };
 
-    const lulcFilter   = (req.query.lulc    as string | undefined)?.toLowerCase();
-    const maxSlope     = parseFloat((req.query.max_slope     as string) ?? "999");
-    const maxPowerDist = parseFloat((req.query.max_power_dist as string) ?? "999");
-    const minArea      = parseFloat((req.query.min_area      as string) ?? "0");
-    const suitFilter   = (req.query.suit_class as string | undefined)?.toLowerCase();
+    const lulcFilter    = req.query.lulc       as string | undefined;
+    const classFilter   = req.query.suit_class as string | undefined;
+    const maxSlope      = parseNum(req.query.max_slope,      999);
+    const maxPowerDist  = parseNum(req.query.max_power_dist, 999);
+    const minArea       = parseNum(req.query.min_area,       0);
 
-    const result = PARCELS
+    const result = FLAT_PARCELS
       .filter((p) => {
-        if (lulcFilter && lulcFilter !== "all" && p.lulc.toLowerCase() !== lulcFilter) return false;
-        if (p.slope    > maxSlope)     return false;
-        if (p.pwr_km   > maxPowerDist) return false;
-        if (p.area_ha  < minArea)      return false;
+        if (lulcFilter  && lulcFilter  !== "all" && p.lulc_class !== lulcFilter)  return false;
+        if (p.slope     > maxSlope)      return false;
+        if (p.pwr_km    > maxPowerDist)  return false;
+        if (p.area_ha   < minArea)       return false;
         return true;
       })
       .map((p) => {
-        const score = Math.round(computeScore(p, weights) * 1000) / 1000;
+        const score = computeScore(p, weights);
         const cls   = suitClass(score);
-        return { ...p, score, class: cls };
+        if (classFilter && classFilter !== "all" && cls !== classFilter) return null;
+        return {
+          ...p,
+          score: Math.round(score * 1000) / 1000,
+          class: cls,
+        };
       })
-      .filter((p) => {
-        if (suitFilter && suitFilter !== "all" && p.class.toLowerCase() !== suitFilter) return false;
-        return true;
-      })
-      .sort((a, b) => b.score - a.score);
+      .filter(Boolean);
 
     res.json(result);
   });
 
-  // ── GET /api/geojson — full polygon GeoJSON with re-scored suitability ──────
-  // Serve the GeoJSON with updated scores based on weight params
-  // For performance, if no custom weights: serve raw cached string
+  // ── GET /api/geojson ────────────────────────────────────────────────────────
+  // Returns GeoJSON FeatureCollection with same filters + re-computed scores
   app.get("/api/geojson", (req, res) => {
-    const hasWeights = Object.keys(req.query).some((k) => k.startsWith("w_"));
-
-    if (!hasWeights) {
-      // Serve pre-built file directly (fast path)
-      res.setHeader("Content-Type", "application/geo+json");
-      res.setHeader("Cache-Control", "public, max-age=60");
-      res.send(GEOJSON_STR);
-      return;
-    }
-
-    // Re-score with custom weights
     const weights = {
-      slope: parseFloat((req.query.w_slope as string) ?? "5"),
-      lulc:  parseFloat((req.query.w_lulc  as string) ?? "5"),
-      ghi:   parseFloat((req.query.w_ghi   as string) ?? "5"),
-      power: parseFloat((req.query.w_power as string) ?? "5"),
-      road:  parseFloat((req.query.w_road  as string) ?? "5"),
-      temp:  parseFloat((req.query.w_temp  as string) ?? "5"),
+      slope: parseNum(req.query.w_slope, 5),
+      ghi:   parseNum(req.query.w_ghi,   5),
+      power: parseNum(req.query.w_power, 5),
+      road:  parseNum(req.query.w_road,  5),
+      temp:  parseNum(req.query.w_temp,  5),
+      lulc:  parseNum(req.query.w_lulc,  5),
     };
 
-    const lulcFilter   = (req.query.lulc    as string | undefined)?.toLowerCase();
-    const maxSlope     = parseFloat((req.query.max_slope as string) ?? "999");
-    const maxPowerDist = parseFloat((req.query.max_power_dist as string) ?? "999");
-    const minArea      = parseFloat((req.query.min_area as string) ?? "0");
+    const lulcFilter   = req.query.lulc       as string | undefined;
+    const classFilter  = req.query.suit_class as string | undefined;
+    const maxSlope     = parseNum(req.query.max_slope,      999);
+    const maxPowerDist = parseNum(req.query.max_power_dist, 999);
+    const minArea      = parseNum(req.query.min_area,       0);
 
-    // Parse base GeoJSON and re-score features
-    const base = JSON.parse(GEOJSON_STR);
-    const features = base.features
-      .filter((f: any) => {
+    const features = GEO_DATA.features
+      .filter((f) => {
         const p = f.properties;
-        if (lulcFilter && lulcFilter !== "all" && p.lulc?.toLowerCase() !== lulcFilter) return false;
-        if (p.slope   > maxSlope)     return false;
-        if (p.pwr_km  > maxPowerDist) return false;
-        if (p.area_ha < minArea)      return false;
+        if (lulcFilter && lulcFilter !== "all" && p.lulc_class !== lulcFilter)  return false;
+        if (p.slope    > maxSlope)      return false;
+        if (p.pwr_km   > maxPowerDist)  return false;
+        if (p.area_ha  < minArea)       return false;
         return true;
       })
-      .map((f: any) => {
-        // Build a Parcel-like object from GeoJSON properties
-        const p = f.properties as Parcel;
-        const score = Math.round(computeScore(p, weights) * 1000) / 1000;
+      .map((f) => {
+        const score = computeScore(f.properties, weights);
+        const cls   = suitClass(score);
+        if (classFilter && classFilter !== "all" && cls !== classFilter) return null;
         return {
           ...f,
-          properties: { ...p, score, class: suitClass(score) },
+          properties: {
+            ...f.properties,
+            score: Math.round(score * 1000) / 1000,
+            class: cls,
+          },
         };
-      });
-
-    res.setHeader("Content-Type", "application/geo+json");
-    res.json({ ...base, features });
-  });
-
-  // ── GET /api/meta ────────────────────────────────────────────────────────────
-  app.get("/api/meta", (_req, res) => {
-    const lulcTypes = [...new Set(PARCELS.map((p) => p.lulc))].sort();
-    const suitCls   = [...new Set(PARCELS.map((p) => p.class))];
-    const totalHa   = PARCELS.reduce((s, p) => s + p.area_ha, 0);
+      })
+      .filter(Boolean);
 
     res.json({
-      total_parcels:  PARCELS.length,
-      total_area_ha:  Math.round(totalHa),
-      lulc_types:     lulcTypes,
-      suit_classes:   ["Very High", "High", "Moderate", "Low"],
+      type: "FeatureCollection",
+      features,
+    });
+  });
+
+  // ── GET /api/meta ───────────────────────────────────────────────────────────
+  app.get("/api/meta", (_req, res) => {
+    const lulcTypes   = [...new Set(FLAT_PARCELS.map((p) => p.lulc_class))].sort();
+    const suitClasses = [...new Set(FLAT_PARCELS.map((p) => p.class))].sort();
+
+    const lats = FLAT_PARCELS.map((p) => p.lat);
+    const lons = FLAT_PARCELS.map((p) => p.lon);
+
+    res.json({
+      total_parcels: FLAT_PARCELS.length,
+      total_area_ha: Math.round(FLAT_PARCELS.reduce((s, p) => s + p.area_ha, 0)),
+      lulc_types:    lulcTypes,
+      suit_classes:  suitClasses,
       bbox: {
-        min_lat: Math.min(...PARCELS.map((p) => p.lat)),
-        max_lat: Math.max(...PARCELS.map((p) => p.lat)),
-        min_lon: Math.min(...PARCELS.map((p) => p.lon)),
-        max_lon: Math.max(...PARCELS.map((p) => p.lon)),
+        min_lat: Math.min(...lats),
+        max_lat: Math.max(...lats),
+        min_lon: Math.min(...lons),
+        max_lon: Math.max(...lons),
       },
       data_sources: {
-        lulc:      "ESA WorldCover 2021 v200 (10 m)",
-        elevation: "NASA SRTM 30 m via OpenTopoData",
-        solar:     "PVGIS API v5.2 ERA5",
-        climate:   "NASA POWER v8 MERRA-2",
-        grid:      "OpenStreetMap Overpass API",
-        roads:     "OpenStreetMap Overpass API",
+        lulc:          "ESA WorldCover 2021 v200",
+        elevation:     "NASA SRTM 30m",
+        slope:         "Derived from SRTM DEM",
+        solar_ghi:     "PVGIS 5.2 / ERA5",
+        climate:       "NASA POWER v8 MERRA-2",
+        power_grid:    "OpenStreetMap Overpass API",
+        roads_highways:"OpenStreetMap Overpass API",
       },
     });
   });

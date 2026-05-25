@@ -72,7 +72,27 @@ async function buildAll() {
   }
 }
 
-buildAll().catch((err) => {
-  console.error(err);
-  process.exit(1);
-});
+async function copyDataFiles() {
+  const files = [
+    "barren_parcels_flat.json",
+    "barren_parcels.geojson",
+  ];
+  for (const f of files) {
+    const src = `server/${f}`;
+    const dst = `dist/${f}`;
+    try {
+      await access(src);
+      await copyFile(src, dst);
+      console.log(`✅ Copied ${f} → dist/`);
+    } catch {
+      console.warn(`⚠️  ${src} not found, skipping`);
+    }
+  }
+}
+
+buildAll()
+  .then(() => copyDataFiles())
+  .catch((err) => {
+    console.error(err);
+    process.exit(1);
+  });
