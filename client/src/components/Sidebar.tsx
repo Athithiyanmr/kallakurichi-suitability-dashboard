@@ -1,41 +1,100 @@
-import { Map, BarChart3, Table2, Settings, Info, Layers, ChevronDown, ChevronUp } from "lucide-react";
+import {
+  Map, BarChart3, Table2, Database,
+  ChevronDown, ChevronUp, SlidersHorizontal, Filter,
+} from "lucide-react";
 import { useState } from "react";
 import type { Weights, Filters } from "../types";
 
 interface WeightSliderProps {
   label: string;
-  icon: string;
   factorKey: keyof Weights;
   value: number;
-  onChange: (key: keyof Weights, val: number) => void;
   normalised: number;
   color: string;
+  icon: React.ReactNode;
 }
 
-function WeightSlider({ label, icon, factorKey, value, onChange, normalised, color }: WeightSliderProps) {
+function WeightSlider({ label, factorKey, value, normalised, color, icon }: WeightSliderProps) {
   return (
-    <div className="mb-4">
-      <div className="flex items-center justify-between mb-1.5">
-        <span className="text-xs font-medium" style={{ color: "hsl(var(--sidebar-foreground))" }}>
-          {icon} {label}
+    <div style={{ marginBottom: 12 }}>
+      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 6 }}>
+        <span style={{
+          display: "flex", alignItems: "center", gap: 6,
+          fontSize: 12, fontWeight: 500, color: "hsl(var(--foreground-secondary))",
+        }}>
+          <span style={{ opacity: 0.75 }}>{icon}</span>
+          {label}
         </span>
-        <span
-          className="text-xs font-mono font-bold tabular-nums px-1.5 py-0.5 rounded"
-          style={{ background: `${color}22`, color }}
-        >
+        <span style={{
+          fontSize: 10, fontWeight: 700, fontFamily: "monospace",
+          padding: "2px 6px", borderRadius: 100,
+          background: `${color}18`,
+          color: color,
+          minWidth: 34, textAlign: "center",
+        }}>
           {Math.round(normalised * 100)}%
         </span>
       </div>
       <input
         type="range" min={0} max={10} step={1} value={value}
+        onChange={(e) => {/* handled via parent */}}
+        onInput={(e) => {
+          const el = e.target as HTMLInputElement;
+          // The parent rerenders via prop — trigger via the onChange pattern below
+          (e as any)._triggerChange = true;
+        }}
+        className="weight-slider"
+        style={{ accentColor: color }}
+        data-testid={`slider-${factorKey}`}
+        // Actually fire onChange — onInput above was illustrative
+        // This is the real handler:
+        readOnly
+      />
+      {/* The actual value-driven input (controlled) */}
+      <input
+        type="range" min={0} max={10} step={1}
+        value={value}
+        className="weight-slider"
+        style={{ accentColor: color, display: "none" }}
+        data-testid={`slider-hidden-${factorKey}`}
+        readOnly
+      />
+    </div>
+  );
+}
+
+// Controlled weight slider
+function ControlledSlider({ label, factorKey, value, normalised, color, icon, onChange }: WeightSliderProps & {
+  onChange: (key: keyof Weights, val: number) => void;
+}) {
+  return (
+    <div style={{ marginBottom: 14 }}>
+      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 5 }}>
+        <span style={{
+          display: "flex", alignItems: "center", gap: 6,
+          fontSize: 12, fontWeight: 500, color: "hsl(var(--foreground-secondary))",
+        }}>
+          <span style={{ fontSize: 13 }}>{icon}</span>
+          {label}
+        </span>
+        <span style={{
+          fontSize: 10, fontWeight: 700, fontFamily: "monospace",
+          padding: "1px 6px", borderRadius: 100,
+          background: `${color}1A`,
+          color: color,
+          minWidth: 34, textAlign: "center",
+        }}>
+          {Math.round(normalised * 100)}%
+        </span>
+      </div>
+      <input
+        type="range" min={0} max={10} step={1}
+        value={value}
         onChange={(e) => onChange(factorKey, Number(e.target.value))}
         className="weight-slider"
         style={{ accentColor: color }}
         data-testid={`slider-${factorKey}`}
       />
-      <div className="flex justify-between text-[10px] mt-0.5" style={{ color: "hsl(var(--sidebar-foreground) / 0.4)" }}>
-        <span>0</span><span>5</span><span>10</span>
-      </div>
     </div>
   );
 }
@@ -51,198 +110,228 @@ interface SidebarProps {
   onSectionChange: (s: string) => void;
 }
 
-const FACTOR_CONFIG: Array<{ key: keyof Weights; label: string; icon: string; color: string; source: string }> = [
-  { key: "slope",  label: "Slope",         icon: "⛰️",  color: "#64748b", source: "NASA SRTM" },
-  { key: "lulc",   label: "Land Cover",    icon: "🗺️",  color: "#16a34a", source: "ESA WorldCover" },
-  { key: "ghi",    label: "Solar GHI",     icon: "☀️",  color: "#d97706", source: "PVGIS ERA5" },
-  { key: "power",  label: "Grid Access",   icon: "⚡",  color: "#0891b2", source: "OSM Power" },
-  { key: "road",   label: "Road Access",   icon: "🛣️",  color: "#7c3aed", source: "OSM Roads" },
-  { key: "temp",   label: "Temperature",   icon: "🌡️",  color: "#dc2626", source: "NASA POWER" },
+const FACTOR_CONFIG: Array<{
+  key: keyof Weights; label: string; icon: string; color: string;
+}> = [
+  { key: "slope",  label: "Slope",       icon: "⛰", color: "#5f6368" },
+  { key: "lulc",   label: "Land Cover",  icon: "🌿", color: "#0f9d58" },
+  { key: "ghi",    label: "Solar GHI",   icon: "☀", color: "#f4b400" },
+  { key: "power",  label: "Grid Access", icon: "⚡", color: "#4285f4" },
+  { key: "road",   label: "Road Access", icon: "🛣", color: "#a142f4" },
+  { key: "temp",   label: "Temperature", icon: "🌡", color: "#ea4335" },
+];
+
+const NAV = [
+  { id: "map",    label: "Suitability Map",  Icon: Map },
+  { id: "charts", label: "Factor Analysis",  Icon: BarChart3 },
+  { id: "table",  label: "Parcel Rankings",  Icon: Table2 },
+  { id: "data",   label: "Data Sources",     Icon: Database },
 ];
 
 export function Sidebar({
   weights, filters, villages, lulcNames,
   onWeightChange, onFilterChange, activeSection, onSectionChange,
 }: SidebarProps) {
-  const [filtersOpen, setFiltersOpen] = useState(true);
-  const totalWeight = Object.values(weights).reduce((a, b) => a + b, 0) || 1;
-  const normWeights = Object.fromEntries(
-    Object.entries(weights).map(([k, v]) => [k, v / totalWeight])
+  const [weightsOpen, setWeightsOpen] = useState(true);
+  const [filtersOpen,  setFiltersOpen]  = useState(false);
+
+  const total = Object.values(weights).reduce((a, b) => a + b, 0) || 1;
+  const norm  = Object.fromEntries(
+    Object.entries(weights).map(([k, v]) => [k, v / total])
   ) as Record<keyof Weights, number>;
 
   return (
-    <aside className="dashboard-sidebar flex flex-col">
-      {/* Logo + branding */}
-      <div className="px-4 py-5 border-b" style={{ borderColor: "hsl(var(--sidebar-border))" }}>
-        <div className="flex items-center gap-3 mb-1">
-          {/* Custom SVG logo */}
-          <svg viewBox="0 0 32 32" width="28" height="28" aria-label="Kallakurichi Suitability" fill="none">
-            <rect width="32" height="32" rx="7" fill="hsl(var(--accent))" />
-            <path d="M7 24 L16 8 L25 24" stroke="hsl(220 24% 14%)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
-            <circle cx="16" cy="8" r="2.2" fill="hsl(220 24% 14%)" />
-            <path d="M11 19 L21 19" stroke="hsl(220 24% 14%)" strokeWidth="1.5" strokeLinecap="round"/>
-          </svg>
-          <div>
-            <div className="text-sm font-bold leading-tight" style={{ color: "hsl(var(--sidebar-accent-foreground))" }}>
-              KLK Suitability
-            </div>
-            <div className="text-[10px] font-medium" style={{ color: "hsl(var(--sidebar-foreground) / 0.55)" }}>
-              Auroville Consulting
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Navigation */}
-      <nav className="pt-3 pb-2">
-        {[
-          { id: "map",    label: "Suitability Map",   Icon: Map },
-          { id: "charts", label: "Factor Analysis",   Icon: BarChart3 },
-          { id: "table",  label: "Parcel Rankings",   Icon: Table2 },
-          { id: "data",   label: "Data Sources",      Icon: Layers },
-        ].map(({ id, label, Icon }) => (
+    <aside className="sidebar">
+      {/* ── Navigation ──────────────────────────────────────────────── */}
+      <nav style={{ padding: "12px 0 4px" }}>
+        <div className="sidebar-section-label" style={{ paddingTop: 8 }}>Navigation</div>
+        {NAV.map(({ id, label, Icon }) => (
           <button
             key={id}
-            className={`nav-item w-full text-left${activeSection === id ? " active" : ""}`}
+            className={`nav-item${activeSection === id ? " active" : ""}`}
             onClick={() => onSectionChange(id)}
             data-testid={`nav-${id}`}
           >
-            <Icon size={15} strokeWidth={2} />
-            <span>{label}</span>
+            <span className="nav-icon">
+              <Icon size={16} strokeWidth={activeSection === id ? 2.5 : 2} />
+            </span>
+            {label}
           </button>
         ))}
       </nav>
 
-      <div className="mx-4 my-1 h-px" style={{ background: "hsl(var(--sidebar-border))" }} />
+      <div className="divider" style={{ margin: "8px 16px" }} />
 
-      {/* Weight controls */}
-      <div className="px-4 pt-3 pb-1 flex-1 overflow-y-auto overscroll-contain">
-        <div className="flex items-center justify-between mb-3">
-          <span className="text-[11px] font-semibold uppercase tracking-wider" style={{ color: "hsl(var(--sidebar-foreground) / 0.5)" }}>
-            Factor Weights
+      {/* ── Weights ─────────────────────────────────────────────────── */}
+      <div style={{ flex: 1, overflowY: "auto", overscrollBehavior: "contain" }}>
+        <button
+          style={{
+            display: "flex", alignItems: "center", justifyContent: "space-between",
+            width: "100%", background: "none", border: "none", cursor: "pointer",
+            padding: "8px 20px 4px", gap: 6,
+          }}
+          onClick={() => setWeightsOpen(!weightsOpen)}
+        >
+          <span style={{ display: "flex", alignItems: "center", gap: 6 }}>
+            <SlidersHorizontal size={13} color="hsl(var(--foreground-tertiary))" />
+            <span className="sidebar-section-label" style={{ padding: 0 }}>Factor Weights</span>
           </span>
-          <span className="text-[10px] px-1.5 py-0.5 rounded font-mono" style={{ background: "hsl(var(--accent) / 0.15)", color: "hsl(var(--accent))" }}>
-            auto-norm
-          </span>
-        </div>
+          {weightsOpen
+            ? <ChevronUp size={13} color="hsl(var(--foreground-tertiary))" />
+            : <ChevronDown size={13} color="hsl(var(--foreground-tertiary))" />}
+        </button>
 
-        {FACTOR_CONFIG.map(({ key, label, icon, color }) => (
-          <WeightSlider
-            key={key}
-            factorKey={key}
-            label={label}
-            icon={icon}
-            value={weights[key]}
-            normalised={normWeights[key]}
-            onChange={onWeightChange}
-            color={color}
-          />
-        ))}
+        {weightsOpen && (
+          <div style={{ padding: "4px 20px 8px" }}>
+            {/* Weight distribution bar */}
+            <div className="weight-bar-track" style={{ marginBottom: 16 }}>
+              {FACTOR_CONFIG.map(({ key, color }) => (
+                <div
+                  key={key}
+                  style={{
+                    width: `${norm[key] * 100}%`,
+                    background: color,
+                    transition: "width 0.3s ease",
+                    minWidth: norm[key] > 0 ? 2 : 0,
+                  }}
+                />
+              ))}
+            </div>
 
-        {/* Weight viz bar */}
-        <div className="mt-1 mb-4">
-          <div className="h-2 rounded-full overflow-hidden flex">
-            {FACTOR_CONFIG.map(({ key, color }) => (
-              <div
+            {FACTOR_CONFIG.map(({ key, label, icon, color }) => (
+              <ControlledSlider
                 key={key}
-                style={{
-                  width: `${normWeights[key] * 100}%`,
-                  background: color,
-                  transition: "width 0.3s ease",
-                }}
+                factorKey={key}
+                label={label}
+                icon={icon}
+                color={color}
+                value={weights[key]}
+                normalised={norm[key]}
+                onChange={onWeightChange}
               />
             ))}
-          </div>
-          <div className="flex flex-wrap gap-x-3 gap-y-0.5 mt-1.5">
-            {FACTOR_CONFIG.map(({ key, label, color }) => (
-              <span key={key} className="text-[10px] flex items-center gap-1" style={{ color: "hsl(var(--sidebar-foreground) / 0.6)" }}>
-                <span style={{ width: 6, height: 6, borderRadius: 2, background: color, display: "inline-block" }} />
-                {label.split(" ")[0]}
-              </span>
-            ))}
-          </div>
-        </div>
 
-        <div className="mx-0 my-1 h-px" style={{ background: "hsl(var(--sidebar-border))" }} />
+            {/* Legend dots */}
+            <div style={{ display: "flex", flexWrap: "wrap", gap: "4px 10px", marginTop: 4 }}>
+              {FACTOR_CONFIG.map(({ key, label, color }) => (
+                <span key={key} style={{
+                  display: "flex", alignItems: "center", gap: 4,
+                  fontSize: 10, color: "hsl(var(--foreground-tertiary))",
+                }}>
+                  <span style={{
+                    width: 7, height: 7, borderRadius: 2,
+                    background: color, display: "inline-block", flexShrink: 0,
+                  }} />
+                  {label.split(" ")[0]}
+                </span>
+              ))}
+            </div>
+          </div>
+        )}
 
-        {/* Filters */}
+        <div className="divider" style={{ margin: "4px 16px" }} />
+
+        {/* ── Filters ───────────────────────────────────────────────── */}
         <button
-          className="flex items-center justify-between w-full py-2 text-[11px] font-semibold uppercase tracking-wider"
-          style={{ color: "hsl(var(--sidebar-foreground) / 0.5)" }}
+          style={{
+            display: "flex", alignItems: "center", justifyContent: "space-between",
+            width: "100%", background: "none", border: "none", cursor: "pointer",
+            padding: "8px 20px 4px", gap: 6,
+          }}
           onClick={() => setFiltersOpen(!filtersOpen)}
         >
-          <span>Filters</span>
-          {filtersOpen ? <ChevronUp size={12} /> : <ChevronDown size={12} />}
+          <span style={{ display: "flex", alignItems: "center", gap: 6 }}>
+            <Filter size={13} color="hsl(var(--foreground-tertiary))" />
+            <span className="sidebar-section-label" style={{ padding: 0 }}>Filters</span>
+          </span>
+          {filtersOpen
+            ? <ChevronUp size={13} color="hsl(var(--foreground-tertiary))" />
+            : <ChevronDown size={13} color="hsl(var(--foreground-tertiary))" />}
         </button>
 
         {filtersOpen && (
-          <div className="space-y-3 pb-4">
+          <div style={{ padding: "4px 20px 12px", display: "flex", flexDirection: "column", gap: 12 }}>
+            {/* Village */}
             <div>
-              <label className="text-[11px] font-medium mb-1 block" style={{ color: "hsl(var(--sidebar-foreground) / 0.7)" }}>Village / Taluk</label>
+              <label style={{ fontSize: 11, fontWeight: 500, color: "hsl(var(--foreground-tertiary))", display: "block", marginBottom: 4 }}>
+                Village / Zone
+              </label>
               <select
-                className="w-full text-xs rounded-md px-2 py-1.5 font-medium"
-                style={{
-                  background: "hsl(var(--sidebar-accent))",
-                  color: "hsl(var(--sidebar-accent-foreground))",
-                  border: "1px solid hsl(var(--sidebar-border))",
-                }}
+                className="filter-select"
+                style={{ width: "100%" }}
                 value={filters.village}
                 onChange={(e) => onFilterChange("village", e.target.value)}
                 data-testid="filter-village"
               >
-                <option value="All">All Villages</option>
+                <option value="all">All Villages</option>
                 {villages.map((v) => <option key={v} value={v}>{v}</option>)}
               </select>
             </div>
 
+            {/* LULC */}
             <div>
-              <label className="text-[11px] font-medium mb-1 block" style={{ color: "hsl(var(--sidebar-foreground) / 0.7)" }}>LULC Class</label>
+              <label style={{ fontSize: 11, fontWeight: 500, color: "hsl(var(--foreground-tertiary))", display: "block", marginBottom: 4 }}>
+                Land Cover Class
+              </label>
               <select
-                className="w-full text-xs rounded-md px-2 py-1.5 font-medium"
-                style={{
-                  background: "hsl(var(--sidebar-accent))",
-                  color: "hsl(var(--sidebar-accent-foreground))",
-                  border: "1px solid hsl(var(--sidebar-border))",
-                }}
+                className="filter-select"
+                style={{ width: "100%" }}
                 value={filters.lulc_name}
                 onChange={(e) => onFilterChange("lulc_name", e.target.value)}
                 data-testid="filter-lulc"
               >
-                <option value="All">All Classes</option>
+                <option value="all">All Classes</option>
                 {lulcNames.map((l) => <option key={l} value={l}>{l}</option>)}
               </select>
             </div>
 
+            {/* Slope */}
             <div>
-              <div className="flex justify-between items-center mb-1">
-                <label className="text-[11px] font-medium" style={{ color: "hsl(var(--sidebar-foreground) / 0.7)" }}>Max Slope</label>
-                <span className="text-[11px] font-mono" style={{ color: "hsl(var(--accent))" }}>{filters.max_slope}°</span>
+              <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 5 }}>
+                <label style={{ fontSize: 11, fontWeight: 500, color: "hsl(var(--foreground-tertiary))" }}>Max Slope</label>
+                <span style={{ fontSize: 11, fontWeight: 600, color: "hsl(var(--primary))", fontFamily: "monospace" }}>
+                  {filters.max_slope}°
+                </span>
               </div>
-              <input type="range" min={1} max={30} step={0.5} value={filters.max_slope}
+              <input type="range" min={1} max={30} step={0.5}
+                value={filters.max_slope}
                 onChange={(e) => onFilterChange("max_slope", Number(e.target.value))}
-                className="weight-slider" data-testid="filter-slope" />
+                className="weight-slider"
+                style={{ accentColor: "hsl(217 91% 60%)" }}
+                data-testid="filter-slope" />
             </div>
 
+            {/* Grid distance */}
             <div>
-              <div className="flex justify-between items-center mb-1">
-                <label className="text-[11px] font-medium" style={{ color: "hsl(var(--sidebar-foreground) / 0.7)" }}>Max Grid Dist.</label>
-                <span className="text-[11px] font-mono" style={{ color: "hsl(var(--accent))" }}>{filters.max_power_dist} km</span>
+              <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 5 }}>
+                <label style={{ fontSize: 11, fontWeight: 500, color: "hsl(var(--foreground-tertiary))" }}>Max Grid Dist.</label>
+                <span style={{ fontSize: 11, fontWeight: 600, color: "hsl(var(--primary))", fontFamily: "monospace" }}>
+                  {filters.max_power_dist} km
+                </span>
               </div>
-              <input type="range" min={1} max={30} step={1} value={filters.max_power_dist}
+              <input type="range" min={1} max={30} step={1}
+                value={filters.max_power_dist}
                 onChange={(e) => onFilterChange("max_power_dist", Number(e.target.value))}
-                className="weight-slider" data-testid="filter-power-dist" />
+                className="weight-slider"
+                style={{ accentColor: "hsl(217 91% 60%)" }}
+                data-testid="filter-power-dist" />
             </div>
           </div>
         )}
       </div>
 
-      {/* Footer */}
-      <div className="px-4 py-3 border-t text-[10px]" style={{
-        borderColor: "hsl(var(--sidebar-border))",
-        color: "hsl(var(--sidebar-foreground) / 0.4)"
+      {/* ── Footer ────────────────────────────────────────────────────── */}
+      <div style={{
+        padding: "10px 20px 12px",
+        borderTop: "1px solid hsl(var(--border))",
+        display: "flex", flexDirection: "column", gap: 2,
       }}>
-        <div>Real data · No API keys</div>
-        <div>ESA · NASA · PVGIS · OSM</div>
+        <div style={{ fontSize: 10, color: "hsl(var(--foreground-tertiary))", fontWeight: 500 }}>
+          Auroville Consulting
+        </div>
+        <div style={{ fontSize: 10, color: "hsl(var(--foreground-tertiary))", opacity: 0.7 }}>
+          ESA · NASA · PVGIS · OpenStreetMap
+        </div>
       </div>
     </aside>
   );

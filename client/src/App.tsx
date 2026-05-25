@@ -13,223 +13,287 @@ import { SuitabilityDoughnut, FactorBars, VillageBars, GHIScatter } from "./comp
 import { ParcelTable } from "./components/ParcelTable";
 import DataSources from "./components/DataSources";
 import type { Weights, Filters } from "./types";
-import { Map, BarChart3, Table2, Database, RefreshCw } from "lucide-react";
+import { Map, BarChart3, Table2, Database, RefreshCw, Layers } from "lucide-react";
 
 // ─── Default state ─────────────────────────────────────────────────────────────
 const DEFAULT_WEIGHTS: Weights = {
-  slope: 5,
-  lulc:  5,
-  ghi:   5,
-  power: 5,
-  road:  5,
-  temp:  5,
+  slope: 5, lulc: 5, ghi: 5, power: 5, road: 5, temp: 5,
 };
-
 const DEFAULT_FILTERS: Filters = {
-  village:        "all",
-  lulc_name:      "all",
-  max_slope:      20,
-  max_power_dist: 15,
+  village: "all", lulc_name: "all", max_slope: 20, max_power_dist: 15,
 };
 
 type Section = "map" | "charts" | "table" | "data";
 
-const NAV_ITEMS: Array<{ id: Section; label: string; Icon: typeof Map }> = [
+const NAV: Array<{ id: Section; label: string; Icon: typeof Map }> = [
   { id: "map",    label: "Suitability Map",  Icon: Map },
-  { id: "charts", label: "Analysis Charts",  Icon: BarChart3 },
-  { id: "table",  label: "Parcel Table",     Icon: Table2 },
+  { id: "charts", label: "Factor Analysis",  Icon: BarChart3 },
+  { id: "table",  label: "Parcel Rankings",  Icon: Table2 },
   { id: "data",   label: "Data Sources",     Icon: Database },
 ];
 
-// ─── Chart Card wrapper ───────────────────────────────────────────────────────
-function ChartCard({ title, children }: { title: string; children: React.ReactNode }) {
+// ─── Google-style SVG logo ─────────────────────────────────────────────────────
+function Logo() {
   return (
-    <div
-      style={{
-        background:   "hsl(var(--card))",
-        border:       "1px solid hsl(var(--border))",
-        borderRadius: "10px",
-        padding:      "20px",
-      }}
-    >
-      <h3 style={{ fontSize: "13px", fontWeight: 700, color: "hsl(var(--foreground))", marginBottom: "16px" }}>
-        {title}
-      </h3>
-      {children}
-    </div>
+    <svg viewBox="0 0 32 32" width="30" height="30" fill="none" aria-label="Solar Suitability">
+      <rect width="32" height="32" rx="8" fill="hsl(217 91% 60%)" />
+      {/* Sun rays */}
+      <circle cx="16" cy="16" r="5" fill="white" />
+      <line x1="16" y1="5" x2="16" y2="8" stroke="white" strokeWidth="2" strokeLinecap="round"/>
+      <line x1="16" y1="24" x2="16" y2="27" stroke="white" strokeWidth="2" strokeLinecap="round"/>
+      <line x1="5" y1="16" x2="8" y2="16" stroke="white" strokeWidth="2" strokeLinecap="round"/>
+      <line x1="24" y1="16" x2="27" y2="16" stroke="white" strokeWidth="2" strokeLinecap="round"/>
+      <line x1="8.5" y1="8.5" x2="10.6" y2="10.6" stroke="white" strokeWidth="1.8" strokeLinecap="round"/>
+      <line x1="21.4" y1="21.4" x2="23.5" y2="23.5" stroke="white" strokeWidth="1.8" strokeLinecap="round"/>
+      <line x1="23.5" y1="8.5" x2="21.4" y2="10.6" stroke="white" strokeWidth="1.8" strokeLinecap="round"/>
+      <line x1="10.6" y1="21.4" x2="8.5" y2="23.5" stroke="white" strokeWidth="1.8" strokeLinecap="round"/>
+    </svg>
   );
 }
 
-// ─── Charts layout (2×2 grid) ──────────────────────────────────────────────────
+// ─── Charts 2×2 grid ──────────────────────────────────────────────────────────
 function ChartsSection({ parcels }: { parcels: any[] }) {
+  const n = parcels.length;
+  const avg = n ? (parcels.reduce((s, p) => s + p.suitability_score, 0) / n).toFixed(2) : "—";
   return (
-    <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px" }}>
-      <ChartCard title="Suitability Distribution">
-        <SuitabilityDoughnut parcels={parcels} />
-      </ChartCard>
-      <ChartCard title="Average Factor Scores">
-        <FactorBars parcels={parcels} />
-      </ChartCard>
-      <ChartCard title="Top Villages by Score">
-        <VillageBars parcels={parcels} />
-      </ChartCard>
-      <ChartCard title="GHI vs Suitability Score">
-        <GHIScatter parcels={parcels} />
-      </ChartCard>
+    <div className="scrollable section-body" style={{ padding: "20px 24px 32px" }}>
+      {/* Section header */}
+      <div style={{ marginBottom: 20 }}>
+        <div className="section-title">Factor Analysis</div>
+        <div className="section-subtitle">
+          {n.toLocaleString()} parcels · Avg suitability score {avg}/4.0
+        </div>
+      </div>
+
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
+        <div className="chart-card fade-up">
+          <div className="chart-title">Suitability Distribution</div>
+          <div className="chart-subtitle">Count by classification tier</div>
+          <SuitabilityDoughnut parcels={parcels} />
+        </div>
+        <div className="chart-card fade-up" style={{ animationDelay: "0.05s" }}>
+          <div className="chart-title">Average Factor Scores</div>
+          <div className="chart-subtitle">Mean score per suitability factor (1–4)</div>
+          <FactorBars parcels={parcels} />
+        </div>
+        <div className="chart-card fade-up" style={{ animationDelay: "0.10s" }}>
+          <div className="chart-title">Village Performance</div>
+          <div className="chart-subtitle">Average suitability score by zone</div>
+          <VillageBars parcels={parcels} />
+        </div>
+        <div className="chart-card fade-up" style={{ animationDelay: "0.15s" }}>
+          <div className="chart-title">GHI vs Suitability</div>
+          <div className="chart-subtitle">Solar irradiation correlation</div>
+          <GHIScatter parcels={parcels} />
+        </div>
+      </div>
     </div>
   );
 }
 
-// ─── Main Dashboard page ────────────────────────────────────────────────────────
+// ─── Table section with filter row ────────────────────────────────────────────
+function TableSection({
+  parcels, filters, villages, lulcNames, onFilterChange,
+}: {
+  parcels: any[]; filters: Filters; villages: string[]; lulcNames: string[];
+  onFilterChange: (k: keyof Filters, v: string | number) => void;
+}) {
+  return (
+    <div className="section-body" style={{ overflow: "hidden", display: "flex", flexDirection: "column" }}>
+      {/* Inline filter bar above table */}
+      <div className="filter-row">
+        <span className="filter-label">Filter:</span>
+        <select
+          className="filter-select"
+          value={filters.village}
+          onChange={(e) => onFilterChange("village", e.target.value)}
+        >
+          <option value="all">All Villages</option>
+          {villages.map((v) => <option key={v} value={v}>{v}</option>)}
+        </select>
+        <select
+          className="filter-select"
+          value={filters.lulc_name}
+          onChange={(e) => onFilterChange("lulc_name", e.target.value)}
+        >
+          <option value="all">All Land Cover</option>
+          {lulcNames.map((l) => <option key={l} value={l}>{l}</option>)}
+        </select>
+
+        <div className="filter-label" style={{ marginLeft: 8 }}>
+          Max Slope:
+        </div>
+        <span className="font-mono" style={{ fontSize: 12, color: "hsl(var(--primary))", minWidth: 28 }}>
+          {filters.max_slope}°
+        </span>
+        <input
+          type="range" min={1} max={30} step={0.5}
+          value={filters.max_slope}
+          className="weight-slider"
+          style={{ width: 90, accentColor: "hsl(217 91% 60%)" }}
+          onChange={(e) => onFilterChange("max_slope", Number(e.target.value))}
+        />
+
+        <div className="filter-label" style={{ marginLeft: 8 }}>
+          Max Grid Dist:
+        </div>
+        <span className="font-mono" style={{ fontSize: 12, color: "hsl(var(--primary))", minWidth: 36 }}>
+          {filters.max_power_dist} km
+        </span>
+        <input
+          type="range" min={1} max={30} step={1}
+          value={filters.max_power_dist}
+          className="weight-slider"
+          style={{ width: 90, accentColor: "hsl(217 91% 60%)" }}
+          onChange={(e) => onFilterChange("max_power_dist", Number(e.target.value))}
+        />
+
+        <div style={{ marginLeft: "auto", display: "flex", alignItems: "center", gap: 6 }}>
+          <span className="chip">
+            {parcels.length.toLocaleString()} parcels
+          </span>
+        </div>
+      </div>
+      <ParcelTable parcels={parcels} />
+    </div>
+  );
+}
+
+// ─── Main Dashboard ────────────────────────────────────────────────────────────
 function Dashboard() {
-  const [section, setSection]   = useState<Section>("map");
-  const [mapMode]               = useState<"circles" | "heat">("circles");
-  const [weights, setWeights]   = useState<Weights>(DEFAULT_WEIGHTS);
-  const [filters, setFilters]   = useState<Filters>(DEFAULT_FILTERS);
+  const [section, setSection] = useState<Section>("map");
+  const [weights, setWeights] = useState<Weights>(DEFAULT_WEIGHTS);
+  const [filters, setFilters] = useState<Filters>(DEFAULT_FILTERS);
 
   const { data: parcels = [], isLoading } = useParcels(weights, filters);
-  const { data: meta }                    = useMeta();
+  const { data: meta } = useMeta();
 
-  const handleWeightChange = useCallback((key: keyof Weights, val: number) => {
-    setWeights(prev => ({ ...prev, [key]: val }));
+  const onWeightChange = useCallback((key: keyof Weights, val: number) => {
+    setWeights((prev) => ({ ...prev, [key]: val }));
+  }, []);
+  const onFilterChange = useCallback((key: keyof Filters, val: string | number) => {
+    setFilters((prev) => ({ ...prev, [key]: val }));
   }, []);
 
-  const handleFilterChange = useCallback((key: keyof Filters, val: string | number) => {
-    setFilters(prev => ({ ...prev, [key]: val }));
-  }, []);
+  const highCount = parcels.filter((p) => p.suitability_score >= 2.5).length;
 
   return (
-    <div
-      style={{
-        display:             "grid",
-        gridTemplateColumns: "260px 1fr",
-        gridTemplateRows:    "56px 1fr",
-        height:              "100dvh",
-        overflow:            "hidden",
-        background:          "hsl(var(--background))",
-      }}
-    >
-      {/* ── Sidebar ────────────────────────────────────────────────────────── */}
-      <div style={{ gridRow: "1 / -1", overflow: "hidden" }}>
+    <div className="app-root">
+
+      {/* ── Top Bar ──────────────────────────────────────────────────────── */}
+      <header className="top-bar">
+        {/* Brand */}
+        <div className="brand-area">
+          <div className="brand-logo">
+            <Logo />
+          </div>
+          <div>
+            <div className="brand-title">Solar Suitability</div>
+            <div className="brand-sub">Kallakurichi District</div>
+          </div>
+        </div>
+
+        {/* Spacer + status chips */}
+        <div className="top-bar-right">
+          {isLoading ? (
+            <span className="chip" style={{ gap: 5 }}>
+              <RefreshCw size={10} className="animate-spin" />
+              Computing…
+            </span>
+          ) : (
+            <span className="chip green">
+              ● Live
+            </span>
+          )}
+          <span className="chip blue">
+            {parcels.length.toLocaleString()} parcels
+          </span>
+          <span className="chip">
+            {highCount} high suitability
+          </span>
+          <span className="chip" style={{ display: "flex", gap: 4 }}>
+            <span style={{ opacity: 0.7 }}>Tamil Nadu</span>
+            <span>·</span>
+            <span>ESA · NASA · PVGIS · OSM</span>
+          </span>
+        </div>
+      </header>
+
+      {/* ── Content Row ──────────────────────────────────────────────────── */}
+      <div className="content-row">
+
+        {/* Sidebar */}
         <Sidebar
           weights={weights}
           filters={filters}
           villages={meta?.villages ?? []}
           lulcNames={meta?.lulc_names ?? []}
-          onWeightChange={handleWeightChange}
-          onFilterChange={handleFilterChange}
+          onWeightChange={onWeightChange}
+          onFilterChange={onFilterChange}
           activeSection={section}
           onSectionChange={(s) => setSection(s as Section)}
         />
-      </div>
 
-      {/* ── Header ─────────────────────────────────────────────────────────── */}
-      <header
-        style={{
-          gridColumn:    "2",
-          display:       "flex",
-          alignItems:    "center",
-          justifyContent:"space-between",
-          padding:       "0 24px",
-          gap:           "16px",
-          borderBottom:  "1px solid hsl(var(--border))",
-          background:    "hsl(var(--card))",
-          position:      "sticky",
-          top:           0,
-          zIndex:        20,
-        }}
-      >
-        {/* Breadcrumb */}
-        <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-          {NAV_ITEMS.filter(n => n.id === section).map(({ label, Icon }) => (
-            <span key={label} style={{ display: "flex", alignItems: "center", gap: "6px" }}>
-              <Icon size={15} style={{ color: "hsl(var(--primary))" }} />
-              <span style={{ fontSize: "13px", fontWeight: 600, color: "hsl(var(--foreground))", letterSpacing: "-0.01em" }}>
+        {/* Right pane */}
+        <div className="main-content">
+
+          {/* Tab bar */}
+          <div className="tab-bar">
+            {NAV.map(({ id, label, Icon }) => (
+              <button
+                key={id}
+                className={`tab-btn${section === id ? " active" : ""}`}
+                onClick={() => setSection(id)}
+                data-testid={`tab-${id}`}
+              >
+                <Icon size={13} strokeWidth={2} />
                 {label}
-              </span>
-            </span>
-          ))}
-          {isLoading && (
-            <span style={{ marginLeft: "6px", fontSize: "11px", color: "hsl(var(--muted-foreground))", display: "flex", alignItems: "center", gap: "4px" }}>
-              <RefreshCw size={10} className="animate-spin" /> Computing…
-            </span>
-          )}
-        </div>
+                {id === "table" && (
+                  <span className="tab-count">{parcels.length}</span>
+                )}
+              </button>
+            ))}
+          </div>
 
-        {/* Section tabs */}
-        <nav style={{ display: "flex", gap: "2px" }}>
-          {NAV_ITEMS.map(({ id, label, Icon }) => (
-            <button
-              key={id}
-              onClick={() => setSection(id)}
-              data-testid={`nav-${id}`}
-              style={{
-                display:       "flex",
-                alignItems:    "center",
-                gap:           "5px",
-                padding:       "5px 12px",
-                borderRadius:  "6px",
-                fontSize:      "12px",
-                fontWeight:    500,
-                border:        "none",
-                cursor:        "pointer",
-                transition:    "all 0.15s",
-                background:    section === id ? "hsl(var(--primary))" : "transparent",
-                color:         section === id ? "hsl(var(--primary-foreground))" : "hsl(var(--muted-foreground))",
-              }}
-            >
-              <Icon size={12} />
-              {label}
-            </button>
-          ))}
-        </nav>
-      </header>
-
-      {/* ── Main ───────────────────────────────────────────────────────────── */}
-      <main
-        style={{
-          gridColumn:        "2",
-          overflowY:         section === "map" ? "hidden" : "auto",
-          overscrollBehavior:"contain",
-          display:           "flex",
-          flexDirection:     "column",
-        }}
-      >
-        {/* KPI Row */}
-        <div style={{ flexShrink: 0, padding: "14px 24px 0" }}>
+          {/* KPI row */}
           <KPIRow parcels={parcels} />
-        </div>
 
-        {/* Section body */}
-        <div
-          style={{
-            flex:          1,
-            padding:       section === "map" ? "12px 24px 16px" : "16px 24px 24px",
-            overflow:      section === "map" ? "hidden" : "visible",
-            display:       "flex",
-            flexDirection: "column",
-          }}
-        >
+          {/* Section */}
           {section === "map" && (
-            <SuitabilityMap parcels={parcels} mapMode={mapMode} />
+            <div className="section-body" style={{ overflow: "hidden", display: "flex", flexDirection: "column" }}>
+              <SuitabilityMap parcels={parcels} mapMode="circles" />
+            </div>
           )}
           {section === "charts" && (
-            <ChartsSection parcels={parcels} />
+            <div className="section-body scrollable" style={{ overflowY: "auto" }}>
+              <ChartsSection parcels={parcels} />
+            </div>
           )}
           {section === "table" && (
-            <ParcelTable parcels={parcels} />
+            <TableSection
+              parcels={parcels}
+              filters={filters}
+              villages={meta?.villages ?? []}
+              lulcNames={meta?.lulc_names ?? []}
+              onFilterChange={onFilterChange}
+            />
           )}
           {section === "data" && (
-            <DataSources />
+            <div
+              className="section-body"
+              style={{ overflowY: "auto", padding: "20px 24px 32px" }}
+            >
+              <DataSources />
+            </div>
           )}
         </div>
-      </main>
+      </div>
     </div>
   );
 }
 
 // ─── Root ──────────────────────────────────────────────────────────────────────
-function App() {
+export default function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
@@ -244,5 +308,3 @@ function App() {
     </QueryClientProvider>
   );
 }
-
-export default App;

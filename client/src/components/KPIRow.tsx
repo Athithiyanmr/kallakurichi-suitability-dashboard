@@ -1,25 +1,33 @@
 import { useEffect, useRef } from "react";
+import { Sun, Zap, MapPin, TrendingUp, BarChart2, Thermometer } from "lucide-react";
 import type { Parcel } from "../types";
 
-function useCountUp(target: number, duration = 600) {
-  const ref = useRef<HTMLSpanElement>(null);
+// Count-up animation hook
+function useCountUp(target: number, decimals = 0, duration = 700) {
+  const ref  = useRef<HTMLSpanElement>(null);
   const prev = useRef(0);
+
   useEffect(() => {
-    const el = ref.current; if (!el) return;
-    const start = prev.current; const diff = target - start;
+    const el = ref.current;
+    if (!el) return;
+    const start     = prev.current;
+    const diff      = target - start;
     const startTime = performance.now();
+
     const step = (now: number) => {
-      const progress = Math.min((now - startTime) / duration, 1);
-      const ease = 1 - Math.pow(1 - progress, 3);
-      const current = start + diff * ease;
-      el.textContent = target % 1 === 0
-        ? Math.round(current).toLocaleString()
-        : current.toFixed(2);
-      if (progress < 1) requestAnimationFrame(step);
+      const t        = Math.min((now - startTime) / duration, 1);
+      const ease     = 1 - Math.pow(1 - t, 3);        // ease-out cubic
+      const current  = start + diff * ease;
+      el.textContent = decimals > 0
+        ? current.toFixed(decimals)
+        : Math.round(current).toLocaleString();
+      if (t < 1) requestAnimationFrame(step);
       else prev.current = target;
     };
+
     requestAnimationFrame(step);
-  }, [target, duration]);
+  }, [target, decimals, duration]);
+
   return ref;
 }
 
@@ -28,45 +36,106 @@ interface KPICardProps {
   value: number;
   unit: string;
   decimals?: number;
-  variant?: "default" | "accent" | "success" | "warning";
-  icon: string;
+  color: "blue" | "green" | "amber" | "violet" | "red" | "default";
+  Icon: typeof Sun;
+  suffix?: string;
 }
 
-function KPICard({ label, value, unit, decimals = 0, variant = "default", icon }: KPICardProps) {
-  const ref = useCountUp(value);
+const COLOR_MAP: Record<string, { icon: string; line: string }> = {
+  blue:    { icon: "hsl(var(--primary-light))",  line: "hsl(var(--primary))" },
+  green:   { icon: "hsl(var(--score-vh-bg))",    line: "hsl(var(--green))" },
+  amber:   { icon: "hsl(var(--score-mod-bg))",   line: "hsl(var(--amber))" },
+  violet:  { icon: "#ede9fe",                    line: "#7c3aed" },
+  red:     { icon: "hsl(var(--score-low-bg))",   line: "hsl(var(--red))" },
+  default: { icon: "hsl(var(--surface-variant))", line: "hsl(var(--foreground-tertiary))" },
+};
+
+function KPICard({ label, value, unit, decimals = 0, color, Icon, suffix = "" }: KPICardProps) {
+  const valueRef = useCountUp(value, decimals);
+  const { icon: iconBg, line } = COLOR_MAP[color] ?? COLOR_MAP.default;
+
   return (
-    <div className={`kpi-card ${variant} fade-up`}>
-      <div className="kpi-label">{label}</div>
-      <div className="kpi-value tabular-nums flex items-baseline gap-1">
-        <span>{icon}</span>
-        <span ref={ref}>{decimals > 0 ? value.toFixed(decimals) : value.toLocaleString()}</span>
+    <div className={`kpi-card ${color} fade-up`} data-testid={`kpi-${label.toLowerCase().replace(/\s/g,'-')}`}>
+      {/* Icon chip */}
+      <div className={`kpi-icon ${color}`} style={{ background: iconBg }}>
+        <Icon size={15} color={line} strokeWidth={2.2} />
       </div>
+
+      {/* Value */}
+      <div className="kpi-value">
+        <span ref={valueRef}>
+          {decimals > 0 ? value.toFixed(decimals) : value.toLocaleString()}
+        </span>
+        {suffix && (
+          <span style={{ fontSize: 14, fontWeight: 500, marginLeft: 2, color: "hsl(var(--foreground-secondary))" }}>
+            {suffix}
+          </span>
+        )}
+      </div>
+
+      <div className="kpi-label" style={{ marginTop: 4, marginBottom: 0 }}>{label}</div>
       <div className="kpi-sub">{unit}</div>
     </div>
   );
 }
 
-interface KPIRowProps {
-  parcels: Parcel[];
-}
-
-export function KPIRow({ parcels }: KPIRowProps) {
-  const n = parcels.length;
-  const avg = n ? parcels.reduce((s, p) => s + p.suitability_score, 0) / n : 0;
-  const best = n ? Math.max(...parcels.map((p) => p.suitability_score)) : 0;
-  const nHigh = parcels.filter((p) => p.suitability_score >= 2.5).length;
-  const avgGhi = n ? parcels.reduce((s, p) => s + p.ghi_kwh_m2_yr, 0) / n : 0;
-  const avgPV = n ? parcels.reduce((s, p) => s + p.pv_yield_kwh_kwp, 0) / n : 0;
-  const pctHigh = n ? (nHigh / n * 100) : 0;
+export function KPIRow({ parcels }: { parcels: Parcel[] }) {
+  const n       = parcels.length;
+  const avg     = n ? parcels.reduce((s, p) => s + p.suitability_score, 0) / n : 0;
+  const best    = n ? Math.max(...parcels.map((p) => p.suitability_score)) : 0;
+  const nHigh   = parcels.filter((p) => p.suitability_score >= 2.5).length;
+  const avgGhi  = n ? parcels.reduce((s, p) => s + p.ghi_kwh_m2_yr, 0) / n : 0;
+  const avgPV   = n ? parcels.reduce((s, p) => s + p.pv_yield_kwh_kwp, 0) / n : 0;
+  const avgTemp = n ? parcels.reduce((s, p) => s + p.temp_c, 0) / n : 0;
 
   return (
-    <div className="grid grid-cols-6 gap-3 px-5 py-4">
-      <KPICard label="Parcels"         value={n}       unit="after filters"         icon="📍" />
-      <KPICard label="Avg Score"       value={avg}     unit="out of 4.0"  decimals={2} variant="default" icon="📊" />
-      <KPICard label="Best Score"      value={best}    unit="top parcel"  decimals={2} variant="success" icon="🏆" />
-      <KPICard label="High Suitability" value={pctHigh} unit="score ≥ 2.5" decimals={1} variant="accent"  icon="✅" />
-      <KPICard label="Avg GHI"         value={avgGhi}  unit="kWh/m²/yr — PVGIS ERA5" decimals={0} icon="☀️" />
-      <KPICard label="Avg PV Yield"    value={avgPV}   unit="kWh/kWp/yr" decimals={0} variant="warning"  icon="⚡" />
+    <div className="kpi-grid">
+      <KPICard
+        label="Parcels"
+        value={n}
+        unit="analysis grid"
+        color="blue"
+        Icon={MapPin}
+      />
+      <KPICard
+        label="Avg Score"
+        value={avg}
+        unit="out of 4.0"
+        decimals={2}
+        color="default"
+        Icon={BarChart2}
+        suffix="/4"
+      />
+      <KPICard
+        label="Top Score"
+        value={best}
+        unit="highest parcel"
+        decimals={2}
+        color="green"
+        Icon={TrendingUp}
+      />
+      <KPICard
+        label="High Suitability"
+        value={nHigh}
+        unit="score ≥ 2.5"
+        color="amber"
+        Icon={TrendingUp}
+      />
+      <KPICard
+        label="Avg GHI"
+        value={Math.round(avgGhi)}
+        unit="kWh/m²/yr — PVGIS ERA5"
+        color="amber"
+        Icon={Sun}
+      />
+      <KPICard
+        label="Mean Temp"
+        value={avgTemp}
+        unit="°C · NASA POWER"
+        decimals={1}
+        color="red"
+        Icon={Thermometer}
+      />
     </div>
   );
 }
