@@ -53,6 +53,21 @@ async function buildAll() {
     define: {
       "process.env.NODE_ENV": '"production"',
     },
+    // Inject CJS-compatible __dirname / __filename shim so that any
+    // import.meta.url-based derivations in the source are overridden
+    // at the top of the bundle, before any module code runs.
+    define: {
+      "process.env.NODE_ENV": '"production"',
+      // Rewrite all import.meta.url references to __importMetaUrl
+      // which is declared in the banner below and resolves correctly in CJS.
+      "import.meta.url": "__importMetaUrl",
+    },
+    // Banner declares __importMetaUrl using native CJS __filename.
+    // This runs before all bundled code, so all rewritten import.meta.url
+    // references resolve to the actual file path of the bundle.
+    banner: {
+      js: `var __importMetaUrl=require('url').pathToFileURL(__filename).href;`,
+    },
     minify: true,
     external: externals,
     logLevel: "info",

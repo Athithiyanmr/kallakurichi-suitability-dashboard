@@ -2,25 +2,15 @@ import type { Express } from "express";
 import type { Server } from "http";
 import path from "path";
 import fs from "fs";
+import { fileURLToPath } from "url";
 
-// Works in both ESM (tsx dev) and CJS (esbuild production)
-// In CJS, __dirname is natively available.
-// In ESM, we derive it from import.meta.url.
-// We guard the import.meta.url path so esbuild doesn't warn in CJS mode.
-function getDataDir(): string {
-  // CJS path: __dirname is defined
-  try {
-    // eslint-disable-next-line no-undef
-    if (typeof __dirname !== "undefined") return __dirname;
-  } catch {}
-  // ESM path: derive from import.meta.url
-  // We use Function() to avoid esbuild static analysis warning
-  const metaUrl: string = new Function("return import.meta.url")();
-  const { fileURLToPath } = require("url") as typeof import("url");
-  return path.dirname(fileURLToPath(metaUrl));
-}
-
-const DATA_DIR = getDataDir();
+// Derive __dirname from import.meta.url (ESM-native).
+// In dev (tsx), this resolves to the source server/ directory.
+// In production (esbuild CJS bundle), the build script injects a
+// __dirname banner shim so this import is never reached.
+const __filename = fileURLToPath(import.meta.url);
+const __dirname  = path.dirname(__filename);
+const DATA_DIR   = __dirname;
 
 // ── Types ────────────────────────────────────────────────────────────────────
 

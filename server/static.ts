@@ -2,6 +2,11 @@ import express from 'express';
 import type { Express } from 'express';
 import fs from "node:fs";
 import path from "node:path";
+import { fileURLToPath } from "url";
+
+// ESM-native __dirname (works in tsx dev; esbuild banner shim covers CJS prod)
+const __filename = fileURLToPath(import.meta.url);
+const __dirname  = path.dirname(__filename);
 
 export function serveStatic(app: Express) {
   const distPath = path.resolve(__dirname, "public");
