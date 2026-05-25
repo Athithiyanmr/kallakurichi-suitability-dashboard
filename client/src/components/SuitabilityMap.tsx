@@ -1,88 +1,108 @@
-import { useEffect, useMemo, useState } from "react";
-import { MapContainer, TileLayer, CircleMarker, Tooltip, useMap } from "react-leaflet";
-import type { Parcel } from "../types";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { MapContainer, TileLayer, useMap, GeoJSON } from "react-leaflet";
+import type { FeatureCollection, Feature } from "geojson";
+import type { PathOptions, Layer, LeafletMouseEvent } from "leaflet";
+import L from "leaflet";
 import "leaflet/dist/leaflet.css";
+import type { Parcel, Weights, Filters } from "../types";
+import { buildGeoJSONUrl } from "../hooks/useParcels";
+import { apiRequest } from "../lib/queryClient";
+import { Layers } from "lucide-react";
 
-// ─── Score colour helpers ─────────────────────────────────────────────────────
-function scoreLine(s: number): string {
-  if (s >= 3.25) return "#0f9d58";
-  if (s >= 2.5)  return "#34a853";
-  if (s >= 1.75) return "#f4b400";
-  return "#ea4335";
+// ─── Score color helpers ──────────────────────────────────────────────────────
+function scoreStroke(s: number): string {
+  if (s >= 3.5) return "#0d8043";
+  if (s >= 2.75) return "#1a73e8";
+  if (s >= 2.0) return "#e37400";
+  return "#c5221f";
 }
 function scoreFill(s: number): string {
-  if (s >= 3.25) return "#ceead6";
-  if (s >= 2.5)  return "#e6f4ea";
-  if (s >= 1.75) return "#fef3c7";
+  if (s >= 3.5) return "#ceead6";
+  if (s >= 2.75) return "#d2e3fc";
+  if (s >= 2.0) return "#fce8b2";
   return "#fce8e6";
 }
 function scoreLabel(s: number): string {
-  if (s >= 3.25) return "Very High";
-  if (s >= 2.5)  return "High";
-  if (s >= 1.75) return "Moderate";
+  if (s >= 3.5) return "Very High";
+  if (s >= 2.75) return "High";
+  if (s >= 2.0) return "Moderate";
   return "Low";
 }
-function scoreBadgeClass(s: number): string {
-  if (s >= 3.25) return "badge-score badge-vh";
-  if (s >= 2.5)  return "badge-score badge-h";
-  if (s >= 1.75) return "badge-score badge-mod";
-  return "badge-score badge-low";
+function badgeClass(s: number): string {
+  if (s >= 3.5) return "badge-vh";
+  if (s >= 2.75) return "badge-h";
+  if (s >= 2.0) return "badge-mod";
+  return "badge-low";
+}
+function lulcIcon(lulc: string): string {
+  return lulc === "Bare/sparse veg" ? "🟤" : "🟢";
 }
 
 // ─── Basemap definitions ──────────────────────────────────────────────────────
 const BASEMAPS: Record<string, { url: string; attr: string }> = {
-  "Light":     { url: "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png",    attr: "© OpenStreetMap © CARTO" },
-  "Street":    { url: "https://tile.openstreetmap.org/{z}/{x}/{y}.png",                     attr: "© OpenStreetMap contributors" },
+  "Light":     { url: "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png",     attr: "© OpenStreetMap © CARTO" },
+  "Street":    { url: "https://tile.openstreetmap.org/{z}/{x}/{y}.png",                      attr: "© OpenStreetMap contributors" },
   "Satellite": { url: "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}", attr: "Tiles © Esri" },
-  "Terrain":   { url: "https://stamen-tiles-{s}.a.ssl.fastly.net/terrain/{z}/{x}/{y}.png",  attr: "© Stamen Design, © OpenStreetMap" },
+  "Terrain":   { url: "https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png",                    attr: "© OpenTopoMap" },
 };
 
-// ─── Map recentrer ────────────────────────────────────────────────────────────
-function MapRecenter({ center }: { center: [number, number] }) {
+// ─── Fit-to-bounds helper ─────────────────────────────────────────────────────
+function FitBounds({ geojson }: { geojson: FeatureCollection | null }) {
   const map = useMap();
-  useEffect(() => { map.setView(center, map.getZoom()); }, [center]);
+  useEffect(() => {
+    if (!geojson || !geojson.features?.length) return;
+    try {
+      const layer = L.geoJSON(geojson);
+      const bounds = layer.getBounds();
+      if (bounds.isValid()) {
+        map.fitBounds(bounds, { padding: [24, 24] });
+      }
+    } catch {
+      map.setView([11.85, 79.0], 9);
+    }
+  }, [geojson]);
   return null;
 }
 
-// ─── Floating overlay cards ───────────────────────────────────────────────────
+// ─── Floating overlay: legend ─────────────────────────────────────────────────
 function MapLegend() {
   return (
-    <div className="map-overlay map-legend" style={{ minWidth: 130 }}>
-      <div style={{ fontSize: 10, fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.06em", color: "hsl(var(--foreground-tertiary))", marginBottom: 8 }}>
-        Suitability
-      </div>
+    <div className="map-overlay map-legend" style={{ minWidth: 148 }}>
+      <div className="overlay-label">Suitability</div>
       {[
-        { label: "Very High (≥ 3.25)", color: "#0f9d58" },
-        { label: "High (≥ 2.50)",      color: "#34a853" },
-        { label: "Moderate (≥ 1.75)",  color: "#f4b400" },
-        { label: "Low (< 1.75)",       color: "#ea4335" },
-      ].map(({ label, color }) => (
+        { label: "Very High (≥ 3.50)", stroke: "#0d8043", fill: "#ceead6" },
+        { label: "High (≥ 2.75)",      stroke: "#1a73e8", fill: "#d2e3fc" },
+        { label: "Moderate (≥ 2.00)",  stroke: "#e37400", fill: "#fce8b2" },
+        { label: "Low (< 2.00)",       stroke: "#c5221f", fill: "#fce8e6" },
+      ].map(({ label, stroke, fill }) => (
         <div className="legend-row" key={label}>
-          <span className="legend-dot" style={{ background: color }} />
-          <span style={{ fontSize: 11 }}>{label}</span>
+          <span className="legend-swatch" style={{ background: fill, border: `1.5px solid ${stroke}` }} />
+          <span>{label}</span>
         </div>
       ))}
+      <div className="overlay-label" style={{ marginTop: 10 }}>Land Cover</div>
+      <div className="legend-row"><span>🟤</span><span>Bare / sparse veg</span></div>
+      <div className="legend-row"><span>🟢</span><span>Shrubland</span></div>
     </div>
   );
 }
 
-function BasemapSelector({ active, onChange }: {
-  active: string;
-  onChange: (name: string) => void;
-}) {
+// ─── Floating overlay: basemap picker ─────────────────────────────────────────
+function BasemapSelector({ active, onChange }: { active: string; onChange: (n: string) => void }) {
   const [open, setOpen] = useState(false);
   return (
-    <div className="map-overlay map-basemap" style={{ minWidth: 100 }}>
+    <div className="map-overlay map-basemap" style={{ minWidth: 110 }}>
       <button
         onClick={() => setOpen(!open)}
         style={{
           width: "100%", background: "none", border: "none", cursor: "pointer",
           fontSize: 11, fontWeight: 600, color: "hsl(var(--foreground))",
-          display: "flex", alignItems: "center", justifyContent: "space-between", gap: 6,
-          padding: 0,
+          display: "flex", alignItems: "center", justifyContent: "space-between", padding: 0,
         }}
       >
-        <span>🗺 {active}</span>
+        <span style={{ display: "flex", alignItems: "center", gap: 4 }}>
+          <Layers size={11} /> {active}
+        </span>
         <span style={{ opacity: 0.5 }}>{open ? "▲" : "▼"}</span>
       </button>
       {open && (
@@ -102,27 +122,29 @@ function BasemapSelector({ active, onChange }: {
   );
 }
 
+// ─── Floating overlay: stats panel ───────────────────────────────────────────
 function MapStats({ parcels }: { parcels: Parcel[] }) {
   const n = parcels.length;
   if (!n) return null;
-  const counts = {
-    "Very High": parcels.filter((p) => p.suitability_score >= 3.25).length,
-    "High":      parcels.filter((p) => p.suitability_score >= 2.5 && p.suitability_score < 3.25).length,
-    "Moderate":  parcels.filter((p) => p.suitability_score >= 1.75 && p.suitability_score < 2.5).length,
-    "Low":       parcels.filter((p) => p.suitability_score < 1.75).length,
-  };
+  const totalHa = parcels.reduce((s, p) => s + p.area_ha, 0);
+  const bins = [
+    { label: "Very High", cnt: parcels.filter((p) => p.score >= 3.5).length,  color: "#0d8043" },
+    { label: "High",      cnt: parcels.filter((p) => p.score >= 2.75 && p.score < 3.5).length, color: "#1a73e8" },
+    { label: "Moderate",  cnt: parcels.filter((p) => p.score >= 2.0  && p.score < 2.75).length, color: "#e37400" },
+    { label: "Low",       cnt: parcels.filter((p) => p.score < 2.0).length,   color: "#c5221f" },
+  ];
   return (
-    <div className="map-overlay map-stats" style={{ minWidth: 152 }}>
-      <div style={{ fontSize: 10, fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.06em", color: "hsl(var(--foreground-tertiary))", marginBottom: 6 }}>
-        {n.toLocaleString()} parcels shown
+    <div className="map-overlay map-stats" style={{ minWidth: 164 }}>
+      <div className="overlay-label">{n.toLocaleString()} polygons shown</div>
+      <div style={{ fontSize: 10, color: "hsl(var(--foreground-tertiary))", marginBottom: 8, fontFamily: "monospace" }}>
+        {totalHa >= 1000
+          ? `${(totalHa / 1000).toFixed(1)} k ha`
+          : `${totalHa.toFixed(0)} ha`} total area
       </div>
-      {Object.entries(counts).map(([label, cnt]) => {
-        const colors: Record<string, string> = {
-          "Very High": "#0f9d58", "High": "#34a853", "Moderate": "#f4b400", "Low": "#ea4335",
-        };
+      {bins.map(({ label, cnt, color }) => {
         const pct = ((cnt / n) * 100).toFixed(0);
         return (
-          <div key={label} style={{ marginBottom: 4 }}>
+          <div key={label} style={{ marginBottom: 5 }}>
             <div style={{ display: "flex", justifyContent: "space-between", fontSize: 11, marginBottom: 2 }}>
               <span style={{ color: "hsl(var(--foreground))", fontWeight: 500 }}>{label}</span>
               <span style={{ color: "hsl(var(--foreground-secondary))", fontFamily: "monospace", fontSize: 10 }}>
@@ -130,7 +152,7 @@ function MapStats({ parcels }: { parcels: Parcel[] }) {
               </span>
             </div>
             <div style={{ height: 3, borderRadius: 2, background: "hsl(var(--border))" }}>
-              <div style={{ height: "100%", borderRadius: 2, width: `${pct}%`, background: colors[label], transition: "width 0.4s" }} />
+              <div style={{ height: "100%", borderRadius: 2, width: `${pct}%`, background: color, transition: "width 0.4s" }} />
             </div>
           </div>
         );
@@ -139,65 +161,141 @@ function MapStats({ parcels }: { parcels: Parcel[] }) {
   );
 }
 
-// ─── Tooltip content ─────────────────────────────────────────────────────────
-function ParcelTooltip({ p }: { p: Parcel }) {
-  return (
-    <div style={{ fontFamily: "'Inter', sans-serif", minWidth: 210, fontSize: 12, padding: 2 }}>
-      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 8 }}>
-        <span style={{ fontWeight: 700, fontSize: 13, color: "hsl(214 32% 12%)" }}>{p.parcel_id}</span>
-        <span className={scoreBadgeClass(p.suitability_score)} style={{ fontSize: 10 }}>
-          {scoreLabel(p.suitability_score)}
-        </span>
+// ─── Leaflet GeoJSON polygon tooltip content ──────────────────────────────────
+function buildTooltipHTML(props: Record<string, any>): string {
+  const score = props.score ?? 0;
+  const sc = scoreLabel(score);
+  const bc = badgeClass(score);
+  const strokeColor = scoreStroke(score);
+  return `
+    <div style="font-family:'Inter',system-ui,sans-serif;min-width:220px;font-size:12px;padding:2px">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
+        <span style="font-weight:700;font-size:13px;color:#202124">${props.id ?? ""}</span>
+        <span class="badge-score ${bc}" style="font-size:10px">${sc}</span>
       </div>
-      <div style={{ fontSize: 11, color: "#5f6368", marginBottom: 8, fontWeight: 500 }}>{p.village}</div>
-      <table style={{ width: "100%", borderCollapse: "collapse" }}>
+      <div style="font-size:11px;color:#5f6368;margin-bottom:8px;font-weight:500">
+        ${lulcIcon(props.lulc ?? "")} ${props.lulc ?? ""}
+        &nbsp;·&nbsp; ${(props.area_ha ?? 0).toFixed(1)} ha
+      </div>
+      <table style="width:100%;border-collapse:collapse">
         <tbody>
-          {([
-            ["Score",       `${p.suitability_score.toFixed(3)} / 4.00`],
-            ["GHI",         `${p.ghi_kwh_m2_yr.toFixed(0)} kWh/m²/yr`],
-            ["PV Yield",    `${p.pv_yield_kwh_kwp.toFixed(0)} kWh/kWp/yr`],
-            ["Slope",       `${p.slope_deg.toFixed(1)}°`],
-            ["Land Cover",  p.lulc_name],
-            ["Grid Dist.",  `${p.power_dist_km.toFixed(1)} km`],
-            ["Road Dist.",  `${p.road_dist_km.toFixed(1)} km`],
-            ["Elevation",   `${p.elevation_m.toFixed(0)} m`],
-            ["Temperature", `${p.temp_c.toFixed(1)} °C`],
-          ] as [string, string][]).map(([k, v]) => (
-            <tr key={k}>
-              <td style={{ color: "#80868b", padding: "2px 8px 2px 0", fontSize: 11, whiteSpace: "nowrap" }}>{k}</td>
-              <td style={{
-                textAlign: "right", padding: "2px 0", fontSize: 11,
-                fontWeight: k === "Score" ? 700 : 400,
-                color: k === "Score" ? scoreLine(p.suitability_score) : "hsl(214 32% 12%)",
-                fontFamily: "monospace",
-              }}>
-                {v}
-              </td>
-            </tr>
-          ))}
+          ${[
+            ["Score",       `<strong style="color:${strokeColor}">${(score).toFixed(3)} / 4.00</strong>`],
+            ["GHI",         `${(props.ghi ?? 0).toFixed(0)} kWh/m²/yr`],
+            ["PV Yield",    `${(props.pv_yield ?? 0).toFixed(0)} kWh/kWp/yr`],
+            ["Slope",       `${(props.slope ?? 0).toFixed(1)}°`],
+            ["Elevation",   `${(props.elev ?? 0).toFixed(0)} m`],
+            ["Temperature", `${(props.temp ?? 0).toFixed(1)} °C`],
+            ["Grid Dist.",  `${(props.pwr_km ?? 0).toFixed(1)} km`],
+            ["Road Dist.",  `${(props.road_km ?? 0).toFixed(1)} km`],
+          ].map(([k, v]) => `
+            <tr>
+              <td style="color:#80868b;padding:2px 8px 2px 0;font-size:11px;white-space:nowrap">${k}</td>
+              <td style="text-align:right;padding:2px 0;font-size:11px;font-family:monospace">${v}</td>
+            </tr>`).join("")}
         </tbody>
       </table>
-      <div style={{ marginTop: 8, fontSize: 10, color: "#bdc1c6", fontFamily: "monospace" }}>
-        {p.lat.toFixed(5)}°N  {p.lon.toFixed(5)}°E
+      <div style="margin-top:8px;font-size:10px;color:#bdc1c6;font-family:monospace">
+        ${(props.lat ?? 0).toFixed(5)}°N &nbsp; ${(props.lon ?? 0).toFixed(5)}°E
       </div>
     </div>
+  `;
+}
+
+// ─── GeoJSON layer with choropleth styling ────────────────────────────────────
+function PolygonLayer({ geojson, key: geoKey }: { geojson: FeatureCollection; key: string }) {
+  const map = useMap();
+  const layerRef = useRef<L.GeoJSON | null>(null);
+
+  useEffect(() => {
+    if (layerRef.current) {
+      layerRef.current.clearLayers();
+      layerRef.current.addData(geojson);
+    }
+  }, [geojson]);
+
+  function style(feature?: Feature): PathOptions {
+    const s: number = (feature?.properties as any)?.score ?? 0;
+    return {
+      color:       scoreStroke(s),
+      fillColor:   scoreFill(s),
+      fillOpacity: 0.72,
+      weight:      1.0,
+      opacity:     0.9,
+    };
+  }
+
+  function onEachFeature(feature: Feature, layer: Layer) {
+    const props = feature.properties as Record<string, any>;
+    const popup = L.popup({ maxWidth: 280, className: "parcel-popup" }).setContent(buildTooltipHTML(props));
+    layer.bindPopup(popup);
+    layer.on({
+      mouseover: (e: LeafletMouseEvent) => {
+        const l = e.target as L.Path;
+        const s = props.score ?? 0;
+        l.setStyle({ weight: 2.5, fillOpacity: 0.92, color: scoreStroke(s) });
+        l.bringToFront();
+        // show tooltip on hover
+        popup.setLatLng(e.latlng).openOn(map);
+      },
+      mouseout: (e: LeafletMouseEvent) => {
+        const l = e.target as L.Path;
+        l.setStyle(style(feature));
+        map.closePopup(popup);
+      },
+      click: (e: LeafletMouseEvent) => {
+        const l = e.target as L.Path;
+        popup.setLatLng(e.latlng).openOn(map);
+      },
+    });
+  }
+
+  return (
+    <GeoJSON
+      ref={layerRef as any}
+      data={geojson}
+      style={style}
+      onEachFeature={onEachFeature}
+      key={geoKey}
+    />
   );
 }
 
-// ─── Main map component ───────────────────────────────────────────────────────
-interface Props { parcels: Parcel[]; mapMode: "circles" | "heat"; }
+// ─── Main component ──────────────────────────────────────────────────────────
+interface Props {
+  parcels: Parcel[];
+  weights: Weights;
+  filters: Filters;
+}
 
-export function SuitabilityMap({ parcels }: Props) {
+export function SuitabilityMap({ parcels, weights, filters }: Props) {
   const [basemap, setBasemap] = useState<string>("Light");
+  const [geojson, setGeojson] = useState<FeatureCollection | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const fetchUrlRef = useRef("");
 
-  const center = useMemo<[number, number]>(() => {
-    if (!parcels.length) return [11.85, 79.0];
-    const la = parcels.reduce((s, p) => s + p.lat, 0) / parcels.length;
-    const lo = parcels.reduce((s, p) => s + p.lon, 0) / parcels.length;
-    return [la, lo];
-  }, [parcels.length]);
+  // Fetch GeoJSON from /api/geojson endpoint (polygon geometries)
+  useEffect(() => {
+    const url = buildGeoJSONUrl(weights, filters);
+    if (url === fetchUrlRef.current) return;
+    fetchUrlRef.current = url;
+    setLoading(true);
+    setError(null);
+    apiRequest(url)
+      .then((r) => r.json())
+      .then((data) => {
+        setGeojson(data as FeatureCollection);
+        setLoading(false);
+      })
+      .catch((e) => {
+        setError(String(e));
+        setLoading(false);
+      });
+  }, [weights, filters]);
 
   const { url, attr } = BASEMAPS[basemap];
+  const geojsonKey = geojson ? `gj-${geojson.features?.length}-${basemap}` : "empty";
 
   return (
     <div style={{
@@ -208,34 +306,41 @@ export function SuitabilityMap({ parcels }: Props) {
       overflow: "hidden",
       border: "1px solid hsl(var(--border))",
       boxShadow: "var(--shadow-1)",
+      minHeight: 400,
     }}>
+      {/* Loading banner */}
+      {loading && (
+        <div style={{
+          position: "absolute", top: 12, left: "50%", transform: "translateX(-50%)",
+          zIndex: 1000, background: "rgba(32,33,36,0.88)", color: "#fff",
+          fontSize: 11, fontWeight: 600, padding: "5px 12px", borderRadius: 20,
+          display: "flex", alignItems: "center", gap: 6,
+        }}>
+          <span style={{ display: "inline-block", animation: "spin 1s linear infinite" }}>⟳</span>
+          Loading polygons…
+        </div>
+      )}
+      {/* Error banner */}
+      {error && (
+        <div style={{
+          position: "absolute", top: 12, left: "50%", transform: "translateX(-50%)",
+          zIndex: 1000, background: "#c5221f", color: "#fff",
+          fontSize: 11, padding: "5px 12px", borderRadius: 20,
+        }}>
+          Map error: {error}
+        </div>
+      )}
+
       <MapContainer
         center={[11.85, 79.0]}
-        zoom={10}
+        zoom={9}
         style={{ width: "100%", height: "100%" }}
         scrollWheelZoom
         zoomControl
       >
         <TileLayer url={url} attribution={attr} key={basemap} />
-        <MapRecenter center={center} />
-
-        {parcels.map((p) => (
-          <CircleMarker
-            key={p.parcel_id}
-            center={[p.lat, p.lon]}
-            radius={6}
-            pathOptions={{
-              color:       scoreLine(p.suitability_score),
-              fillColor:   scoreFill(p.suitability_score),
-              fillOpacity: 0.85,
-              weight:      1.5,
-            }}
-          >
-            <Tooltip sticky>
-              <ParcelTooltip p={p} />
-            </Tooltip>
-          </CircleMarker>
-        ))}
+        {geojson && <FitBounds geojson={geojson} />}
+        {geojson && <PolygonLayer geojson={geojson} key={geojsonKey} />}
       </MapContainer>
 
       {/* Floating overlays */}

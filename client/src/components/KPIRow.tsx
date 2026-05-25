@@ -1,8 +1,8 @@
 import { useEffect, useRef } from "react";
-import { Sun, Zap, MapPin, TrendingUp, BarChart2, Thermometer } from "lucide-react";
+import { Sun, Zap, MapPin, TrendingUp, BarChart2, Thermometer, Leaf, Maximize2 } from "lucide-react";
 import type { Parcel } from "../types";
 
-// Count-up animation hook
+// ─── Count-up animation ───────────────────────────────────────────────────────
 function useCountUp(target: number, decimals = 0, duration = 700) {
   const ref  = useRef<HTMLSpanElement>(null);
   const prev = useRef(0);
@@ -15,9 +15,9 @@ function useCountUp(target: number, decimals = 0, duration = 700) {
     const startTime = performance.now();
 
     const step = (now: number) => {
-      const t        = Math.min((now - startTime) / duration, 1);
-      const ease     = 1 - Math.pow(1 - t, 3);        // ease-out cubic
-      const current  = start + diff * ease;
+      const t       = Math.min((now - startTime) / duration, 1);
+      const ease    = 1 - Math.pow(1 - t, 3);
+      const current = start + diff * ease;
       el.textContent = decimals > 0
         ? current.toFixed(decimals)
         : Math.round(current).toLocaleString();
@@ -32,21 +32,22 @@ function useCountUp(target: number, decimals = 0, duration = 700) {
 }
 
 interface KPICardProps {
-  label: string;
-  value: number;
-  unit: string;
+  label:    string;
+  value:    number;
+  unit:     string;
   decimals?: number;
-  color: "blue" | "green" | "amber" | "violet" | "red" | "default";
-  Icon: typeof Sun;
-  suffix?: string;
+  color:    "blue" | "green" | "amber" | "violet" | "red" | "teal" | "default";
+  Icon:     typeof Sun;
+  suffix?:  string;
 }
 
 const COLOR_MAP: Record<string, { icon: string; line: string }> = {
-  blue:    { icon: "hsl(var(--primary-light))",  line: "hsl(var(--primary))" },
-  green:   { icon: "hsl(var(--score-vh-bg))",    line: "hsl(var(--green))" },
-  amber:   { icon: "hsl(var(--score-mod-bg))",   line: "hsl(var(--amber))" },
-  violet:  { icon: "#ede9fe",                    line: "#7c3aed" },
-  red:     { icon: "hsl(var(--score-low-bg))",   line: "hsl(var(--red))" },
+  blue:    { icon: "hsl(var(--primary-light))",   line: "hsl(var(--primary))" },
+  green:   { icon: "#ceead6",                     line: "#0d8043" },
+  amber:   { icon: "#fce8b2",                     line: "#e37400" },
+  violet:  { icon: "#ede9fe",                     line: "#7c3aed" },
+  red:     { icon: "#fce8e6",                     line: "#c5221f" },
+  teal:    { icon: "#d2e3fc",                     line: "#1a73e8" },
   default: { icon: "hsl(var(--surface-variant))", line: "hsl(var(--foreground-tertiary))" },
 };
 
@@ -55,13 +56,10 @@ function KPICard({ label, value, unit, decimals = 0, color, Icon, suffix = "" }:
   const { icon: iconBg, line } = COLOR_MAP[color] ?? COLOR_MAP.default;
 
   return (
-    <div className={`kpi-card ${color} fade-up`} data-testid={`kpi-${label.toLowerCase().replace(/\s/g,'-')}`}>
-      {/* Icon chip */}
-      <div className={`kpi-icon ${color}`} style={{ background: iconBg }}>
+    <div className={`kpi-card ${color} fade-up`} data-testid={`kpi-${label.toLowerCase().replace(/\s/g, "-")}`}>
+      <div className="kpi-icon" style={{ background: iconBg }}>
         <Icon size={15} color={line} strokeWidth={2.2} />
       </div>
-
-      {/* Value */}
       <div className="kpi-value">
         <span ref={valueRef}>
           {decimals > 0 ? value.toFixed(decimals) : value.toLocaleString()}
@@ -72,7 +70,6 @@ function KPICard({ label, value, unit, decimals = 0, color, Icon, suffix = "" }:
           </span>
         )}
       </div>
-
       <div className="kpi-label" style={{ marginTop: 4, marginBottom: 0 }}>{label}</div>
       <div className="kpi-sub">{unit}</div>
     </div>
@@ -80,22 +77,33 @@ function KPICard({ label, value, unit, decimals = 0, color, Icon, suffix = "" }:
 }
 
 export function KPIRow({ parcels }: { parcels: Parcel[] }) {
-  const n       = parcels.length;
-  const avg     = n ? parcels.reduce((s, p) => s + p.suitability_score, 0) / n : 0;
-  const best    = n ? Math.max(...parcels.map((p) => p.suitability_score)) : 0;
-  const nHigh   = parcels.filter((p) => p.suitability_score >= 2.5).length;
-  const avgGhi  = n ? parcels.reduce((s, p) => s + p.ghi_kwh_m2_yr, 0) / n : 0;
-  const avgPV   = n ? parcels.reduce((s, p) => s + p.pv_yield_kwh_kwp, 0) / n : 0;
-  const avgTemp = n ? parcels.reduce((s, p) => s + p.temp_c, 0) / n : 0;
+  const n         = parcels.length;
+  const totalHa   = n ? parcels.reduce((s, p) => s + p.area_ha, 0) : 0;
+  const avg       = n ? parcels.reduce((s, p) => s + p.score, 0) / n : 0;
+  const nHigh     = parcels.filter((p) => p.score >= 2.75).length;
+  const avgGhi    = n ? parcels.reduce((s, p) => s + p.ghi, 0) / n : 0;
+  const avgTemp   = n ? parcels.reduce((s, p) => s + p.temp, 0) / n : 0;
+  const avgSlope  = n ? parcels.reduce((s, p) => s + p.slope, 0) / n : 0;
+  const avgPwr    = n ? parcels.reduce((s, p) => s + p.pwr_km, 0) / n : 0;
+  const avgPV     = n ? parcels.reduce((s, p) => s + p.pv_yield, 0) / n : 0;
 
   return (
     <div className="kpi-grid">
       <KPICard
-        label="Parcels"
+        label="Polygons"
         value={n}
-        unit="analysis grid"
+        unit="barren parcels"
         color="blue"
         Icon={MapPin}
+      />
+      <KPICard
+        label="Total Area"
+        value={Math.round(totalHa / 1000 * 10) / 10}
+        unit="thousand ha"
+        decimals={1}
+        color="teal"
+        Icon={Maximize2}
+        suffix=" k ha"
       />
       <KPICard
         label="Avg Score"
@@ -107,34 +115,41 @@ export function KPIRow({ parcels }: { parcels: Parcel[] }) {
         suffix="/4"
       />
       <KPICard
-        label="Top Score"
-        value={best}
-        unit="highest parcel"
-        decimals={2}
-        color="green"
-        Icon={TrendingUp}
-      />
-      <KPICard
         label="High Suitability"
         value={nHigh}
-        unit="score ≥ 2.5"
-        color="amber"
+        unit="score ≥ 2.75"
+        color="green"
         Icon={TrendingUp}
       />
       <KPICard
         label="Avg GHI"
         value={Math.round(avgGhi)}
-        unit="kWh/m²/yr — PVGIS ERA5"
+        unit="kWh/m²/yr · PVGIS"
         color="amber"
         Icon={Sun}
       />
       <KPICard
-        label="Mean Temp"
-        value={avgTemp}
-        unit="°C · NASA POWER"
+        label="Avg PV Yield"
+        value={Math.round(avgPV)}
+        unit="kWh/kWp/yr"
+        color="amber"
+        Icon={Zap}
+      />
+      <KPICard
+        label="Avg Slope"
+        value={avgSlope}
+        unit="degrees · SRTM"
         decimals={1}
-        color="red"
-        Icon={Thermometer}
+        color="default"
+        Icon={Leaf}
+      />
+      <KPICard
+        label="Avg Grid Dist."
+        value={avgPwr}
+        unit="km to power tower"
+        decimals={1}
+        color="violet"
+        Icon={Zap}
       />
     </div>
   );

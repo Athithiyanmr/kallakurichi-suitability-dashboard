@@ -689,3 +689,46 @@ body {
   background: hsl(var(--divider));
   margin: 0 16px;
 }
+
+/* ─── Map overlay helpers (polygon legend / stats) ─────────────────────────── */
+.overlay-label {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: hsl(var(--foreground-tertiary));
+  margin-bottom: 8px;
+}
+.legend-swatch {
+  display: inline-block;
+  width: 14px;
+  height: 10px;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+.legend-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  margin-bottom: 4px;
+  color: hsl(var(--foreground));
+}
+
+/* ─── Parcel popup (Leaflet) ────────────────────────────────────────────────── */
+.parcel-popup .leaflet-popup-content-wrapper {
+  border-radius: 10px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.18);
+  padding: 0;
+  border: 1px solid hsl(var(--border));
+}
+.parcel-popup .leaflet-popup-content {
+  margin: 12px 14px;
+}
+.parcel-popup .leaflet-popup-tip-container { display: none; }
+
+/* ─── Spin animation (loading indicator) ───────────────────────────────────── */
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}

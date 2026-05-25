@@ -1,6 +1,6 @@
 import { build as esbuild } from "esbuild";
 import { build as viteBuild } from "vite";
-import { rm, readFile } from "node:fs/promises";
+import { rm, readFile, copyFile, access } from "node:fs/promises";
 
 // server deps to bundle to reduce openat(2) syscalls
 // which helps cold start times
@@ -57,6 +57,19 @@ async function buildAll() {
     external: externals,
     logLevel: "info",
   });
+
+  // Copy barren land data files to dist so the server can find them
+  for (const fname of ["barren_parcels_flat.json", "barren_parcels.geojson"]) {
+    const src = `server/${fname}`;
+    const dst = `dist/${fname}`;
+    try {
+      await access(src);
+      await copyFile(src, dst);
+      console.log(`copied ${fname} → dist/`);
+    } catch {
+      console.warn(`[build] ${src} not found, skipping`);
+    }
+  }
 }
 
 buildAll().catch((err) => {

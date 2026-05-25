@@ -1,32 +1,33 @@
+// ─── New polygon-based Parcel schema (short field names from barren_parcels_flat.json)
 export interface Parcel {
-  parcel_id: string;
-  village: string;
-  lat: number;
-  lon: number;
-  elevation_m: number;
-  slope_deg: number;
-  slope_score: number;
-  lulc_class: number;
-  lulc_name: string;
-  lulc_score: number;
-  ghi_kwh_m2_yr: number;
-  pv_yield_kwh_kwp: number;
-  ghi_score: number;
-  ghi_daily: number;
-  temp_c: number;
-  temp_score: number;
-  power_dist_km: number;
-  power_score: number;
-  road_dist_km: number;
-  road_score: number;
-  suitability_score: number;
-  suitability_class: string;
+  id:         string;         // KLK-XXXX
+  lulc:       string;         // "Bare/sparse veg" | "Shrubland"
+  lulc_class: number;         // 60 | 20
+  area_ha:    number;
+  lat:        number;
+  lon:        number;
+  elev:       number;         // elevation_m
+  slope:      number;         // slope_deg
+  ghi:        number;         // ghi_kwh_m2_yr
+  pv_yield:   number;         // E_y kWh/kWp/yr
+  temp:       number;         // T2M_c
+  pwr_km:     number;         // distance to nearest OSM power tower (km)
+  road_km:    number;         // distance to nearest OSM highway node (km)
+  s_slope:    number;         // score 1-4
+  s_ghi:      number;
+  s_power:    number;
+  s_road:     number;
+  s_temp:     number;
+  s_lulc:     number;
+  score:      number;         // composite suitability
+  class:      string;         // "Very High" | "High" | "Moderate" | "Low"
 }
 
 export interface Meta {
   total_parcels: number;
-  villages: string[];
-  lulc_names: string[];
+  total_area_ha: number;
+  lulc_types:    string[];
+  suit_classes:  string[];
   bbox: { min_lat: number; max_lat: number; min_lon: number; max_lon: number };
   data_sources: Record<string, string>;
 }
@@ -41,8 +42,9 @@ export interface Weights {
 }
 
 export interface Filters {
-  village:       string;
-  lulc_name:     string;
-  max_slope:     number;
-  max_power_dist:number;
+  lulc:           string;
+  suit_class:     string;
+  max_slope:      number;
+  max_power_dist: number;
+  min_area:       number;
 }

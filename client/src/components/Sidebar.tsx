@@ -5,66 +5,12 @@ import {
 import { useState } from "react";
 import type { Weights, Filters } from "../types";
 
-interface WeightSliderProps {
-  label: string;
-  factorKey: keyof Weights;
-  value: number;
-  normalised: number;
-  color: string;
-  icon: React.ReactNode;
-}
-
-function WeightSlider({ label, factorKey, value, normalised, color, icon }: WeightSliderProps) {
-  return (
-    <div style={{ marginBottom: 12 }}>
-      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 6 }}>
-        <span style={{
-          display: "flex", alignItems: "center", gap: 6,
-          fontSize: 12, fontWeight: 500, color: "hsl(var(--foreground-secondary))",
-        }}>
-          <span style={{ opacity: 0.75 }}>{icon}</span>
-          {label}
-        </span>
-        <span style={{
-          fontSize: 10, fontWeight: 700, fontFamily: "monospace",
-          padding: "2px 6px", borderRadius: 100,
-          background: `${color}18`,
-          color: color,
-          minWidth: 34, textAlign: "center",
-        }}>
-          {Math.round(normalised * 100)}%
-        </span>
-      </div>
-      <input
-        type="range" min={0} max={10} step={1} value={value}
-        onChange={(e) => {/* handled via parent */}}
-        onInput={(e) => {
-          const el = e.target as HTMLInputElement;
-          // The parent rerenders via prop — trigger via the onChange pattern below
-          (e as any)._triggerChange = true;
-        }}
-        className="weight-slider"
-        style={{ accentColor: color }}
-        data-testid={`slider-${factorKey}`}
-        // Actually fire onChange — onInput above was illustrative
-        // This is the real handler:
-        readOnly
-      />
-      {/* The actual value-driven input (controlled) */}
-      <input
-        type="range" min={0} max={10} step={1}
-        value={value}
-        className="weight-slider"
-        style={{ accentColor: color, display: "none" }}
-        data-testid={`slider-hidden-${factorKey}`}
-        readOnly
-      />
-    </div>
-  );
-}
-
-// Controlled weight slider
-function ControlledSlider({ label, factorKey, value, normalised, color, icon, onChange }: WeightSliderProps & {
+// ─── Controlled weight slider ─────────────────────────────────────────────────
+function ControlledSlider({
+  label, factorKey, value, normalised, color, icon, onChange,
+}: {
+  label: string; factorKey: keyof Weights; value: number;
+  normalised: number; color: string; icon: string;
   onChange: (key: keyof Weights, val: number) => void;
 }) {
   return (
@@ -99,26 +45,25 @@ function ControlledSlider({ label, factorKey, value, normalised, color, icon, on
   );
 }
 
+// ─── Sidebar props ────────────────────────────────────────────────────────────
 interface SidebarProps {
-  weights: Weights;
-  filters: Filters;
-  villages: string[];
-  lulcNames: string[];
-  onWeightChange: (key: keyof Weights, val: number) => void;
-  onFilterChange: (key: keyof Filters, val: string | number) => void;
+  weights:       Weights;
+  filters:       Filters;
+  lulcTypes:     string[];
+  suitClasses:   string[];
+  onWeightChange:(key: keyof Weights, val: number) => void;
+  onFilterChange:(key: keyof Filters, val: string | number) => void;
   activeSection: string;
-  onSectionChange: (s: string) => void;
+  onSectionChange:(s: string) => void;
 }
 
-const FACTOR_CONFIG: Array<{
-  key: keyof Weights; label: string; icon: string; color: string;
-}> = [
-  { key: "slope",  label: "Slope",       icon: "⛰", color: "#5f6368" },
-  { key: "lulc",   label: "Land Cover",  icon: "🌿", color: "#0f9d58" },
-  { key: "ghi",    label: "Solar GHI",   icon: "☀", color: "#f4b400" },
-  { key: "power",  label: "Grid Access", icon: "⚡", color: "#4285f4" },
-  { key: "road",   label: "Road Access", icon: "🛣", color: "#a142f4" },
-  { key: "temp",   label: "Temperature", icon: "🌡", color: "#ea4335" },
+const FACTOR_CONFIG: Array<{ key: keyof Weights; label: string; icon: string; color: string }> = [
+  { key: "slope", label: "Slope",       icon: "⛰", color: "#5f6368" },
+  { key: "lulc",  label: "Land Cover",  icon: "🌿", color: "#0f9d58" },
+  { key: "ghi",   label: "Solar GHI",   icon: "☀",  color: "#f4b400" },
+  { key: "power", label: "Grid Access", icon: "⚡", color: "#4285f4" },
+  { key: "road",  label: "Road Access", icon: "🛣",  color: "#a142f4" },
+  { key: "temp",  label: "Temperature", icon: "🌡", color: "#ea4335" },
 ];
 
 const NAV = [
@@ -129,7 +74,7 @@ const NAV = [
 ];
 
 export function Sidebar({
-  weights, filters, villages, lulcNames,
+  weights, filters, lulcTypes, suitClasses,
   onWeightChange, onFilterChange, activeSection, onSectionChange,
 }: SidebarProps) {
   const [weightsOpen, setWeightsOpen] = useState(true);
@@ -162,8 +107,10 @@ export function Sidebar({
 
       <div className="divider" style={{ margin: "8px 16px" }} />
 
-      {/* ── Weights ─────────────────────────────────────────────────── */}
+      {/* ── Scrollable section body ──────────────────────────────────── */}
       <div style={{ flex: 1, overflowY: "auto", overscrollBehavior: "contain" }}>
+
+        {/* Factor Weights */}
         <button
           style={{
             display: "flex", alignItems: "center", justifyContent: "space-between",
@@ -177,7 +124,7 @@ export function Sidebar({
             <span className="sidebar-section-label" style={{ padding: 0 }}>Factor Weights</span>
           </span>
           {weightsOpen
-            ? <ChevronUp size={13} color="hsl(var(--foreground-tertiary))" />
+            ? <ChevronUp size={13}   color="hsl(var(--foreground-tertiary))" />
             : <ChevronDown size={13} color="hsl(var(--foreground-tertiary))" />}
         </button>
 
@@ -186,15 +133,12 @@ export function Sidebar({
             {/* Weight distribution bar */}
             <div className="weight-bar-track" style={{ marginBottom: 16 }}>
               {FACTOR_CONFIG.map(({ key, color }) => (
-                <div
-                  key={key}
-                  style={{
-                    width: `${norm[key] * 100}%`,
-                    background: color,
-                    transition: "width 0.3s ease",
-                    minWidth: norm[key] > 0 ? 2 : 0,
-                  }}
-                />
+                <div key={key} style={{
+                  width: `${norm[key] * 100}%`,
+                  background: color,
+                  transition: "width 0.3s ease",
+                  minWidth: norm[key] > 0 ? 2 : 0,
+                }} />
               ))}
             </div>
 
@@ -211,17 +155,13 @@ export function Sidebar({
               />
             ))}
 
-            {/* Legend dots */}
             <div style={{ display: "flex", flexWrap: "wrap", gap: "4px 10px", marginTop: 4 }}>
               {FACTOR_CONFIG.map(({ key, label, color }) => (
                 <span key={key} style={{
                   display: "flex", alignItems: "center", gap: 4,
                   fontSize: 10, color: "hsl(var(--foreground-tertiary))",
                 }}>
-                  <span style={{
-                    width: 7, height: 7, borderRadius: 2,
-                    background: color, display: "inline-block", flexShrink: 0,
-                  }} />
+                  <span style={{ width: 7, height: 7, borderRadius: 2, background: color, display: "inline-block", flexShrink: 0 }} />
                   {label.split(" ")[0]}
                 </span>
               ))}
@@ -231,7 +171,7 @@ export function Sidebar({
 
         <div className="divider" style={{ margin: "4px 16px" }} />
 
-        {/* ── Filters ───────────────────────────────────────────────── */}
+        {/* Filters */}
         <button
           style={{
             display: "flex", alignItems: "center", justifyContent: "space-between",
@@ -245,30 +185,14 @@ export function Sidebar({
             <span className="sidebar-section-label" style={{ padding: 0 }}>Filters</span>
           </span>
           {filtersOpen
-            ? <ChevronUp size={13} color="hsl(var(--foreground-tertiary))" />
+            ? <ChevronUp size={13}   color="hsl(var(--foreground-tertiary))" />
             : <ChevronDown size={13} color="hsl(var(--foreground-tertiary))" />}
         </button>
 
         {filtersOpen && (
           <div style={{ padding: "4px 20px 12px", display: "flex", flexDirection: "column", gap: 12 }}>
-            {/* Village */}
-            <div>
-              <label style={{ fontSize: 11, fontWeight: 500, color: "hsl(var(--foreground-tertiary))", display: "block", marginBottom: 4 }}>
-                Village / Zone
-              </label>
-              <select
-                className="filter-select"
-                style={{ width: "100%" }}
-                value={filters.village}
-                onChange={(e) => onFilterChange("village", e.target.value)}
-                data-testid="filter-village"
-              >
-                <option value="all">All Villages</option>
-                {villages.map((v) => <option key={v} value={v}>{v}</option>)}
-              </select>
-            </div>
 
-            {/* LULC */}
+            {/* LULC class */}
             <div>
               <label style={{ fontSize: 11, fontWeight: 500, color: "hsl(var(--foreground-tertiary))", display: "block", marginBottom: 4 }}>
                 Land Cover Class
@@ -276,16 +200,33 @@ export function Sidebar({
               <select
                 className="filter-select"
                 style={{ width: "100%" }}
-                value={filters.lulc_name}
-                onChange={(e) => onFilterChange("lulc_name", e.target.value)}
+                value={filters.lulc}
+                onChange={(e) => onFilterChange("lulc", e.target.value)}
                 data-testid="filter-lulc"
               >
                 <option value="all">All Classes</option>
-                {lulcNames.map((l) => <option key={l} value={l}>{l}</option>)}
+                {lulcTypes.map((l) => <option key={l} value={l}>{l}</option>)}
               </select>
             </div>
 
-            {/* Slope */}
+            {/* Suitability class */}
+            <div>
+              <label style={{ fontSize: 11, fontWeight: 500, color: "hsl(var(--foreground-tertiary))", display: "block", marginBottom: 4 }}>
+                Suitability Class
+              </label>
+              <select
+                className="filter-select"
+                style={{ width: "100%" }}
+                value={filters.suit_class}
+                onChange={(e) => onFilterChange("suit_class", e.target.value)}
+                data-testid="filter-suit-class"
+              >
+                <option value="all">All Classes</option>
+                {suitClasses.map((c) => <option key={c} value={c}>{c}</option>)}
+              </select>
+            </div>
+
+            {/* Max slope */}
             <div>
               <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 5 }}>
                 <label style={{ fontSize: 11, fontWeight: 500, color: "hsl(var(--foreground-tertiary))" }}>Max Slope</label>
@@ -301,7 +242,7 @@ export function Sidebar({
                 data-testid="filter-slope" />
             </div>
 
-            {/* Grid distance */}
+            {/* Max grid distance */}
             <div>
               <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 5 }}>
                 <label style={{ fontSize: 11, fontWeight: 500, color: "hsl(var(--foreground-tertiary))" }}>Max Grid Dist.</label>
@@ -309,12 +250,28 @@ export function Sidebar({
                   {filters.max_power_dist} km
                 </span>
               </div>
-              <input type="range" min={1} max={30} step={1}
+              <input type="range" min={1} max={50} step={1}
                 value={filters.max_power_dist}
                 onChange={(e) => onFilterChange("max_power_dist", Number(e.target.value))}
                 className="weight-slider"
                 style={{ accentColor: "hsl(217 91% 60%)" }}
                 data-testid="filter-power-dist" />
+            </div>
+
+            {/* Min area */}
+            <div>
+              <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 5 }}>
+                <label style={{ fontSize: 11, fontWeight: 500, color: "hsl(var(--foreground-tertiary))" }}>Min Area</label>
+                <span style={{ fontSize: 11, fontWeight: 600, color: "hsl(var(--primary))", fontFamily: "monospace" }}>
+                  {filters.min_area} ha
+                </span>
+              </div>
+              <input type="range" min={0.5} max={50} step={0.5}
+                value={filters.min_area}
+                onChange={(e) => onFilterChange("min_area", Number(e.target.value))}
+                className="weight-slider"
+                style={{ accentColor: "hsl(217 91% 60%)" }}
+                data-testid="filter-min-area" />
             </div>
           </div>
         )}
@@ -330,7 +287,7 @@ export function Sidebar({
           Auroville Consulting
         </div>
         <div style={{ fontSize: 10, color: "hsl(var(--foreground-tertiary))", opacity: 0.7 }}>
-          ESA · NASA · PVGIS · OpenStreetMap
+          ESA WorldCover · NASA POWER · PVGIS · OSM
         </div>
       </div>
     </aside>
